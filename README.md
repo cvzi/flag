@@ -36,4 +36,13 @@ Example
     'Flag of Israel :IL:'
 ```
 
+Install
+-------
+
+`pip install emoji-country-flag`
+
+See: https://pypi.org/project/emoji-country-flag/
+
+
+
 
