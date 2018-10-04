@@ -13,7 +13,7 @@ Unicode country code emoji flags for Python
     'Flag of Israel :IL:'
 """
 
-__version__ = '0.0.1'
+__version__ = '1.0.0'
 __author__ = 'cuzi'
 __email__ = 'cuzi@openmail.cc' 
 __source__ = 'https://github.com/cvzi/flag'
@@ -52,8 +52,8 @@ PY2 = sys.version_info.major is 2
 
 def flagize(text):
     def flag(code):
-        if not code:
-            return u""
+        #if not code:
+        #    return u""
         points = list(map(lambda x: ord(x) + OFFSET, code.upper()))
         
         if PY2:
