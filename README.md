@@ -1,7 +1,11 @@
 flag
 ====
 
+[![foodemoji on PyPI](https://img.shields.io/pypi/v/emoji-country-flag.svg)](https://pypi.python.org/pypi/emoji-country-flag)
+[![Python Versions](https://img.shields.io/pypi/pyversions/emoji-country-flag.svg)](https://pypi.python.org/pypi/emoji-country-flag)
+[![Coverage Status](https://coveralls.io/repos/github/cvzi/flag/badge.svg?branch=master)](https://coveralls.io/github/cvzi/flag?branch=master)
 [![Build Status](https://travis-ci.org/cvzi/flag.svg?branch=master)](https://travis-ci.org/cvzi/flag)
+
 
 Flag emoji for Python.  
 Converts flag emoji to ASCII and other way round.
