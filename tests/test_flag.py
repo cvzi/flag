@@ -6,21 +6,19 @@ import distutils.version
 
 try:
     import flag
-except:
+except ImportError:
     import os
-    sys.path.insert(0, '..')
+    include = os.path.relpath(os.path.join(os.path.dirname(__file__), ".."))
+    sys.path.insert(0, include)
     import flag
-    print("Imported flag from %s" % os.path.join(os.path.abspath(".."), "flag"))
+    print("Imported flag from %s" % os.path.abspath(os.path.join(include, "flag")))
 
 
-try:
-    import emoji
-    assert distutils.version.StrictVersion(emoji.__version__) >= distutils.version.StrictVersion('0.5.0')
-except AssertionError as e:
-    print("Module/Package `emoji` is version %s, it needs to be at least version 0.5.0" % emoji.__version__)
-    e.args = ("emoji module version < 0.5.0", )
-    raise e
-    
+
+import emoji
+if distutils.version.StrictVersion(emoji.__version__) < distutils.version.StrictVersion('0.5.0'): # pragma: nocover
+    raise ImportError("emoji module version < 0.5.0", "Module/Package `emoji` is version %s, it needs to be at least version 0.5.0" % emoji.__version__) # pragma: nocover
+
 
 allcodes = {
     u"\U0001f1e6\U0001f1eb" : "af", 
@@ -330,9 +328,6 @@ def test_compare_with_emoji_module():
         y = emoji.demojize(x)
         
         assert y.startswith(":")
-
-
-
 
 def runall():
     for fname, f in list(globals().items()):
