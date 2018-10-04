@@ -1,0 +1,17 @@
+language: python
+python:
+  - "2.7"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "3.7-dev"  # 3.7 development branch
+  - "pypy3.5"
+# command to install dependencies
+install:
+  - pip install -r tests/requirements.txt
+  - pip install nose
+# command to run tests
+script:
+  - python setup.py install
+  - python setup.py test
+  - pytest
