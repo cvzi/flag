@@ -280,6 +280,24 @@ allcodes = {
     u"\U0001f1e6\U0001f1fd" : "ax",
     }
 
+wrongcodes = [
+    u"\U0001f1dd\U0001f1eb", 
+    u"\U0001f1de\U0001f1f1", 
+    u"\U0001f1df\U0001f1ff", 
+    u"\U0001f1e0\U0001f1f8", 
+    u"\U0001f1e1\U0001f1e9", 
+    u"\U0001f1e2\U0001f1f4", 
+    u"\U0001f1e3\U0001f1ee", 
+    u"\U0001f1e4\U0001f1f6", 
+    u"\U0001f1e5\U0001f1ec", 
+    
+    u"\U0001f1e6\U0001f1e4", 
+    u"\U0001f1e6\U0001f1e5", 
+    
+    u"\U0001f200\U0001f1eb", 
+    u"\U0001f1eb\U0001f200", 
+    ]
+    
     
 def test_example():
     assert u"🇩🇪" == flag.flagize(":DE:")
@@ -328,6 +346,14 @@ def test_compare_with_emoji_module():
         y = emoji.demojize(x)
         
         assert y.startswith(":")
+
+def test_wrong_codes():
+    for code in wrongcodes:
+        
+        x = flag.dflagize(code)
+        
+        assert code == x
+        
 
 def runall():
     for fname, f in list(globals().items()):
