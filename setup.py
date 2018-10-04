@@ -1,11 +1,12 @@
 ﻿import setuptools
 import os
+import io
 
-with open("README.md", encoding="utf-8") as f:
+with io.open("README.md", encoding="utf-8") as f:
     long_description = f.read().strip()
 
 version = None
-with open(os.path.join("flag", "__init__.py"), encoding="utf-8") as f:
+with io.open(os.path.join("flag", "__init__.py"), encoding="utf-8") as f:
     for line in f:
         if line.strip().startswith("__version__"):
             version = line.split("=")[1].strip().replace('"', "").replace("'", "")
@@ -22,6 +23,8 @@ setuptools.setup(
     url="https://github.com/cvzi/flag",
     packages=["flag"],
     zip_safe=True,
+    test_suite="nose.collector",
+    tests_require=["emoji", "nose"],
     classifiers=(
         "Development Status :: 4 - Beta",
         "Programming Language :: Python",
