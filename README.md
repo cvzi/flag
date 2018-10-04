@@ -1,5 +1,7 @@
-﻿flag
+flag
 ====
+
+[![Build Status](https://travis-ci.org/cvzi/flag.svg?branch=master)](https://travis-ci.org/cvzi/flag)
 
 Flag emoji for Python.  
 Converts flag emoji to ASCII and other way round.
