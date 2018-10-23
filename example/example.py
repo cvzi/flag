@@ -2,18 +2,18 @@
 
 import flag
 
-print(flagize(":DE:"))
+print(flag.flagize(":DE:"))
 
-print(dflagize(u"🇩🇪"))
+print(flag.dflagize(u"🇩🇪"))
 
-print(flagize("Inline:ES:test"))
+print(flag.flagize("Inline:ES:test"))
 
-print(dflagize(u"Inline🇪🇸test"))
+print(flag.dflagize(u"Inline🇪🇸test"))
 
-print(flagize(u"Other:NR:unicode👍test"))
+print(flag.flagize(u"Other:NR:unicode👍test"))
 
-print(dflagize(u"Other🇳🇷unicode👍test"))
+print(flag.dflagize(u"Other🇳🇷unicode👍test"))
 
-print(flagize(u"❤️:IL:✡️"))
+print(flag.flagize(u"❤️:IL:✡️"))
 
-print(dflagize(u"❤️🇮🇱✡️"))
+print(flag.dflagize(u"❤️🇮🇱✡️"))
