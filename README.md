@@ -1,6 +1,7 @@
 flag
 ====
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e897c2f701ee44f5aa36457d0ab1a84a)](https://app.codacy.com/app/cvzi/flag?utm_source=github.com&utm_medium=referral&utm_content=cvzi/flag&utm_campaign=Badge_Grade_Dashboard)
 [![foodemoji on PyPI](https://img.shields.io/pypi/v/emoji-country-flag.svg)](https://pypi.python.org/pypi/emoji-country-flag)
 [![Python Versions](https://img.shields.io/pypi/pyversions/emoji-country-flag.svg)](https://pypi.python.org/pypi/emoji-country-flag)
 [![Coverage Status](https://coveralls.io/repos/github/cvzi/flag/badge.svg?branch=master)](https://coveralls.io/github/cvzi/flag?branch=master)
