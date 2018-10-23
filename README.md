@@ -6,12 +6,10 @@ flag
 [![Coverage Status](https://coveralls.io/repos/github/cvzi/flag/badge.svg?branch=master)](https://coveralls.io/github/cvzi/flag?branch=master)
 [![Build Status](https://travis-ci.org/cvzi/flag.svg?branch=master)](https://travis-ci.org/cvzi/flag)
 
-
 Flag emoji for Python.  
 Converts flag emoji to ASCII and other way round.
 
-This is based on http://schinckel.net/2015/10/29/unicode-flags-in-python/ by [schinckel](https://github.com/schinckel/)
-
+This is based on [http://schinckel.net/2015/10/29/unicode-flags-in-python/](http://schinckel.net/2015/10/29/unicode-flags-in-python/) by [schinckel](https://github.com/schinckel/)
 
 How it works
 -----------
@@ -26,8 +24,6 @@ For example CZ is Czechia: 🇨 + 🇿 = 🇨🇿
 
 So, to encode an ASCII code like `:NR:` to 🇳🇷, we just need to convert the ASCII **N** and **R** to the corresponding regional indicator symbols 🇳 and 🇷.  
 To reverse it, we translate the regional indicator symbols back to ASCII letters.
-
-
 
 Example
 -------
@@ -47,8 +43,4 @@ Install
 
 `pip install emoji-country-flag`
 
-See: https://pypi.org/project/emoji-country-flag/
-
-
-
-
+See: [https://pypi.org/project/emoji-country-flag/](https://pypi.org/project/emoji-country-flag/)
