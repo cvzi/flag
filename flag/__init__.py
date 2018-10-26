@@ -75,7 +75,7 @@ def flagize(text):
     return text
 
 def dflagize(text):
-    """Decode flags. Replace all unicode flags in :ref:`text` with ascii two letter code ``:XX:``
+    """Decode flags. Replace all unicode flags in text with ascii two letter code ``:XX:``
 
     :param str text: The text
     :return: The text with all unicode flags replaced by ascii sequence ``:XX:``
