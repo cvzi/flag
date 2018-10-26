@@ -2,11 +2,3 @@
 
 # Don't build any extra formats, because the fail with unicode flag symbols 
 formats: []
-
-build:
-  image: latest
-
-python:
-  version: 3.6
-  setup_py_install: true
-  

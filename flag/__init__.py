@@ -51,10 +51,10 @@ OFFSET = 127397 # = ord("🇦") - ord("A")
 PY2 = sys.version_info.major is 2
 
 def flagize(text):
-    """Encode flags. Replace all two letter codes ':XX:' with unicode flags
+    """Encode flags. Replace all two letter codes ``:XX:`` with unicode flags
 
     :param str text: The text
-    :return: The text with all occurences of ':XX:' replaced by unicode flags
+    :return: The text with all occurences of ``:XX:`` replaced by unicode flags
     :rtype: str
     """
     def flag(code):
@@ -75,10 +75,10 @@ def flagize(text):
     return text
 
 def dflagize(text):
-    """Decode flags. Replace all unicode flags in :param text: with ascii two letter code ':XX:'
+    """Decode flags. Replace all unicode flags in :ref:`text` with ascii two letter code ``:XX:``
 
     :param str text: The text
-    :return: The text with all unicode flags replaced by ascii sequence ':XX:'
+    :return: The text with all unicode flags replaced by ascii sequence ``:XX:``
     :rtype: str
     """
     if PY2:
