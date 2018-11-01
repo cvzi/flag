@@ -7,6 +7,7 @@ flag
 [![Build Status](https://travis-ci.org/cvzi/flag.svg?branch=master)](https://travis-ci.org/cvzi/flag)
 [![Documentation Status](https://readthedocs.org/projects/flag/badge/?version=latest)](https://flag.readthedocs.io/en/latest/?badge=latest)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e897c2f701ee44f5aa36457d0ab1a84a)](https://app.codacy.com/app/cvzi/flag?utm_source=github.com&utm_medium=referral&utm_content=cvzi/flag&utm_campaign=Badge_Grade_Dashboard)
+[![Maintainability](https://api.codeclimate.com/v1/badges/cf1f88720896db4d1b0a/maintainability)](https://codeclimate.com/github/cvzi/flag/maintainability)
 
 Flag emoji for Python.  
 Converts flag emoji to ASCII and other way round.
