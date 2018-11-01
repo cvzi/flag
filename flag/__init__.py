@@ -46,7 +46,7 @@ __all__ = ["flagize", "dflagize"]
 import sys
 import re
 
-OFFSET = 127397 # = ord("🇦") - ord("A")
+OFFSET = 127397  # = ord("🇦") - ord("A")
 
 PY2 = sys.version_info.major is 2
 
@@ -58,8 +58,8 @@ def flagize(text):
     :rtype: str
     """
     def flag(code):
-        #if not code:
-        #    return u""
+        # if not code:
+        #     return u""
         points = list(map(lambda x: ord(x) + OFFSET, code.upper()))
 
         if PY2:
@@ -89,7 +89,7 @@ def dflagize(text):
 def dflagize_py3(text):
     def dflag(i):
         points = tuple(map(lambda x: ord(x) - OFFSET, i))
-        return ":%c%c:" %  points
+        return ":%c%c:" % points
 
     def dflag_repl(matchobj):
         return dflag(matchobj.group(0))
