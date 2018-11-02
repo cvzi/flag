@@ -60,7 +60,7 @@ def flagize(text):
     def flag(code):
         # if not code:
         #     return u""
-        points = list(map(lambda x: ord(x) + OFFSET, code.upper()))
+        points = [ord(x) + OFFSET for x in code.upper()]
 
         if PY2:
             return ("\\U%08x\\U%08x" % tuple(points)).decode("unicode-escape")
@@ -88,7 +88,7 @@ def dflagize(text):
 
 def dflagize_py3(text):
     def dflag(i):
-        points = tuple(map(lambda x: ord(x) - OFFSET, i))
+        points = tuple(ord(x) - OFFSET for x in i)
         return ":%c%c:" % points
 
     def dflag_repl(matchobj):
