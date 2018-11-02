@@ -50,6 +50,7 @@ OFFSET = 127397  # = ord("🇦") - ord("A")
 
 PY2 = sys.version_info.major is 2
 
+
 def flagize(text):
     """Encode flags. Replace all two letter codes ``:XX:`` with unicode flags
 
@@ -74,6 +75,7 @@ def flagize(text):
 
     return text
 
+
 def dflagize(text):
     """Decode flags. Replace all unicode flags in text with ascii two letter code ``:XX:``
 
@@ -85,6 +87,7 @@ def dflagize(text):
         return dflagize_py2(text)
     else:
         return dflagize_py3(text)
+
 
 def dflagize_py3(text):
     def dflag(i):
@@ -99,6 +102,7 @@ def dflagize_py3(text):
     text = regex.sub(dflag_repl, text)
 
     return text
+
 
 def dflagize_py2(text):
     def dflag_repl(matchobj):
