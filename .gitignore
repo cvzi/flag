@@ -64,8 +64,7 @@ instance/
 
 # Sphinx documentation
 docs/_build/
-# Include sphinx html build
-!docs/_build/html
+!docs/_build/html/*
 
 # PyBuilder
 target/
