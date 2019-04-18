@@ -20,10 +20,10 @@ script:
   - python setup.py test
   - pytest
   - nosetests
-  - if [[ $TRAVIS_PYTHON_VERSION != 'nightly' ]]; coverage run -a tests/test_*.py; fi
+  - if [[ $TRAVIS_PYTHON_VERSION != 'nightly' ]]; then coverage run -a tests/test_*.py; fi
 # must be last (coverage will not track an installed module)
   - python setup.py install 
 after_success:
-  - if [[ $TRAVIS_PYTHON_VERSION != 'nightly' ]]; coveralls; fi
-  - if [[ $TRAVIS_PYTHON_VERSION != 'nightly' ]]; coverage xml; fi
-  - if [[ $TRAVIS_PYTHON_VERSION != 'nightly' ]]; python-codacy-coverage -r coverage.xml; fi
+  - if [[ $TRAVIS_PYTHON_VERSION != 'nightly' ]]; then coveralls; fi
+  - if [[ $TRAVIS_PYTHON_VERSION != 'nightly' ]]; then coverage xml; fi
+  - if [[ $TRAVIS_PYTHON_VERSION != 'nightly' ]]; then python-codacy-coverage -r coverage.xml; fi
