@@ -13,7 +13,7 @@ Unicode country code emoji flags for Python
     'Flag of Israel :IL:'
 """
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __author__ = 'cuzi'
 __email__ = 'cuzi@openmail.cc'
 __source__ = 'https://github.com/cvzi/flag'
