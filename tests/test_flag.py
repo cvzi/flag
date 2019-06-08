@@ -278,6 +278,7 @@ allcodes = {
     u"\U0001f1ff\U0001f1f2" : "zm",
     u"\U0001f1ff\U0001f1fc" : "zw",
     u"\U0001f1e6\U0001f1fd" : "ax",
+    u"\U0001f1fa\U0001f1f3" : "un"
     }
 
 wrongcodes = [
