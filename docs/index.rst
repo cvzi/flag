@@ -328,14 +328,14 @@ Code        Chars
 ``:ZW:``     🇿🇼
 ========    ========
 
-.. hint:: 
-   If you don't see the flags in your browser, try with your phone  
-   
-   |QR| https://flag.readthedocs.org 
+.. hint::
+   If you don't see the flags in your browser, try with your phone
+
+   |QR| https://flag.readthedocs.org
 
 .. |QR| image:: _static/qr.png
    :alt: QR Code containg https://flag.readthedocs.org
-   :target: https://flag.readthedocs.org 
+   :target: https://flag.readthedocs.org
 
 Indices and tables
 ==================
