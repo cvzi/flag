@@ -11,6 +11,10 @@ Unicode country code emoji flags for Python
     'Flag of Israel 🇮🇱'
     >>> flag.dflagize(u"Flag of Israel 🇮🇱")
     'Flag of Israel :IL:'
+    >>> flag.flagize("England :gb-eng: is part of the UK :GB:", subregions=True)
+    'England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧'
+    >>> flag.dflagize(u"England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧", subregions=True)
+    'England :gb-eng: is part of the UK :GB:'
 """
 
 __version__ = '1.0.1'
@@ -41,20 +45,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-__all__ = ["flagize", "dflagize"]
+__all__ = ["flagize", "dflagize", "flagize_subregional", "dflagize_subregional"]
 
 import sys
 import re
 
 OFFSET = 127397  # = ord("🇦") - ord("A")
+OFFSET_TAG = 0xE0000
+CANCELTAG = u"\U000E007F"
+BLACKFLAG = u"\U0001F3F4"
 
 PY2 = sys.version_info.major is 2
 
 
-def flagize(text):
-    """Encode flags. Replace all two letter codes ``:XX:`` with unicode flags
+def flagize(text, subregions=False):
+    """Encode flags. Replace all two letter codes ``:XX:`` with unicode flags (emoji flag sequences)
 
     :param str text: The text
+    :param bool subregions: Also replace subregional/subdivision codes ``:xx-xxx:`` with unicode flags (flag emoji tag sequences).
     :return: The text with all occurences of ``:XX:`` replaced by unicode flags
     :rtype: str
     """
@@ -73,23 +81,27 @@ def flagize(text):
 
     text = re.sub(":([a-zA-Z]{2}):", flag_repl, text)
 
+    if subregions:
+        text = flagize_subregional(text)
+
     return text
 
 
-def dflagize(text):
-    """Decode flags. Replace all unicode flags in text with ascii two letter code ``:XX:``
+def dflagize(text, subregions=False):
+    """Decode flags. Replace all unicode country flags (emoji flag sequences) in text with ascii two letter code ``:XX:``
 
     :param str text: The text
+    :param bool subregions: Also replace subregional/subdivision flags (flag emoji tag sequences) with ``:xx-xxx:``
     :return: The text with all unicode flags replaced by ascii sequence ``:XX:``
     :rtype: str
     """
     if PY2:
-        return dflagize_py2(text)
+        return dflagize_py2(text, subregions)
     else:
-        return dflagize_py3(text)
+        return dflagize_py3(text, subregions)
 
 
-def dflagize_py3(text):
+def dflagize_py3(text, subregions=False):
     def dflag(i):
         points = tuple(ord(x) - OFFSET for x in i)
         return ":%c%c:" % points
@@ -101,18 +113,103 @@ def dflagize_py3(text):
 
     text = regex.sub(dflag_repl, text)
 
+    if subregions:
+        text = dflagize_subregional_py3(text)
+
     return text
 
 
-def dflagize_py2(text):
+def dflagize_py2(text, subregions=False):
     def dflag_repl(matchobj):
         a = int(matchobj.group(1), 16)
         b = int(matchobj.group(2), 16)
         if a >= 127462 and a <= 127487 and b >= 127462 and b <= 127487:
             return ":%c%c:" % (a - OFFSET, b - OFFSET)
-        return matchobj.group(0)
+        return matchobj.group(0)  # Not a regional indicator
 
     regex = re.compile(r"\\U([0-9a-fA-F]{8})\\U([0-9a-fA-F]{8})")
+
+    text = regex.sub(dflag_repl, text.encode("unicode-escape"))
+
+    text = text.decode("unicode-escape")
+
+    if subregions:
+        text = dflagize_subregional_py2(text)
+
+    return text
+
+
+def flagize_subregional(text):
+    """Encode subregional/subdivision flags. Replace all regional codes ``:xx-xxx:`` with unicode flags (flag emoji tag sequences)
+
+    :param str text: The text
+    :return: The text with all occurences of ``:xx-xxx:`` replaced by unicode flags
+    :rtype: str
+    """
+    def flag(code):
+
+        points = [ord(x) + OFFSET_TAG for x in code.lower()]
+
+        if PY2:
+            return BLACKFLAG + (u"\\U%08x"*len(points) % tuple(points)).decode("unicode-escape") + CANCELTAG
+        else:
+            return BLACKFLAG + "".join([chr(point) for point in points]) + CANCELTAG
+
+    def flag_repl(matchobj):
+        return flag(matchobj.group(1)+matchobj.group(2))
+
+    # Enforces a hyphen after two chars, allows both:
+    # - The natural 2-letter unicode_region_subtag and subdivision_suffix like California USCA ":us-ca:", England GBENG ":gb-eng:"
+    # - For sake of completeness: 3-digit unicode_region_subtag like 840 for US formatted as ":84-0:"
+    text = re.sub(":([a-zA-Z]{2}|[0-9]{2})-([0-9a-zA-Z]{1,4}):", flag_repl, text)
+
+    return text
+
+
+def dflagize_subregional(text):
+    """Decode subregional/subdivision flags. Replace all unicode regional flags (flag emoji tag sequences) in text with their ascii code ``:xx-xxx:``
+
+    :param str text: The text
+    :return: The text with all regional flags replaced by ascii sequence ``:xx-xxx:``
+    :rtype: str
+    """
+    if PY2:
+        return dflagize_subregional_py2(text)
+    else:
+        return dflagize_subregional_py3(text)
+
+
+def dflagize_subregional_py3(text):
+    def dflag(i):
+        points = [ord(x) - OFFSET_TAG for x in i]
+        return ":%c%c-" % (points[0], points[1]) + "".join("%c" % point for point in points[2:]) + ":"
+
+    def dflag_repl(matchobj):
+        return dflag(matchobj.group(1))
+
+    regex = re.compile(BLACKFLAG + u"([\U000E0030-\U000E0039\U000E0061-\U000E007A]{3,6})" + CANCELTAG, flags=re.UNICODE)
+    text = regex.sub(dflag_repl, text)
+
+    return text
+
+
+def dflagize_subregional_py2(text):
+    BLACKFLAG_repr = "\\" + BLACKFLAG.encode("unicode-escape")
+    CANCELTAG_repr = "\\" + CANCELTAG.encode("unicode-escape")
+
+    def dflag_repl(matchobj):
+        ascii = []
+
+        for tag in matchobj.group(1).split("\\U")[1:]:
+            i = int(tag, 16)
+            if i < 0xE0030 or i > 0xE007A or (i > 0xE0039 and i < 0xE0061):
+                return matchobj.group(0)  # Not a valid tag
+
+            ascii.append("%c" % (i - OFFSET_TAG))
+
+        return ":" + ascii[0] + ascii[1] + "-" + "".join(ascii[2:]) + ":"
+
+    regex = re.compile(BLACKFLAG_repr + r"((?:\\U[0-9a-fA-F]{8}){3,6})" + CANCELTAG_repr)
 
     text = regex.sub(dflag_repl, text.encode("unicode-escape"))
 
