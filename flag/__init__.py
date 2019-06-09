@@ -17,7 +17,7 @@ Unicode country code emoji flags for Python
     'England :gb-eng: is part of the UK :GB:'
 """
 
-__version__ = '1.0.1'
+__version__ = '1.1.0'
 __author__ = 'cuzi'
 __email__ = 'cuzi@openmail.cc'
 __source__ = 'https://github.com/cvzi/flag'
