@@ -231,7 +231,7 @@ def dflagize_subregional_py2(text):
     return text.decode("unicode-escape")
 
 
-def _is_valid_tag(i):
+def _is_not_valid_tag(i):
     return i < 0xE0030 or i > 0xE007A or (i > 0xE0039 and i < 0xE0061)
 
 
@@ -251,7 +251,7 @@ def _dflagize_subregional_py2_repl(matchobj):
 
     for tag in group1.split("\\U")[1:]:
         i = int(tag, 16)
-        if _is_valid_tag(i):
+        if _is_not_valid_tag(i):
             return matchobj.group(0)  # Not a valid tag
 
         plain.append("%c" % (i - OFFSET_TAG))
