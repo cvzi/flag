@@ -337,7 +337,7 @@ def test_check_known():
         assert x == z
 
 def test_compare_with_emoji_module():
-    for code, value in allcodes.items():
+    for _, value in allcodes.items():
         twoletter = ":%s:" % value.upper()
 
         x = flag.flagize(twoletter)
