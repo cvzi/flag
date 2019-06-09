@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -84,6 +86,11 @@
 <li><a class="reference internal" href="#how-it-works">How it works</a></li>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#supported-emojis-and-patterns">Supported emojis and patterns</a></li>
+<li><a class="reference internal" href="#subregional-flags">Subregional flags</a></li>
+<li><a class="reference internal" href="#how-subregional-flags-work">How subregional flags work</a><ul>
+<li><a class="reference internal" href="#id1">Example:</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 </li>
@@ -168,6 +175,12 @@
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">flag</span><span class="o">.</span><span class="n">dflagize</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;Flag of Israel 🇮🇱&quot;</span><span class="p">)</span>
 <span class="go">&#39;Flag of Israel :IL:&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flag</span><span class="o">.</span><span class="n">flagize</span><span class="p">(</span><span class="s2">&quot;England :gb-eng: is part of the UK :GB:&quot;</span><span class="p">,</span> <span class="n">subregions</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">&#39;England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flag</span><span class="o">.</span><span class="n">dflagize</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧&quot;</span><span class="p">,</span> <span class="n">subregions</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="go">&#39;England :gb-eng: is part of the UK :GB:&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -187,845 +200,967 @@
 For example CZ is Czechia: 🇨 + 🇿 = 🇨🇿</p>
 <p>So, to encode an ASCII code like <code class="docutils literal notranslate"><span class="pre">:NR:</span></code> to 🇳🇷, we just need to convert the ASCII <strong>N</strong> and <strong>R</strong> to the corresponding regional indicator symbols 🇳 and 🇷.
 To reverse it, we translate the regional indicator symbols back to ASCII letters.</p>
+<p><a class="reference internal" href="#how-subregional-flags-work">How do subregional flags work?</a></p>
 </div>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="flag.flagize">
-<code class="descclassname">flag.</code><code class="descname">flagize</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flag.html#flagize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.flagize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Encode flags. Replace all two letter codes <code class="docutils literal notranslate"><span class="pre">:XX:</span></code> with unicode flags</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<em>str</em>) – The text</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The text with all occurences of <code class="docutils literal notranslate"><span class="pre">:XX:</span></code> replaced by unicode flags</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
+<code class="sig-prename descclassname">flag.</code><code class="sig-name descname">flagize</code><span class="sig-paren">(</span><em class="sig-param">text</em>, <em class="sig-param">subregions=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flag.html#flagize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.flagize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode flags. Replace all two letter codes <code class="docutils literal notranslate"><span class="pre">:XX:</span></code> with unicode flags
+(emoji flag sequences)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – The text</p></li>
+<li><p><strong>subregions</strong> (<em>bool</em>) – Also replace subregional/subdivision codes</p></li>
+</ul>
+</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code> with unicode flags (flag emoji tag sequences).
+:return: The text with all occurences of <code class="docutils literal notranslate"><span class="pre">:XX:</span></code> replaced by unicode flags
+:rtype: str</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="flag.dflagize">
-<code class="descclassname">flag.</code><code class="descname">dflagize</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flag.html#dflagize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.dflagize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Decode flags. Replace all unicode flags in text with ascii two letter code <code class="docutils literal notranslate"><span class="pre">:XX:</span></code></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<em>str</em>) – The text</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The text with all unicode flags replaced by ascii sequence <code class="docutils literal notranslate"><span class="pre">:XX:</span></code></td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
+<code class="sig-prename descclassname">flag.</code><code class="sig-name descname">dflagize</code><span class="sig-paren">(</span><em class="sig-param">text</em>, <em class="sig-param">subregions=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flag.html#dflagize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.dflagize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode flags. Replace all unicode country flags (emoji flag sequences)
+in text with ascii two letter code <code class="docutils literal notranslate"><span class="pre">:XX:</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – The text</p></li>
+<li><p><strong>subregions</strong> (<em>bool</em>) – Also replace subregional/subdivision flags</p></li>
+</ul>
+</dd>
+</dl>
+<p>(flag emoji tag sequences) with <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code>
+:return: The text with all unicode flags replaced by ascii
+sequence <code class="docutils literal notranslate"><span class="pre">:XX:</span></code>
+:rtype: str</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flag.flagize_subregional">
+<code class="sig-prename descclassname">flag.</code><code class="sig-name descname">flagize_subregional</code><span class="sig-paren">(</span><em class="sig-param">text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flag.html#flagize_subregional"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.flagize_subregional" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode subregional/subdivision flags. Replace all regional codes
+<code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code> with unicode flags (flag emoji tag sequences)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The text</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The text with all occurences of <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code> replaced by</p>
+</dd>
+</dl>
+<p>unicode flags
+:rtype: str</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="flag.dflagize_subregional">
+<code class="sig-prename descclassname">flag.</code><code class="sig-name descname">dflagize_subregional</code><span class="sig-paren">(</span><em class="sig-param">text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flag.html#dflagize_subregional"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.dflagize_subregional" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode subregional/subdivision flags. Replace all unicode regional
+flags (flag emoji tag sequences) in text with their ascii
+code <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The text</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The text with all regional flags replaced by ascii</p>
+</dd>
+</dl>
+<p>sequence <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code>
+:rtype: str</p>
 </dd></dl>
 
 </div>
 <div class="section" id="supported-emojis-and-patterns">
 <h2>Supported emojis and patterns<a class="headerlink" href="#supported-emojis-and-patterns" title="Permalink to this headline">¶</a></h2>
 <p>(List may be incomplete)</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="50%" />
-<col width="50%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Code</th>
-<th class="head">Chars</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Code</p></th>
+<th class="head"><p>Emoji</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:AC:</span></code></td>
-<td>🇦🇨</td>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:UN:</span></code></p></td>
+<td><p>🇺🇳</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:AD:</span></code></td>
-<td>🇦🇩</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:AC:</span></code></p></td>
+<td><p>🇦🇨</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:AE:</span></code></td>
-<td>🇦🇪</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:AD:</span></code></p></td>
+<td><p>🇦🇩</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:AF:</span></code></td>
-<td>🇦🇫</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:AE:</span></code></p></td>
+<td><p>🇦🇪</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:AG:</span></code></td>
-<td>🇦🇬</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:AF:</span></code></p></td>
+<td><p>🇦🇫</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:AI:</span></code></td>
-<td>🇦🇮</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:AG:</span></code></p></td>
+<td><p>🇦🇬</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:AL:</span></code></td>
-<td>🇦🇱</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:AI:</span></code></p></td>
+<td><p>🇦🇮</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:AM:</span></code></td>
-<td>🇦🇲</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:AL:</span></code></p></td>
+<td><p>🇦🇱</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:AO:</span></code></td>
-<td>🇦🇴</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:AM:</span></code></p></td>
+<td><p>🇦🇲</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:AQ:</span></code></td>
-<td>🇦🇶</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:AO:</span></code></p></td>
+<td><p>🇦🇴</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:AR:</span></code></td>
-<td>🇦🇷</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:AQ:</span></code></p></td>
+<td><p>🇦🇶</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:AS:</span></code></td>
-<td>🇦🇸</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:AR:</span></code></p></td>
+<td><p>🇦🇷</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:AT:</span></code></td>
-<td>🇦🇹</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:AS:</span></code></p></td>
+<td><p>🇦🇸</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:AU:</span></code></td>
-<td>🇦🇺</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:AT:</span></code></p></td>
+<td><p>🇦🇹</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:AW:</span></code></td>
-<td>🇦🇼</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:AU:</span></code></p></td>
+<td><p>🇦🇺</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:AX:</span></code></td>
-<td>🇦🇽</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:AW:</span></code></p></td>
+<td><p>🇦🇼</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:AZ:</span></code></td>
-<td>🇦🇿</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:AX:</span></code></p></td>
+<td><p>🇦🇽</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:BA:</span></code></td>
-<td>🇧🇦</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:AZ:</span></code></p></td>
+<td><p>🇦🇿</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:BB:</span></code></td>
-<td>🇧🇧</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:BA:</span></code></p></td>
+<td><p>🇧🇦</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:BD:</span></code></td>
-<td>🇧🇩</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:BB:</span></code></p></td>
+<td><p>🇧🇧</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:BE:</span></code></td>
-<td>🇧🇪</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:BD:</span></code></p></td>
+<td><p>🇧🇩</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:BF:</span></code></td>
-<td>🇧🇫</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:BE:</span></code></p></td>
+<td><p>🇧🇪</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:BG:</span></code></td>
-<td>🇧🇬</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:BF:</span></code></p></td>
+<td><p>🇧🇫</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:BH:</span></code></td>
-<td>🇧🇭</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:BG:</span></code></p></td>
+<td><p>🇧🇬</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:BI:</span></code></td>
-<td>🇧🇮</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:BH:</span></code></p></td>
+<td><p>🇧🇭</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:BJ:</span></code></td>
-<td>🇧🇯</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:BI:</span></code></p></td>
+<td><p>🇧🇮</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:BL:</span></code></td>
-<td>🇧🇱</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:BJ:</span></code></p></td>
+<td><p>🇧🇯</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:BM:</span></code></td>
-<td>🇧🇲</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:BL:</span></code></p></td>
+<td><p>🇧🇱</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:BN:</span></code></td>
-<td>🇧🇳</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:BM:</span></code></p></td>
+<td><p>🇧🇲</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:BO:</span></code></td>
-<td>🇧🇴</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:BN:</span></code></p></td>
+<td><p>🇧🇳</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:BQ:</span></code></td>
-<td>🇧🇶</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:BO:</span></code></p></td>
+<td><p>🇧🇴</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:BR:</span></code></td>
-<td>🇧🇷</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:BQ:</span></code></p></td>
+<td><p>🇧🇶</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:BS:</span></code></td>
-<td>🇧🇸</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:BR:</span></code></p></td>
+<td><p>🇧🇷</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:BT:</span></code></td>
-<td>🇧🇹</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:BS:</span></code></p></td>
+<td><p>🇧🇸</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:BV:</span></code></td>
-<td>🇧🇻</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:BT:</span></code></p></td>
+<td><p>🇧🇹</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:BW:</span></code></td>
-<td>🇧🇼</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:BV:</span></code></p></td>
+<td><p>🇧🇻</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:BY:</span></code></td>
-<td>🇧🇾</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:BW:</span></code></p></td>
+<td><p>🇧🇼</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:BZ:</span></code></td>
-<td>🇧🇿</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:BY:</span></code></p></td>
+<td><p>🇧🇾</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:CA:</span></code></td>
-<td>🇨🇦</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:BZ:</span></code></p></td>
+<td><p>🇧🇿</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:CC:</span></code></td>
-<td>🇨🇨</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:CA:</span></code></p></td>
+<td><p>🇨🇦</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:CD:</span></code></td>
-<td>🇨🇩</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:CC:</span></code></p></td>
+<td><p>🇨🇨</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:CF:</span></code></td>
-<td>🇨🇫</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:CD:</span></code></p></td>
+<td><p>🇨🇩</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:CG:</span></code></td>
-<td>🇨🇬</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:CF:</span></code></p></td>
+<td><p>🇨🇫</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:CH:</span></code></td>
-<td>🇨🇭</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:CG:</span></code></p></td>
+<td><p>🇨🇬</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:CI:</span></code></td>
-<td>🇨🇮</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:CH:</span></code></p></td>
+<td><p>🇨🇭</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:CK:</span></code></td>
-<td>🇨🇰</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:CI:</span></code></p></td>
+<td><p>🇨🇮</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:CL:</span></code></td>
-<td>🇨🇱</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:CK:</span></code></p></td>
+<td><p>🇨🇰</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:CM:</span></code></td>
-<td>🇨🇲</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:CL:</span></code></p></td>
+<td><p>🇨🇱</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:CN:</span></code></td>
-<td>🇨🇳</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:CM:</span></code></p></td>
+<td><p>🇨🇲</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:CO:</span></code></td>
-<td>🇨🇴</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:CN:</span></code></p></td>
+<td><p>🇨🇳</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:CP:</span></code></td>
-<td>🇨🇵</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:CO:</span></code></p></td>
+<td><p>🇨🇴</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:CR:</span></code></td>
-<td>🇨🇷</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:CP:</span></code></p></td>
+<td><p>🇨🇵</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:CU:</span></code></td>
-<td>🇨🇺</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:CR:</span></code></p></td>
+<td><p>🇨🇷</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:CV:</span></code></td>
-<td>🇨🇻</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:CU:</span></code></p></td>
+<td><p>🇨🇺</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:CW:</span></code></td>
-<td>🇨🇼</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:CV:</span></code></p></td>
+<td><p>🇨🇻</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:CX:</span></code></td>
-<td>🇨🇽</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:CW:</span></code></p></td>
+<td><p>🇨🇼</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:CY:</span></code></td>
-<td>🇨🇾</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:CX:</span></code></p></td>
+<td><p>🇨🇽</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:CZ:</span></code></td>
-<td>🇨🇿</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:CY:</span></code></p></td>
+<td><p>🇨🇾</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:DE:</span></code></td>
-<td>🇩🇪</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:CZ:</span></code></p></td>
+<td><p>🇨🇿</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:DG:</span></code></td>
-<td>🇩🇬</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:DE:</span></code></p></td>
+<td><p>🇩🇪</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:DJ:</span></code></td>
-<td>🇩🇯</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:DG:</span></code></p></td>
+<td><p>🇩🇬</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:DK:</span></code></td>
-<td>🇩🇰</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:DJ:</span></code></p></td>
+<td><p>🇩🇯</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:DM:</span></code></td>
-<td>🇩🇲</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:DK:</span></code></p></td>
+<td><p>🇩🇰</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:DO:</span></code></td>
-<td>🇩🇴</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:DM:</span></code></p></td>
+<td><p>🇩🇲</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:DZ:</span></code></td>
-<td>🇩🇿</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:DO:</span></code></p></td>
+<td><p>🇩🇴</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:EA:</span></code></td>
-<td>🇪🇦</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:DZ:</span></code></p></td>
+<td><p>🇩🇿</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:EC:</span></code></td>
-<td>🇪🇨</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:EA:</span></code></p></td>
+<td><p>🇪🇦</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:EE:</span></code></td>
-<td>🇪🇪</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:EC:</span></code></p></td>
+<td><p>🇪🇨</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:EG:</span></code></td>
-<td>🇪🇬</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:EE:</span></code></p></td>
+<td><p>🇪🇪</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:EH:</span></code></td>
-<td>🇪🇭</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:EG:</span></code></p></td>
+<td><p>🇪🇬</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:ER:</span></code></td>
-<td>🇪🇷</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:EH:</span></code></p></td>
+<td><p>🇪🇭</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:ES:</span></code></td>
-<td>🇪🇸</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:ER:</span></code></p></td>
+<td><p>🇪🇷</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:ET:</span></code></td>
-<td>🇪🇹</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:ES:</span></code></p></td>
+<td><p>🇪🇸</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:EU:</span></code></td>
-<td>🇪🇺</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:ET:</span></code></p></td>
+<td><p>🇪🇹</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:FI:</span></code></td>
-<td>🇫🇮</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:EU:</span></code></p></td>
+<td><p>🇪🇺</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:FJ:</span></code></td>
-<td>🇫🇯</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:FI:</span></code></p></td>
+<td><p>🇫🇮</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:FK:</span></code></td>
-<td>🇫🇰</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:FJ:</span></code></p></td>
+<td><p>🇫🇯</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:FM:</span></code></td>
-<td>🇫🇲</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:FK:</span></code></p></td>
+<td><p>🇫🇰</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:FO:</span></code></td>
-<td>🇫🇴</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:FM:</span></code></p></td>
+<td><p>🇫🇲</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:FR:</span></code></td>
-<td>🇫🇷</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:FO:</span></code></p></td>
+<td><p>🇫🇴</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:GA:</span></code></td>
-<td>🇬🇦</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:FR:</span></code></p></td>
+<td><p>🇫🇷</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:GB:</span></code></td>
-<td>🇬🇧</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:GA:</span></code></p></td>
+<td><p>🇬🇦</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:GD:</span></code></td>
-<td>🇬🇩</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:GB:</span></code></p></td>
+<td><p>🇬🇧</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:GE:</span></code></td>
-<td>🇬🇪</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:GD:</span></code></p></td>
+<td><p>🇬🇩</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:GF:</span></code></td>
-<td>🇬🇫</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:GE:</span></code></p></td>
+<td><p>🇬🇪</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:GG:</span></code></td>
-<td>🇬🇬</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:GF:</span></code></p></td>
+<td><p>🇬🇫</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:GH:</span></code></td>
-<td>🇬🇭</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:GG:</span></code></p></td>
+<td><p>🇬🇬</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:GI:</span></code></td>
-<td>🇬🇮</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:GH:</span></code></p></td>
+<td><p>🇬🇭</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:GL:</span></code></td>
-<td>🇬🇱</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:GI:</span></code></p></td>
+<td><p>🇬🇮</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:GM:</span></code></td>
-<td>🇬🇲</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:GL:</span></code></p></td>
+<td><p>🇬🇱</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:GN:</span></code></td>
-<td>🇬🇳</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:GM:</span></code></p></td>
+<td><p>🇬🇲</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:GP:</span></code></td>
-<td>🇬🇵</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:GN:</span></code></p></td>
+<td><p>🇬🇳</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:GQ:</span></code></td>
-<td>🇬🇶</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:GP:</span></code></p></td>
+<td><p>🇬🇵</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:GR:</span></code></td>
-<td>🇬🇷</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:GQ:</span></code></p></td>
+<td><p>🇬🇶</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:GS:</span></code></td>
-<td>🇬🇸</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:GR:</span></code></p></td>
+<td><p>🇬🇷</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:GT:</span></code></td>
-<td>🇬🇹</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:GS:</span></code></p></td>
+<td><p>🇬🇸</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:GU:</span></code></td>
-<td>🇬🇺</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:GT:</span></code></p></td>
+<td><p>🇬🇹</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:GW:</span></code></td>
-<td>🇬🇼</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:GU:</span></code></p></td>
+<td><p>🇬🇺</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:GY:</span></code></td>
-<td>🇬🇾</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:GW:</span></code></p></td>
+<td><p>🇬🇼</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:HK:</span></code></td>
-<td>🇭🇰</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:GY:</span></code></p></td>
+<td><p>🇬🇾</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:HM:</span></code></td>
-<td>🇭🇲</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:HK:</span></code></p></td>
+<td><p>🇭🇰</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:HN:</span></code></td>
-<td>🇭🇳</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:HM:</span></code></p></td>
+<td><p>🇭🇲</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:HR:</span></code></td>
-<td>🇭🇷</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:HN:</span></code></p></td>
+<td><p>🇭🇳</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:HT:</span></code></td>
-<td>🇭🇹</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:HR:</span></code></p></td>
+<td><p>🇭🇷</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:HU:</span></code></td>
-<td>🇭🇺</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:HT:</span></code></p></td>
+<td><p>🇭🇹</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:IC:</span></code></td>
-<td>🇮🇨</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:HU:</span></code></p></td>
+<td><p>🇭🇺</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:ID:</span></code></td>
-<td>🇮🇩</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:IC:</span></code></p></td>
+<td><p>🇮🇨</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:IE:</span></code></td>
-<td>🇮🇪</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:ID:</span></code></p></td>
+<td><p>🇮🇩</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:IL:</span></code></td>
-<td>🇮🇱</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:IE:</span></code></p></td>
+<td><p>🇮🇪</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:IM:</span></code></td>
-<td>🇮🇲</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:IL:</span></code></p></td>
+<td><p>🇮🇱</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:IN:</span></code></td>
-<td>🇮🇳</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:IM:</span></code></p></td>
+<td><p>🇮🇲</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:IO:</span></code></td>
-<td>🇮🇴</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:IN:</span></code></p></td>
+<td><p>🇮🇳</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:IQ:</span></code></td>
-<td>🇮🇶</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:IO:</span></code></p></td>
+<td><p>🇮🇴</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:IR:</span></code></td>
-<td>🇮🇷</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:IQ:</span></code></p></td>
+<td><p>🇮🇶</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:IS:</span></code></td>
-<td>🇮🇸</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:IR:</span></code></p></td>
+<td><p>🇮🇷</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:IT:</span></code></td>
-<td>🇮🇹</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:IS:</span></code></p></td>
+<td><p>🇮🇸</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:JE:</span></code></td>
-<td>🇯🇪</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:IT:</span></code></p></td>
+<td><p>🇮🇹</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:JM:</span></code></td>
-<td>🇯🇲</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:JE:</span></code></p></td>
+<td><p>🇯🇪</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:JO:</span></code></td>
-<td>🇯🇴</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:JM:</span></code></p></td>
+<td><p>🇯🇲</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:JP:</span></code></td>
-<td>🇯🇵</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:JO:</span></code></p></td>
+<td><p>🇯🇴</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:KE:</span></code></td>
-<td>🇰🇪</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:JP:</span></code></p></td>
+<td><p>🇯🇵</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:KG:</span></code></td>
-<td>🇰🇬</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:KE:</span></code></p></td>
+<td><p>🇰🇪</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:KH:</span></code></td>
-<td>🇰🇭</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:KG:</span></code></p></td>
+<td><p>🇰🇬</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:KI:</span></code></td>
-<td>🇰🇮</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:KH:</span></code></p></td>
+<td><p>🇰🇭</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:KM:</span></code></td>
-<td>🇰🇲</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:KI:</span></code></p></td>
+<td><p>🇰🇮</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:KN:</span></code></td>
-<td>🇰🇳</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:KM:</span></code></p></td>
+<td><p>🇰🇲</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:KP:</span></code></td>
-<td>🇰🇵</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:KN:</span></code></p></td>
+<td><p>🇰🇳</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:KR:</span></code></td>
-<td>🇰🇷</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:KP:</span></code></p></td>
+<td><p>🇰🇵</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:KW:</span></code></td>
-<td>🇰🇼</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:KR:</span></code></p></td>
+<td><p>🇰🇷</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:KY:</span></code></td>
-<td>🇰🇾</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:KW:</span></code></p></td>
+<td><p>🇰🇼</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:KZ:</span></code></td>
-<td>🇰🇿</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:KY:</span></code></p></td>
+<td><p>🇰🇾</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:LA:</span></code></td>
-<td>🇱🇦</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:KZ:</span></code></p></td>
+<td><p>🇰🇿</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:LB:</span></code></td>
-<td>🇱🇧</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:LA:</span></code></p></td>
+<td><p>🇱🇦</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:LC:</span></code></td>
-<td>🇱🇨</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:LB:</span></code></p></td>
+<td><p>🇱🇧</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:LI:</span></code></td>
-<td>🇱🇮</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:LC:</span></code></p></td>
+<td><p>🇱🇨</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:LK:</span></code></td>
-<td>🇱🇰</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:LI:</span></code></p></td>
+<td><p>🇱🇮</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:LR:</span></code></td>
-<td>🇱🇷</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:LK:</span></code></p></td>
+<td><p>🇱🇰</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:LS:</span></code></td>
-<td>🇱🇸</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:LR:</span></code></p></td>
+<td><p>🇱🇷</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:LT:</span></code></td>
-<td>🇱🇹</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:LS:</span></code></p></td>
+<td><p>🇱🇸</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:LU:</span></code></td>
-<td>🇱🇺</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:LT:</span></code></p></td>
+<td><p>🇱🇹</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:LV:</span></code></td>
-<td>🇱🇻</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:LU:</span></code></p></td>
+<td><p>🇱🇺</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:LY:</span></code></td>
-<td>🇱🇾</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:LV:</span></code></p></td>
+<td><p>🇱🇻</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:MA:</span></code></td>
-<td>🇲🇦</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:LY:</span></code></p></td>
+<td><p>🇱🇾</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:MC:</span></code></td>
-<td>🇲🇨</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:MA:</span></code></p></td>
+<td><p>🇲🇦</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:MD:</span></code></td>
-<td>🇲🇩</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:MC:</span></code></p></td>
+<td><p>🇲🇨</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:ME:</span></code></td>
-<td>🇲🇪</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:MD:</span></code></p></td>
+<td><p>🇲🇩</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:MF:</span></code></td>
-<td>🇲🇫</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:ME:</span></code></p></td>
+<td><p>🇲🇪</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:MG:</span></code></td>
-<td>🇲🇬</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:MF:</span></code></p></td>
+<td><p>🇲🇫</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:MH:</span></code></td>
-<td>🇲🇭</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:MG:</span></code></p></td>
+<td><p>🇲🇬</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:MK:</span></code></td>
-<td>🇲🇰</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:MH:</span></code></p></td>
+<td><p>🇲🇭</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:ML:</span></code></td>
-<td>🇲🇱</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:MK:</span></code></p></td>
+<td><p>🇲🇰</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:MM:</span></code></td>
-<td>🇲🇲</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:ML:</span></code></p></td>
+<td><p>🇲🇱</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:MN:</span></code></td>
-<td>🇲🇳</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:MM:</span></code></p></td>
+<td><p>🇲🇲</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:MO:</span></code></td>
-<td>🇲🇴</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:MN:</span></code></p></td>
+<td><p>🇲🇳</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:MP:</span></code></td>
-<td>🇲🇵</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:MO:</span></code></p></td>
+<td><p>🇲🇴</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:MQ:</span></code></td>
-<td>🇲🇶</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:MP:</span></code></p></td>
+<td><p>🇲🇵</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:MR:</span></code></td>
-<td>🇲🇷</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:MQ:</span></code></p></td>
+<td><p>🇲🇶</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:MS:</span></code></td>
-<td>🇲🇸</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:MR:</span></code></p></td>
+<td><p>🇲🇷</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:MT:</span></code></td>
-<td>🇲🇹</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:MS:</span></code></p></td>
+<td><p>🇲🇸</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:MU:</span></code></td>
-<td>🇲🇺</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:MT:</span></code></p></td>
+<td><p>🇲🇹</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:MV:</span></code></td>
-<td>🇲🇻</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:MU:</span></code></p></td>
+<td><p>🇲🇺</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:MW:</span></code></td>
-<td>🇲🇼</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:MV:</span></code></p></td>
+<td><p>🇲🇻</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:MX:</span></code></td>
-<td>🇲🇽</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:MW:</span></code></p></td>
+<td><p>🇲🇼</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:MY:</span></code></td>
-<td>🇲🇾</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:MX:</span></code></p></td>
+<td><p>🇲🇽</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:MZ:</span></code></td>
-<td>🇲🇿</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:MY:</span></code></p></td>
+<td><p>🇲🇾</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:NA:</span></code></td>
-<td>🇳🇦</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:MZ:</span></code></p></td>
+<td><p>🇲🇿</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:NC:</span></code></td>
-<td>🇳🇨</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:NA:</span></code></p></td>
+<td><p>🇳🇦</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:NE:</span></code></td>
-<td>🇳🇪</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:NC:</span></code></p></td>
+<td><p>🇳🇨</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:NF:</span></code></td>
-<td>🇳🇫</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:NE:</span></code></p></td>
+<td><p>🇳🇪</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:NG:</span></code></td>
-<td>🇳🇬</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:NF:</span></code></p></td>
+<td><p>🇳🇫</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:NI:</span></code></td>
-<td>🇳🇮</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:NG:</span></code></p></td>
+<td><p>🇳🇬</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:NL:</span></code></td>
-<td>🇳🇱</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:NI:</span></code></p></td>
+<td><p>🇳🇮</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:NO:</span></code></td>
-<td>🇳🇴</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:NL:</span></code></p></td>
+<td><p>🇳🇱</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:NP:</span></code></td>
-<td>🇳🇵</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:NO:</span></code></p></td>
+<td><p>🇳🇴</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:NR:</span></code></td>
-<td>🇳🇷</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:NP:</span></code></p></td>
+<td><p>🇳🇵</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:NU:</span></code></td>
-<td>🇳🇺</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:NR:</span></code></p></td>
+<td><p>🇳🇷</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:NZ:</span></code></td>
-<td>🇳🇿</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:NU:</span></code></p></td>
+<td><p>🇳🇺</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:OM:</span></code></td>
-<td>🇴🇲</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:NZ:</span></code></p></td>
+<td><p>🇳🇿</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:PA:</span></code></td>
-<td>🇵🇦</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:OM:</span></code></p></td>
+<td><p>🇴🇲</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:PE:</span></code></td>
-<td>🇵🇪</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:PA:</span></code></p></td>
+<td><p>🇵🇦</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:PF:</span></code></td>
-<td>🇵🇫</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:PE:</span></code></p></td>
+<td><p>🇵🇪</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:PG:</span></code></td>
-<td>🇵🇬</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:PF:</span></code></p></td>
+<td><p>🇵🇫</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:PH:</span></code></td>
-<td>🇵🇭</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:PG:</span></code></p></td>
+<td><p>🇵🇬</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:PK:</span></code></td>
-<td>🇵🇰</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:PH:</span></code></p></td>
+<td><p>🇵🇭</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:PL:</span></code></td>
-<td>🇵🇱</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:PK:</span></code></p></td>
+<td><p>🇵🇰</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:PM:</span></code></td>
-<td>🇵🇲</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:PL:</span></code></p></td>
+<td><p>🇵🇱</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:PN:</span></code></td>
-<td>🇵🇳</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:PM:</span></code></p></td>
+<td><p>🇵🇲</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:PR:</span></code></td>
-<td>🇵🇷</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:PN:</span></code></p></td>
+<td><p>🇵🇳</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:PS:</span></code></td>
-<td>🇵🇸</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:PR:</span></code></p></td>
+<td><p>🇵🇷</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:PT:</span></code></td>
-<td>🇵🇹</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:PS:</span></code></p></td>
+<td><p>🇵🇸</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:PW:</span></code></td>
-<td>🇵🇼</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:PT:</span></code></p></td>
+<td><p>🇵🇹</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:PY:</span></code></td>
-<td>🇵🇾</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:PW:</span></code></p></td>
+<td><p>🇵🇼</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:QA:</span></code></td>
-<td>🇶🇦</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:PY:</span></code></p></td>
+<td><p>🇵🇾</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:RE:</span></code></td>
-<td>🇷🇪</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:QA:</span></code></p></td>
+<td><p>🇶🇦</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:RO:</span></code></td>
-<td>🇷🇴</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:RE:</span></code></p></td>
+<td><p>🇷🇪</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:RS:</span></code></td>
-<td>🇷🇸</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:RO:</span></code></p></td>
+<td><p>🇷🇴</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:RU:</span></code></td>
-<td>🇷🇺</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:RS:</span></code></p></td>
+<td><p>🇷🇸</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:RW:</span></code></td>
-<td>🇷🇼</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:RU:</span></code></p></td>
+<td><p>🇷🇺</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:SA:</span></code></td>
-<td>🇸🇦</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:RW:</span></code></p></td>
+<td><p>🇷🇼</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:SB:</span></code></td>
-<td>🇸🇧</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:SA:</span></code></p></td>
+<td><p>🇸🇦</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:SC:</span></code></td>
-<td>🇸🇨</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:SB:</span></code></p></td>
+<td><p>🇸🇧</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:SD:</span></code></td>
-<td>🇸🇩</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:SC:</span></code></p></td>
+<td><p>🇸🇨</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:SE:</span></code></td>
-<td>🇸🇪</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:SD:</span></code></p></td>
+<td><p>🇸🇩</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:SG:</span></code></td>
-<td>🇸🇬</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:SE:</span></code></p></td>
+<td><p>🇸🇪</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:SH:</span></code></td>
-<td>🇸🇭</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:SG:</span></code></p></td>
+<td><p>🇸🇬</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:SI:</span></code></td>
-<td>🇸🇮</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:SH:</span></code></p></td>
+<td><p>🇸🇭</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:SJ:</span></code></td>
-<td>🇸🇯</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:SI:</span></code></p></td>
+<td><p>🇸🇮</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:SK:</span></code></td>
-<td>🇸🇰</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:SJ:</span></code></p></td>
+<td><p>🇸🇯</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:SL:</span></code></td>
-<td>🇸🇱</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:SK:</span></code></p></td>
+<td><p>🇸🇰</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:SM:</span></code></td>
-<td>🇸🇲</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:SL:</span></code></p></td>
+<td><p>🇸🇱</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:SN:</span></code></td>
-<td>🇸🇳</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:SM:</span></code></p></td>
+<td><p>🇸🇲</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:SO:</span></code></td>
-<td>🇸🇴</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:SN:</span></code></p></td>
+<td><p>🇸🇳</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:SR:</span></code></td>
-<td>🇸🇷</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:SO:</span></code></p></td>
+<td><p>🇸🇴</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:SS:</span></code></td>
-<td>🇸🇸</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:SR:</span></code></p></td>
+<td><p>🇸🇷</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:ST:</span></code></td>
-<td>🇸🇹</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:SS:</span></code></p></td>
+<td><p>🇸🇸</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:SV:</span></code></td>
-<td>🇸🇻</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:ST:</span></code></p></td>
+<td><p>🇸🇹</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:SX:</span></code></td>
-<td>🇸🇽</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:SV:</span></code></p></td>
+<td><p>🇸🇻</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:SY:</span></code></td>
-<td>🇸🇾</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:SX:</span></code></p></td>
+<td><p>🇸🇽</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:SZ:</span></code></td>
-<td>🇸🇿</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:SY:</span></code></p></td>
+<td><p>🇸🇾</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:TA:</span></code></td>
-<td>🇹🇦</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:SZ:</span></code></p></td>
+<td><p>🇸🇿</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:TC:</span></code></td>
-<td>🇹🇨</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:TA:</span></code></p></td>
+<td><p>🇹🇦</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:TD:</span></code></td>
-<td>🇹🇩</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:TC:</span></code></p></td>
+<td><p>🇹🇨</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:TF:</span></code></td>
-<td>🇹🇫</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:TD:</span></code></p></td>
+<td><p>🇹🇩</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:TG:</span></code></td>
-<td>🇹🇬</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:TF:</span></code></p></td>
+<td><p>🇹🇫</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:TH:</span></code></td>
-<td>🇹🇭</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:TG:</span></code></p></td>
+<td><p>🇹🇬</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:TJ:</span></code></td>
-<td>🇹🇯</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:TH:</span></code></p></td>
+<td><p>🇹🇭</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:TK:</span></code></td>
-<td>🇹🇰</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:TJ:</span></code></p></td>
+<td><p>🇹🇯</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:TL:</span></code></td>
-<td>🇹🇱</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:TK:</span></code></p></td>
+<td><p>🇹🇰</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:TM:</span></code></td>
-<td>🇹🇲</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:TL:</span></code></p></td>
+<td><p>🇹🇱</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:TN:</span></code></td>
-<td>🇹🇳</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:TM:</span></code></p></td>
+<td><p>🇹🇲</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:TO:</span></code></td>
-<td>🇹🇴</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:TN:</span></code></p></td>
+<td><p>🇹🇳</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:TR:</span></code></td>
-<td>🇹🇷</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:TO:</span></code></p></td>
+<td><p>🇹🇴</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:TT:</span></code></td>
-<td>🇹🇹</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:TR:</span></code></p></td>
+<td><p>🇹🇷</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:TV:</span></code></td>
-<td>🇹🇻</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:TT:</span></code></p></td>
+<td><p>🇹🇹</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:TW:</span></code></td>
-<td>🇹🇼</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:TV:</span></code></p></td>
+<td><p>🇹🇻</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:TZ:</span></code></td>
-<td>🇹🇿</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:TW:</span></code></p></td>
+<td><p>🇹🇼</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:UA:</span></code></td>
-<td>🇺🇦</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:TZ:</span></code></p></td>
+<td><p>🇹🇿</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:UG:</span></code></td>
-<td>🇺🇬</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:UA:</span></code></p></td>
+<td><p>🇺🇦</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:UM:</span></code></td>
-<td>🇺🇲</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:UG:</span></code></p></td>
+<td><p>🇺🇬</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:US:</span></code></td>
-<td>🇺🇸</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:UM:</span></code></p></td>
+<td><p>🇺🇲</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:UY:</span></code></td>
-<td>🇺🇾</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:US:</span></code></p></td>
+<td><p>🇺🇸</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:UZ:</span></code></td>
-<td>🇺🇿</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:UY:</span></code></p></td>
+<td><p>🇺🇾</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:VA:</span></code></td>
-<td>🇻🇦</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:UZ:</span></code></p></td>
+<td><p>🇺🇿</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:VC:</span></code></td>
-<td>🇻🇨</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:VA:</span></code></p></td>
+<td><p>🇻🇦</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:VE:</span></code></td>
-<td>🇻🇪</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:VC:</span></code></p></td>
+<td><p>🇻🇨</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:VG:</span></code></td>
-<td>🇻🇬</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:VE:</span></code></p></td>
+<td><p>🇻🇪</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:VI:</span></code></td>
-<td>🇻🇮</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:VG:</span></code></p></td>
+<td><p>🇻🇬</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:VN:</span></code></td>
-<td>🇻🇳</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:VI:</span></code></p></td>
+<td><p>🇻🇮</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:VU:</span></code></td>
-<td>🇻🇺</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:VN:</span></code></p></td>
+<td><p>🇻🇳</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:WF:</span></code></td>
-<td>🇼🇫</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:VU:</span></code></p></td>
+<td><p>🇻🇺</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:WS:</span></code></td>
-<td>🇼🇸</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:WF:</span></code></p></td>
+<td><p>🇼🇫</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:XK:</span></code></td>
-<td>🇽🇰</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:WS:</span></code></p></td>
+<td><p>🇼🇸</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:YE:</span></code></td>
-<td>🇾🇪</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:XK:</span></code></p></td>
+<td><p>🇽🇰</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:YT:</span></code></td>
-<td>🇾🇹</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:YE:</span></code></p></td>
+<td><p>🇾🇪</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:ZA:</span></code></td>
-<td>🇿🇦</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:YT:</span></code></p></td>
+<td><p>🇾🇹</p></td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">:ZM:</span></code></td>
-<td>🇿🇲</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:ZA:</span></code></p></td>
+<td><p>🇿🇦</p></td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">:ZW:</span></code></td>
-<td>🇿🇼</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:ZM:</span></code></p></td>
+<td><p>🇿🇲</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:ZW:</span></code></p></td>
+<td><p>🇿🇼</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="section" id="subregional-flags">
+<h2>Subregional flags<a class="headerlink" href="#subregional-flags" title="Permalink to this headline">¶</a></h2>
+<p>The only widely supported subregional flags are currently: England, Scottland and Wales (as of iOS 12 and Android 9).</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 57%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Code</p></th>
+<th class="head"><p>Emoji</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:gb-sct:</span></code></p></td>
+<td><p>🏴󠁧󠁢󠁳󠁣󠁴󠁿</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:gb-wls:</span></code></p></td>
+<td><p>🏴󠁧󠁢󠁷󠁬󠁳󠁿</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">:gb-eng:</span></code></p></td>
+<td><p>🏴󠁧󠁢󠁥󠁮󠁧󠁿</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">:us-tx:</span></code></p></td>
+<td><p>🏴󠁵󠁳󠁴󠁸󠁿</p></td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">WhatsApp offers one other state flag: Texas.</div>
+<div class="line">If you use WhatsApp’s emoji panel to select the Texas flag, WhatsApp uses 🇽🇹 i.e. <cite>flagize(“:XT:”)</cite> for Texas. This code “XT” is specified by Unicode as “excluded” meaning it is explicitly for private use and can be defined by anyone. Therefore, it is likely not diplayed as the Texas flag on other platforms.</div>
+<div class="line">But WhatsApp also recognizes the flag emoji tag sequence <cite>flagize(“:us-tx:”, subregions=True)</cite> and displays the same flag.</div>
+</div>
+</div>
+<div class="section" id="how-subregional-flags-work">
+<h2>How subregional flags work<a class="headerlink" href="#how-subregional-flags-work" title="Permalink to this headline">¶</a></h2>
+<p>They work very similar to the country flags. The ASCII codes are transformed by replacing them with specific codepoints that are called “tags”.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="field-list">
+<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">black_flag_emoji</span></code> followed by <code class="docutils literal notranslate"><span class="pre">region_code_in_tag</span></code> followed by <code class="docutils literal notranslate"><span class="pre">cancel_tag</span></code></dt>
+<dd class="field-odd"><p>The basic format for a tag flag</p>
+</dd>
+<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">black_flag_emoji</span></code></dt>
+<dd class="field-even"><p>U+1F3F4 ( 🏴 )</p>
+</dd>
+<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">cancel_tag</span></code></dt>
+<dd class="field-odd"><p>U+E007F (invisible, signifies the end of the flag code)</p>
+</dd>
+<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">region_code_in_tag</span></code></dt>
+<dd class="field-even"><p>It is formed using the abbreviation defined in <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-2:GB#Countries_and_province">ISO 3166-2</a> and adding 0xE0000 to every ASCII value of the code.
+For example England is GB-ENG.</p>
+<p>A full list of valid codes can be found here: <a class="reference external" href="https://github.com/unicode-org/cldr/blob/master/common/subdivisions/en.xml">github.com/unicode-org/…/subdivisions/en.xml</a></p>
+<p>It’s also possible to use a 3-digit-code from <a class="reference external" href="https://github.com/unicode-org/cldr/blob/master/tools/java/org/unicode/cldr/util/data/UnMacroRegions.txt">github.com/unicode-org/…/UnMacroRegions.txt</a></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id1">
+<h3>Example:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="line-block">
+<div class="line">Englang is <code class="docutils literal notranslate"><span class="pre">GB-ENG</span></code> in ISO 3166-2.</div>
+<div class="line">We drop the hyphen and make it lowercase to get <code class="docutils literal notranslate"><span class="pre">gbeng</span></code>.</div>
+<div class="line">To transform this to “tags”, we need to add the value 0xE0000 = 917504 to every unicode value of <code class="docutils literal notranslate"><span class="pre">gbeng</span></code>:</div>
+</div>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">g</span></code> is unicode 0x67 or decimal 103, so 103 + 917504 = 917607 or 0xE0067</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">b</span></code> is 0x62 and becomes 0xE0062</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">e</span></code> is 0x65 and becomes 0xE0065</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">n</span></code> is 0x6E and becomes 0xE006E</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">g</span></code> is 0x67 and becomes 0xE0067</div>
+</div>
+<p>So together it’s:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                      <span class="n">g</span>        <span class="n">b</span>        <span class="n">e</span>        <span class="n">n</span>        <span class="n">g</span>
+<span class="n">ASCII</span><span class="p">:</span>                <span class="mh">0x67</span>     <span class="mh">0x62</span>     <span class="mh">0x65</span>     <span class="mh">0x6E</span>     <span class="mh">0x67</span>
+<span class="n">Tags</span><span class="p">:</span>   <span class="mh">0x1F3F4</span>    <span class="mh">0xE0067</span>  <span class="mh">0xE0062</span>  <span class="mh">0xE0065</span>  <span class="mh">0xE006E</span>  <span class="mh">0xE0067</span>  <span class="mh">0xE007F</span>
+        <span class="n">black_flag</span>                                             <span class="n">cancel_tag</span>
+</pre></div>
+</div>
+<p>Unlike the regional indicator symbols, tags are not rendered on incompatible system, they will simply be invisible and have no width.
+So, if the particular flag is not supported or if tag flags are not supported at all, the only visible chararacter will be a black flag.</p>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
+<p class="admonition-title">Hint</p>
 <p>If you don’t see the flags in your browser, try with your phone</p>
-<p class="last"><a class="reference external" href="https://flag.readthedocs.org"><img alt="QR Code containg https://flag.readthedocs.org" src="_images/qr.png" /></a> <a class="reference external" href="https://flag.readthedocs.org">https://flag.readthedocs.org</a></p>
+<p><a class="reference external" href="https://flag.readthedocs.org"><img alt="QR Code containg https://flag.readthedocs.org" src="_images/qr.png" /></a> <a class="reference external" href="https://flag.readthedocs.org">https://flag.readthedocs.org</a></p>
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
 <h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </div>
 </div>
@@ -1058,26 +1193,16 @@ To reverse it, we translate the regional indicator symbols back to ASCII letters
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
