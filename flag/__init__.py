@@ -73,8 +73,6 @@ def flagize(text, subregions=False):
     :rtype: str
     """
     def flag(code):
-        # if not code:
-        #     return u""
         points = [ord(x) + OFFSET for x in code.upper()]
 
         if PY2:
@@ -158,15 +156,13 @@ def flagize_subregional(text):
     :rtype: str
     """
     def flag(code):
-
         points = [ord(x) + OFFSET_TAG for x in code.lower()]
-
         if PY2:
-            return BLACKFLAG + (u"\\U%08x" * len(points) %
-                                tuple(points)).decode("unicode-escape") + CANCELTAG
+            tags = (u"\\U%08x" * len(points) % tuple(points))
+            return BLACKFLAG + tags.decode("unicode-escape") + CANCELTAG
         else:
-            return BLACKFLAG + "".join([chr(point)
-                                        for point in points]) + CANCELTAG
+            tags = "".join([chr(point) for point in points])
+            return BLACKFLAG + tags + CANCELTAG
 
     def flag_repl(matchobj):
         return flag(matchobj.group(1) + matchobj.group(2))
