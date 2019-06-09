@@ -240,7 +240,7 @@ def _is_valid_tag(i):
 
 
 def _dflagize_subregional_py2_repl(matchobj):
-    ascii = []
+    plain = []
 
     skipped = ""
     group1 = matchobj.group(1)
@@ -258,6 +258,6 @@ def _dflagize_subregional_py2_repl(matchobj):
         if _is_valid_tag(i):
             return matchobj.group(0)  # Not a valid tag
 
-        ascii.append("%c" % (i - OFFSET_TAG))
+        plain.append("%c" % (i - OFFSET_TAG))
 
-    return skipped + ":" + ascii[0] + ascii[1] + "-" + "".join(ascii[2:]) + ":"
+    return skipped + ":" + plain[0] + plain[1] + "-" + "".join(plain[2:]) + ":"
