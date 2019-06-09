@@ -12,7 +12,7 @@ flag
 Flag emoji for Python.  
 Converts flag emoji to ASCII and other way round.
 
-This is based on [http://schinckel.net/2015/10/29/unicode-flags-in-python/](http://schinckel.net/2015/10/29/unicode-flags-in-python/) by [schinckel](https://github.com/schinckel/)
+This is based on [http://schinckel.net/2015/10/29/unicode-flags-in-python/](http://web.archive.org/web/20180425063617/https://schinckel.net/2015/10/29/unicode-flags-in-python/) by [schinckel](https://github.com/schinckel/)
 
 How it works
 -----------

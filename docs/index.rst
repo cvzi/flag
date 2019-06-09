@@ -16,7 +16,7 @@ Converts flag emoji to ASCII and other way round.
 
 `Source on Github <https://github.com/cvzi/flag>`_
 
-This is based on `http://schinckel.net/2015/10/29/unicode-flags-in-python/ <http://schinckel.net/2015/10/29/unicode-flags-in-python/>`_ by `schinckel <https://github.com/schinckel/>`_
+This is based on `http://schinckel.net/2015/10/29/unicode-flags-in-python/ <http://web.archive.org/web/20180425063617/https://schinckel.net/2015/10/29/unicode-flags-in-python/>`_ by `schinckel <https://github.com/schinckel/>`_
 
 Example
 =======
