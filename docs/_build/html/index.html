@@ -213,13 +213,17 @@ To reverse it, we translate the regional indicator symbols back to ASCII letters
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>text</strong> (<em>str</em>) – The text</p></li>
-<li><p><strong>subregions</strong> (<em>bool</em>) – Also replace subregional/subdivision codes</p></li>
+<li><p><strong>subregions</strong> (<em>bool</em>) – Also replace subregional/subdivision codes
+<code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code> with unicode flags (flag emoji tag sequences).</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The text with all occurences of <code class="docutils literal notranslate"><span class="pre">:XX:</span></code> replaced by unicode flags</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
 </dl>
-<p><code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code> with unicode flags (flag emoji tag sequences).
-:return: The text with all occurences of <code class="docutils literal notranslate"><span class="pre">:XX:</span></code> replaced by unicode flags
-:rtype: str</p>
 </dd></dl>
 
 <dl class="function">
@@ -231,14 +235,18 @@ in text with ascii two letter code <code class="docutils literal notranslate"><s
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>text</strong> (<em>str</em>) – The text</p></li>
-<li><p><strong>subregions</strong> (<em>bool</em>) – Also replace subregional/subdivision flags</p></li>
+<li><p><strong>subregions</strong> (<em>bool</em>) – Also replace subregional/subdivision flags
+(flag emoji tag sequences) with <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code></p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The text with all unicode flags replaced by ascii
+sequence <code class="docutils literal notranslate"><span class="pre">:XX:</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
 </dl>
-<p>(flag emoji tag sequences) with <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code>
-:return: The text with all unicode flags replaced by ascii
-sequence <code class="docutils literal notranslate"><span class="pre">:XX:</span></code>
-:rtype: str</p>
 </dd></dl>
 
 <dl class="function">
@@ -251,11 +259,13 @@ sequence <code class="docutils literal notranslate"><span class="pre">:XX:</span
 <dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The text</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The text with all occurences of <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code> replaced by</p>
+<dd class="field-even"><p>The text with all occurences of <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code> replaced by
+unicode flags</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
-<p>unicode flags
-:rtype: str</p>
 </dd></dl>
 
 <dl class="function">
@@ -269,11 +279,13 @@ code <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span
 <dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The text</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The text with all regional flags replaced by ascii</p>
+<dd class="field-even"><p>The text with all regional flags replaced by ascii
+sequence <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
-<p>sequence <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code>
-:rtype: str</p>
 </dd></dl>
 
 </div>
