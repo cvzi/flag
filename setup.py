@@ -1,4 +1,4 @@
-﻿import setuptools
+import setuptools
 import os
 import io
 
@@ -9,7 +9,8 @@ version = None
 with io.open(os.path.join("flag", "__init__.py"), encoding="utf-8") as f:
     for line in f:
         if line.strip().startswith("__version__"):
-            version = line.split("=")[1].strip().replace('"', "").replace("'", "")
+            version = line.split("=")[1].strip()
+            version = version.replace('"', "").replace("'", "")
             break
 
 setuptools.setup(
