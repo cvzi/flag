@@ -389,9 +389,8 @@ Example:
 | ``n`` is 0x6E and becomes 0xE006E
 | ``g`` is 0x67 and becomes 0xE0067
 
-.. code-block::
+Together it's: ::
 
-    Together:
                           g        b        e        n        g
     ASCII:                0x67     0x62     0x65     0x6E     0x67
     Tags:   0x1F3F4    0xE0067  0xE0062  0xE0065  0xE006E  0xE0067  0xE007F
