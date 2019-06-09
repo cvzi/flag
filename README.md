@@ -52,10 +52,9 @@ Install
 
 `pip install emoji-country-flag`
 
+See: [https://pypi.org/project/emoji-country-flag/](https://pypi.org/project/emoji-country-flag/)
+
 Documentation
 -------------
 
 Documentation at [https://flag.readthedocs.io](https://flag.readthedocs.io)
-
-
-See: [https://pypi.org/project/emoji-country-flag/](https://pypi.org/project/emoji-country-flag/)
