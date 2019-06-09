@@ -389,7 +389,9 @@ Example:
 | ``n`` is 0x6E and becomes 0xE006E
 | ``g`` is 0x67 and becomes 0xE0067
 
-Together it's: ::
+Together it's:
+
+.. code-block:: none
 
                           g        b        e        n        g
     ASCII:                0x67     0x62     0x65     0x6E     0x67
