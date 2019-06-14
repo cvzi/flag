@@ -216,13 +216,10 @@ def dflagize_subregional_py3(text):
 
 
 def dflagize_subregional_py2(text):
-    BLACKFLAG_repr = "\\" + BLACKFLAG.encode("unicode-escape")
-    CANCELTAG_repr = "\\" + CANCELTAG.encode("unicode-escape")
-
     regex = re.compile(
-        BLACKFLAG_repr +
+        "\\" + BLACKFLAG.encode("unicode-escape") +
         r"((?:\\U[0-9a-fA-F]{8}){3,6})" +
-        CANCELTAG_repr)
+        "\\" + CANCELTAG.encode("unicode-escape"))
 
     text = regex.sub(
         _dflagize_subregional_py2_repl,
