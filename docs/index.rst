@@ -342,7 +342,7 @@ Code        Emoji
 Subregional flags
 =================
 
-The only widely supported subregional flags are currently: England, Scottland and Wales (as of iOS 12 and Android 9).
+The only widely supported subregional flags are currently: England, Scotland and Wales (as of iOS 12 and Android 9).
 
 ============        ========
 Code                Emoji
@@ -354,7 +354,7 @@ Code                Emoji
 ============        ========
 
 | WhatsApp offers one other state flag: Texas.
-| If you use WhatsApp's emoji panel to select the Texas flag, WhatsApp uses 🇽🇹 i.e. `flagize(":XT:")` for Texas. This code "XT" is specified by Unicode as "excluded" meaning it is explicitly for private use and can be defined by anyone. Therefore, it is likely not diplayed as the Texas flag on other platforms.
+| If you use WhatsApp's emoji panel to select the Texas flag, WhatsApp uses 🇽🇹 i.e. `flagize(":XT:")` for Texas. This code "XT" is specified by Unicode as "excluded" meaning it is explicitly for private use and can be defined by anyone. Therefore, it is likely not displayed as the Texas flag on other platforms.
 | But WhatsApp also recognizes the flag emoji tag sequence `flagize(":us-tx:", subregions=True)` and displays the same flag.
 
 
@@ -363,9 +363,11 @@ How subregional flags work
 
 They work very similar to the country flags. The ASCII codes are transformed by replacing them with specific codepoints that are called "tags".
 
+| The basic format for a tag flag is:
+| ``black_flag_emoji`` followed by ``region_code_in_tag`` followed by ``cancel_tag``
+
 .. Note::
 
-    :``black_flag_emoji`` followed by ``region_code_in_tag`` followed by ``cancel_tag``:    The basic format for a tag flag
     :``black_flag_emoji``:    U+1F3F4 ( 🏴 )
     :``cancel_tag``:    U+E007F (invisible, signifies the end of the flag code)
     :``region_code_in_tag``:
@@ -379,7 +381,7 @@ They work very similar to the country flags. The ASCII codes are transformed by 
 
 Example:
 --------
-| Englang is ``GB-ENG`` in ISO 3166-2.
+| England is ``GB-ENG`` in ISO 3166-2.
 | We drop the hyphen and make it lowercase to get ``gbeng``.
 | To transform this to "tags", we need to add the value 0xE0000 = 917504 to every unicode value of ``gbeng``:
 
@@ -399,7 +401,7 @@ Together it's:
             black_flag                                             cancel_tag
 
 Unlike the regional indicator symbols, tags are not rendered on incompatible system, they will simply be invisible and have no width.
-So, if the particular flag is not supported or if tag flags are not supported at all, the only visible chararacter will be a black flag.
+So, if the particular flag is not supported or if tag flags are not supported at all, the only visible character will be a black flag.
 
 
 .. hint::

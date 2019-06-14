@@ -218,7 +218,7 @@ To reverse it, we translate the regional indicator symbols back to ASCII letters
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The text with all occurences of <code class="docutils literal notranslate"><span class="pre">:XX:</span></code> replaced by unicode flags</p>
+<dd class="field-even"><p>The text with all occurrences of <code class="docutils literal notranslate"><span class="pre">:XX:</span></code> replaced by unicode flags</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>
@@ -259,7 +259,7 @@ sequence <code class="docutils literal notranslate"><span class="pre">:XX:</span
 <dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The text</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The text with all occurences of <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code> replaced by
+<dd class="field-even"><p>The text with all occurrences of <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code> replaced by
 unicode flags</p>
 </dd>
 <dt class="field-odd">Return type</dt>
@@ -1082,7 +1082,7 @@ sequence <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</
 </div>
 <div class="section" id="subregional-flags">
 <h2>Subregional flags<a class="headerlink" href="#subregional-flags" title="Permalink to this headline">¶</a></h2>
-<p>The only widely supported subregional flags are currently: England, Scottland and Wales (as of iOS 12 and Android 9).</p>
+<p>The only widely supported subregional flags are currently: England, Scotland and Wales (as of iOS 12 and Android 9).</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 57%" />
@@ -1110,27 +1110,28 @@ sequence <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</
 </table>
 <div class="line-block">
 <div class="line">WhatsApp offers one other state flag: Texas.</div>
-<div class="line">If you use WhatsApp’s emoji panel to select the Texas flag, WhatsApp uses 🇽🇹 i.e. <cite>flagize(“:XT:”)</cite> for Texas. This code “XT” is specified by Unicode as “excluded” meaning it is explicitly for private use and can be defined by anyone. Therefore, it is likely not diplayed as the Texas flag on other platforms.</div>
+<div class="line">If you use WhatsApp’s emoji panel to select the Texas flag, WhatsApp uses 🇽🇹 i.e. <cite>flagize(“:XT:”)</cite> for Texas. This code “XT” is specified by Unicode as “excluded” meaning it is explicitly for private use and can be defined by anyone. Therefore, it is likely not displayed as the Texas flag on other platforms.</div>
 <div class="line">But WhatsApp also recognizes the flag emoji tag sequence <cite>flagize(“:us-tx:”, subregions=True)</cite> and displays the same flag.</div>
 </div>
 </div>
 <div class="section" id="how-subregional-flags-work">
 <h2>How subregional flags work<a class="headerlink" href="#how-subregional-flags-work" title="Permalink to this headline">¶</a></h2>
 <p>They work very similar to the country flags. The ASCII codes are transformed by replacing them with specific codepoints that are called “tags”.</p>
+<div class="line-block">
+<div class="line">The basic format for a tag flag is:</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">black_flag_emoji</span></code> followed by <code class="docutils literal notranslate"><span class="pre">region_code_in_tag</span></code> followed by <code class="docutils literal notranslate"><span class="pre">cancel_tag</span></code></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <dl class="field-list">
-<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">black_flag_emoji</span></code> followed by <code class="docutils literal notranslate"><span class="pre">region_code_in_tag</span></code> followed by <code class="docutils literal notranslate"><span class="pre">cancel_tag</span></code></dt>
-<dd class="field-odd"><p>The basic format for a tag flag</p>
+<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">black_flag_emoji</span></code></dt>
+<dd class="field-odd"><p>U+1F3F4 ( 🏴 )</p>
 </dd>
-<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">black_flag_emoji</span></code></dt>
-<dd class="field-even"><p>U+1F3F4 ( 🏴 )</p>
+<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">cancel_tag</span></code></dt>
+<dd class="field-even"><p>U+E007F (invisible, signifies the end of the flag code)</p>
 </dd>
-<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">cancel_tag</span></code></dt>
-<dd class="field-odd"><p>U+E007F (invisible, signifies the end of the flag code)</p>
-</dd>
-<dt class="field-even"><code class="docutils literal notranslate"><span class="pre">region_code_in_tag</span></code></dt>
-<dd class="field-even"><p>It is formed using the abbreviation defined in <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-2:GB#Countries_and_province">ISO 3166-2</a> and adding 0xE0000 to every ASCII value of the code.
+<dt class="field-odd"><code class="docutils literal notranslate"><span class="pre">region_code_in_tag</span></code></dt>
+<dd class="field-odd"><p>It is formed using the abbreviation defined in <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-2:GB#Countries_and_province">ISO 3166-2</a> and adding 0xE0000 to every ASCII value of the code.
 For example England is GB-ENG.</p>
 <p>A full list of valid codes can be found here: <a class="reference external" href="https://github.com/unicode-org/cldr/blob/master/common/subdivisions/en.xml">github.com/unicode-org/…/subdivisions/en.xml</a></p>
 <p>It’s also possible to use a 3-digit-code from <a class="reference external" href="https://github.com/unicode-org/cldr/blob/master/tools/java/org/unicode/cldr/util/data/UnMacroRegions.txt">github.com/unicode-org/…/UnMacroRegions.txt</a></p>
@@ -1140,7 +1141,7 @@ For example England is GB-ENG.</p>
 <div class="section" id="id1">
 <h3>Example:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <div class="line-block">
-<div class="line">Englang is <code class="docutils literal notranslate"><span class="pre">GB-ENG</span></code> in ISO 3166-2.</div>
+<div class="line">England is <code class="docutils literal notranslate"><span class="pre">GB-ENG</span></code> in ISO 3166-2.</div>
 <div class="line">We drop the hyphen and make it lowercase to get <code class="docutils literal notranslate"><span class="pre">gbeng</span></code>.</div>
 <div class="line">To transform this to “tags”, we need to add the value 0xE0000 = 917504 to every unicode value of <code class="docutils literal notranslate"><span class="pre">gbeng</span></code>:</div>
 </div>
@@ -1159,7 +1160,7 @@ Tags:   0x1F3F4    0xE0067  0xE0062  0xE0065  0xE006E  0xE0067  0xE007F
 </pre></div>
 </div>
 <p>Unlike the regional indicator symbols, tags are not rendered on incompatible system, they will simply be invisible and have no width.
-So, if the particular flag is not supported or if tag flags are not supported at all, the only visible chararacter will be a black flag.</p>
+So, if the particular flag is not supported or if tag flags are not supported at all, the only visible character will be a black flag.</p>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>If you don’t see the flags in your browser, try with your phone</p>

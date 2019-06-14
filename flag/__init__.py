@@ -69,7 +69,7 @@ def flagize(text, subregions=False):
     :param str text: The text
     :param bool subregions: Also replace subregional/subdivision codes
         ``:xx-xxx:`` with unicode flags (flag emoji tag sequences).
-    :return: The text with all occurences of ``:XX:`` replaced by unicode flags
+    :return: The text with all occurrences of ``:XX:`` replaced by unicode flags
     :rtype: str
     """
     def flag(code):
@@ -151,7 +151,7 @@ def flagize_subregional(text):
     ``:xx-xxx:`` with unicode flags (flag emoji tag sequences)
 
     :param str text: The text
-    :return: The text with all occurences of ``:xx-xxx:`` replaced by
+    :return: The text with all occurrences of ``:xx-xxx:`` replaced by
         unicode flags
     :rtype: str
     """
