@@ -359,13 +359,10 @@
 
 
 <span class="k">def</span> <span class="nf">dflagize_subregional_py2</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-    <span class="n">BLACKFLAG_repr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">BLACKFLAG</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span>
-    <span class="n">CANCELTAG_repr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">CANCELTAG</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span>
-
     <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-        <span class="n">BLACKFLAG_repr</span> <span class="o">+</span>
+        <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">BLACKFLAG</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span> <span class="o">+</span>
         <span class="sa">r</span><span class="s2">&quot;((?:</span><span class="se">\\</span><span class="s2">U[0-9a-fA-F]</span><span class="si">{8}</span><span class="s2">){3,6})&quot;</span> <span class="o">+</span>
-        <span class="n">CANCELTAG_repr</span><span class="p">)</span>
+        <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">CANCELTAG</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">))</span>
 
     <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
         <span class="n">_dflagize_subregional_py2_repl</span><span class="p">,</span>
