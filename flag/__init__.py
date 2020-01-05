@@ -77,7 +77,7 @@ def flag(countrycode):
     However, not all codes produce valid unicode, see
     http://unicode.org/reports/tr51/#flag-emoji-tag-sequences for more
     information.
-    From ISO 3166-2 only England (``gbeng``), Scotland ``gbsct`` and
+    From ISO 3166-2 only England ``gbeng``, Scotland ``gbsct`` and
     Wales ``gbwls`` are considered RGI (recommended for general interchange)
     by the Unicode Consortium,
     see http://www.unicode.org/Public/emoji/latest/emoji-test.txt

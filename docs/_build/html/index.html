@@ -170,6 +170,12 @@
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">flag</span>
 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flag</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="s2">&quot;IL&quot;</span><span class="p">)</span>
+<span class="go">&#39;🇮🇱&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">flag</span><span class="o">.</span><span class="n">flag</span><span class="p">(</span><span class="s2">&quot;GBENG&quot;</span><span class="p">)</span>
+<span class="go">&#39;🏴󠁧󠁢󠁥󠁮󠁧󠁿 &#39;</span>
+
 <span class="gp">&gt;&gt;&gt; </span><span class="n">flag</span><span class="o">.</span><span class="n">flagize</span><span class="p">(</span><span class="s2">&quot;Flag of Israel :IL:&quot;</span><span class="p">)</span>
 <span class="go">&#39;Flag of Israel 🇮🇱&#39;</span>
 
@@ -190,6 +196,11 @@
 </pre></div>
 </div>
 <p>See: <a class="reference external" href="https://pypi.org/project/emoji-country-flag/">https://pypi.org/project/emoji-country-flag/</a></p>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>If you don’t see the flags in your browser, try with your phone</p>
+<p><a class="reference external" href="https://flag.readthedocs.org"><img alt="QR Code containg https://flag.readthedocs.org" src="_images/qr.png" /></a> <a class="reference external" href="https://flag.readthedocs.org">https://flag.readthedocs.org</a></p>
+</div>
 </div>
 <div class="section" id="how-it-works">
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
@@ -204,6 +215,38 @@ To reverse it, we translate the regional indicator symbols back to ASCII letters
 </div>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="flag.flag">
+<code class="sig-prename descclassname">flag.</code><code class="sig-name descname">flag</code><span class="sig-paren">(</span><em class="sig-param">countrycode</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flag.html#flag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.flag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encodes a single flag to unicode. Two letters are converted to regional
+indicator symbols
+Three or more letters/digits are converted to tag sequences.
+Dashes, colons and other symbols are removed from input, only a-z, A-Z and
+0-9 are processed.</p>
+<p>In general a valid flag is either a two letter code from ISO 3166
+(e.g. <code class="docutils literal notranslate"><span class="pre">GB</span></code>), a code from ISO 3166-2 (e.g. <code class="docutils literal notranslate"><span class="pre">GBENG</span></code>) or a numeric code
+from ISO 3166-1.
+However, not all codes produce valid unicode, see
+<a class="reference external" href="http://unicode.org/reports/tr51/#flag-emoji-tag-sequences">http://unicode.org/reports/tr51/#flag-emoji-tag-sequences</a> for more
+information.
+From ISO 3166-2 only England <code class="docutils literal notranslate"><span class="pre">gbeng</span></code>, Scotland <code class="docutils literal notranslate"><span class="pre">gbsct</span></code> and
+Wales <code class="docutils literal notranslate"><span class="pre">gbwls</span></code> are considered RGI (recommended for general interchange)
+by the Unicode Consortium,
+see <a class="reference external" href="http://www.unicode.org/Public/emoji/latest/emoji-test.txt">http://www.unicode.org/Public/emoji/latest/emoji-test.txt</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>countrycode</strong> (<em>str</em>) – Two letter ISO 3166 code or a regional code
+from ISO 3166-2.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The unicode representation of the flag</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="function">
 <dt id="flag.flagize">
 <code class="sig-prename descclassname">flag.</code><code class="sig-name descname">flagize</code><span class="sig-paren">(</span><em class="sig-param">text</em>, <em class="sig-param">subregions=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flag.html#flagize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.flagize" title="Permalink to this definition">¶</a></dt>
@@ -1161,11 +1204,6 @@ Tags:   0x1F3F4    0xE0067  0xE0062  0xE0065  0xE006E  0xE0067  0xE007F
 </div>
 <p>Unlike the regional indicator symbols, tags are not rendered on incompatible system, they will simply be invisible and have no width.
 So, if the particular flag is not supported or if tag flags are not supported at all, the only visible character will be a black flag.</p>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>If you don’t see the flags in your browser, try with your phone</p>
-<p><a class="reference external" href="https://flag.readthedocs.org"><img alt="QR Code containg https://flag.readthedocs.org" src="_images/qr.png" /></a> <a class="reference external" href="https://flag.readthedocs.org">https://flag.readthedocs.org</a></p>
-</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">

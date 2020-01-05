@@ -25,6 +25,12 @@ Example
 
     >>> import flag
 
+    >>> flag.flag("IL")
+    '🇮🇱'
+
+    >>> flag.flag("GBENG")
+    '🏴󠁧󠁢󠁥󠁮󠁧󠁿 '
+
     >>> flag.flagize("Flag of Israel :IL:")
     'Flag of Israel 🇮🇱'
 
@@ -46,6 +52,18 @@ Install
 
 See: `https://pypi.org/project/emoji-country-flag/ <https://pypi.org/project/emoji-country-flag/>`_
 
+
+
+.. hint::
+   If you don't see the flags in your browser, try with your phone
+
+   |QR| https://flag.readthedocs.org
+
+.. |QR| image:: _static/qr.png
+   :alt: QR Code containg https://flag.readthedocs.org
+   :target: https://flag.readthedocs.org
+
+
 How it works
 ============
 
@@ -65,6 +83,7 @@ To reverse it, we translate the regional indicator symbols back to ASCII letters
 Functions
 =========
 .. currentmodule:: flag
+.. autofunction:: flag
 .. autofunction:: flagize
 .. autofunction:: dflagize
 .. autofunction:: flagize_subregional
@@ -403,15 +422,6 @@ Together it's:
 Unlike the regional indicator symbols, tags are not rendered on incompatible system, they will simply be invisible and have no width.
 So, if the particular flag is not supported or if tag flags are not supported at all, the only visible character will be a black flag.
 
-
-.. hint::
-   If you don't see the flags in your browser, try with your phone
-
-   |QR| https://flag.readthedocs.org
-
-.. |QR| image:: _static/qr.png
-   :alt: QR Code containg https://flag.readthedocs.org
-   :target: https://flag.readthedocs.org
 
 Indices and tables
 ==================

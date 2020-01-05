@@ -34,6 +34,12 @@ Example
 ```python
     >>> import flag
     
+    >>> flag.flag("IL")
+    '🇮🇱'
+    
+    >>> flag.flag("GBENG")
+    '🏴󠁧󠁢󠁥󠁮󠁧󠁿 '
+    
     >>> flag.flagize("Flag of Israel :IL:")
     'Flag of Israel 🇮🇱'
     
