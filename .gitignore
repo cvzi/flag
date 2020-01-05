@@ -107,3 +107,5 @@ ENV/
 
 # sonar scanner
 .scannerwork/
+
+runtests.py
