@@ -72,13 +72,16 @@ def flagize(text, subregions=False):
     :return: The text with all occurrences of ``:XX:`` replaced by unicode flags
     :rtype: str
     """
-    def flag(code):
-        points = [ord(x) + OFFSET for x in code.upper()]
 
-        if PY2:
+    if PY2:
+        def flag(code):
+            points = [ord(x) + OFFSET for x in code.upper()]
             return ("\\U%08x\\U%08x" % tuple(points)).decode("unicode-escape")
-        else:
-            return chr(points[0]) + chr(points[1])
+
+    else:
+        def flag(code):
+            chars = [chr(ord(c) + OFFSET) for c in code.upper()]
+            return chars[0] + chars[1]
 
     def flag_repl(matchobj):
         return flag(matchobj.group(1))
@@ -155,13 +158,14 @@ def flagize_subregional(text):
         unicode flags
     :rtype: str
     """
-    def flag(code):
-        points = [ord(x) + OFFSET_TAG for x in code.lower()]
-        if PY2:
-            tags = (u"\\U%08x" * len(points) % tuple(points))
+    if PY2:
+        def flag(code):
+            points = [ord(x) + OFFSET_TAG for x in code.lower()]
+            tags = u"\\U%08x" * len(points) % tuple(points)
             return BLACKFLAG + tags.decode("unicode-escape") + CANCELTAG
-        else:
-            tags = "".join([chr(point) for point in points])
+    else:
+        def flag(code):
+            tags = "".join([chr(ord(c) + OFFSET_TAG) for c in code.lower()])
             return BLACKFLAG + tags + CANCELTAG
 
     def flag_repl(matchobj):
@@ -199,7 +203,7 @@ def dflagize_subregional(text):
 def dflagize_subregional_py3(text):
     def dflag(i):
         points = [ord(x) - OFFSET_TAG for x in i]
-        suffix = "".join("%c" % point for point in points[2:]) + ":"
+        suffix = "".join(["%c" % point for point in points[2:]]) + ":"
         return ":%c%c-%s" % (points[0], points[1], suffix)
 
     def dflag_repl(matchobj):
