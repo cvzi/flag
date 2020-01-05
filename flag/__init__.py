@@ -7,17 +7,19 @@ Based on http://schinckel.net/2015/10/29/unicode-flags-in-python/
 Unicode country code emoji flags for Python
 ~~~~~~~~~~~~~~~~
     >>> import flag
+    >>> flag.flag("IL")
+    '🇮🇱'
     >>> flag.flagize("Flag of Israel :IL:")
     'Flag of Israel 🇮🇱'
     >>> flag.dflagize(u"Flag of Israel 🇮🇱")
     'Flag of Israel :IL:'
-    >>> flag.flagize("England :gb-eng: is part of the UK :GB:", subregions=True)
+    >>> flag.flagize(":gb-eng: is part of the UK :GB:", subregions=True)
     'England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧'
     >>> flag.dflagize(u"England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧", subregions=True)
     'England :gb-eng: is part of the UK :GB:'
 """
 
-__version__ = '1.1.0'
+__version__ = '1.2.0'
 __author__ = 'cuzi'
 __email__ = 'cuzi@openmail.cc'
 __source__ = 'https://github.com/cvzi/flag'
@@ -58,8 +60,56 @@ OFFSET = 127397  # = ord("🇦") - ord("A")
 OFFSET_TAG = 0xE0000
 CANCELTAG = u"\U000E007F"
 BLACKFLAG = u"\U0001F3F4"
-
+ASCII_LOWER = "abcdefghijklmnopqrstuvwxyz0123456789"
 PY2 = sys.version_info.major is 2
+
+
+def flag(countrycode):
+    """Encodes a single flag to unicode. Two letters are converted to regional
+    indicator symbols
+    Three or more letters/digits are converted to tag sequences.
+    Dashes, colons and other symbols are removed from input, only a-z, A-Z and
+    0-9 are processed.
+
+    In general a valid flag is either a two letter code from ISO 3166
+    (e.g. ``GB``), a code from ISO 3166-2 (e.g. ``GBENG``) or a numeric code
+    from ISO 3166-1.
+    However, not all codes produce valid unicode, see
+    http://unicode.org/reports/tr51/#flag-emoji-tag-sequences for more
+    information.
+    From ISO 3166-2 only England (``gbeng``), Scotland ``gbsct`` and
+    Wales ``gbwls`` are considered RGI (recommended for general interchange)
+    by the Unicode Consortium,
+    see http://www.unicode.org/Public/emoji/latest/emoji-test.txt
+
+    :param str countrycode: Two letter ISO 3166 code or a regional code
+        from ISO 3166-2.
+    :return: The unicode representation of the flag
+    :rtype: str
+    """
+
+    code = [c for c in countrycode.lower() if c in ASCII_LOWER]
+    if len(code) > 2 and len(code) < 7:
+        # Tag sequence
+        points = [ord(c) + OFFSET_TAG for c in code]
+        if PY2:
+            tags = u"\\U%08x" * len(code) % tuple(points)
+            return BLACKFLAG + tags.decode("unicode-escape") + CANCELTAG
+        else:
+            tags = "".join([chr(point) for point in points])
+            return BLACKFLAG + tags + CANCELTAG
+    elif len(code) == 2:
+        # Regional indicator symbols
+        points = [ord(c.upper()) + OFFSET for c in code]
+        if PY2:
+            return ("\\U%08x\\U%08x" % tuple(points)).decode("unicode-escape")
+        else:
+            return chr(points[0]) + chr(points[1])
+    else:
+        found = ''.join(code)
+        raise ValueError(
+            'invalid countrycode, found %d (%r) in %r.' %
+            (len(found), found, countrycode))
 
 
 def flagize(text, subregions=False):
