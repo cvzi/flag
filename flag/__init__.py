@@ -19,7 +19,7 @@ Unicode country code emoji flags for Python
     'England :gb-eng: is part of the UK :GB:'
 """
 
-__version__ = '1.2.0'
+__version__ = '1.2.1'
 __author__ = 'cuzi'
 __email__ = 'cuzi@openmail.cc'
 __source__ = 'https://github.com/cvzi/flag'
@@ -61,7 +61,7 @@ OFFSET_TAG = 0xE0000
 CANCELTAG = u"\U000E007F"
 BLACKFLAG = u"\U0001F3F4"
 ASCII_LOWER = "abcdefghijklmnopqrstuvwxyz0123456789"
-PY2 = sys.version_info.major is 2
+PY2 = sys.version_info.major == 2
 
 
 def flag(countrycode):
