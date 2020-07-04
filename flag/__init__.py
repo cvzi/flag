@@ -97,17 +97,16 @@ def flag(countrycode):
             return BLACKFLAG + tags.decode("unicode-escape") + CANCELTAG
         tags = "".join([chr(point) for point in points])
         return BLACKFLAG + tags + CANCELTAG
-    elif len(code) == 2:
+    if len(code) == 2:
         # Regional indicator symbols
         points = [ord(c.upper()) + OFFSET for c in code]
         if PY2:
             return ("\\U%08x\\U%08x" % tuple(points)).decode("unicode-escape")
         return chr(points[0]) + chr(points[1])
-    else:
-        found = ''.join(code)
-        raise ValueError(
-            'invalid countrycode, found %d (%r) in %r.' %
-            (len(found), found, countrycode))
+    found = ''.join(code)
+    raise ValueError(
+        'invalid countrycode, found %d (%r) in %r.' %
+        (len(found), found, countrycode))
 
 
 def flagize(text, subregions=False):
