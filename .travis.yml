@@ -21,7 +21,7 @@ script:
   - nosetests
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.8' ]]; then coverage run -a tests/test_*.py; fi
 # must be last (coverage will not track an installed module)
-  - python setup.py install 
+  - python setup.py install
 after_success:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.8' ]]; then coveralls; fi
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.8' ]]; then coverage xml; fi

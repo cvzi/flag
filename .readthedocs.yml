@@ -1,4 +1,4 @@
 ﻿# .readthedocs.yml
 
-# Don't build any extra formats, because the fail with unicode flag symbols 
+# Don't build any extra formats, because the fail with unicode flag symbols
 formats: []
