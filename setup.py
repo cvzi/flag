@@ -16,6 +16,7 @@ with io.open(os.path.join("flag", "__init__.py"), encoding="utf-8") as f:
 setuptools.setup(
     name="emoji-country-flag",
     version=version,
+    license="MIT",
     author="cuzi",
     author_email="cuzi@openmail.cc",
     description="En/Decode unicode country flags emoji",
