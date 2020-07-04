@@ -95,16 +95,14 @@ def flag(countrycode):
         if PY2:
             tags = u"\\U%08x" * len(code) % tuple(points)
             return BLACKFLAG + tags.decode("unicode-escape") + CANCELTAG
-        else:
-            tags = "".join([chr(point) for point in points])
-            return BLACKFLAG + tags + CANCELTAG
+        tags = "".join([chr(point) for point in points])
+        return BLACKFLAG + tags + CANCELTAG
     elif len(code) == 2:
         # Regional indicator symbols
         points = [ord(c.upper()) + OFFSET for c in code]
         if PY2:
             return ("\\U%08x\\U%08x" % tuple(points)).decode("unicode-escape")
-        else:
-            return chr(points[0]) + chr(points[1])
+        return chr(points[0]) + chr(points[1])
     else:
         found = ''.join(code)
         raise ValueError(
@@ -157,8 +155,7 @@ def dflagize(text, subregions=False):
     """
     if PY2:
         return dflagize_py2(text, subregions)
-    else:
-        return dflagize_py3(text, subregions)
+    return dflagize_py3(text, subregions)
 
 
 def dflagize_py3(text, subregions=False):
@@ -246,8 +243,7 @@ def dflagize_subregional(text):
     """
     if PY2:
         return dflagize_subregional_py2(text)
-    else:
-        return dflagize_subregional_py3(text)
+    return dflagize_subregional_py3(text)
 
 
 def dflagize_subregional_py3(text):
