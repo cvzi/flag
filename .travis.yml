@@ -7,22 +7,23 @@ python:
   - 3.6
   - 3.7
   - 3.8
+  - 3.9
   - pypy3.5
 # command to install dependencies
 install:
   - pip install -r tests/requirements.txt
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.8' ]]; then pip install python-coveralls; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.8' ]]; then pip install coverage; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.8' ]]; then pip install codacy-coverage; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.9' ]]; then pip install python-coveralls; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.9' ]]; then pip install coverage; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.9' ]]; then pip install codacy-coverage; fi
 # command to run tests
 script:
   - python setup.py test
   - pytest
   - nosetests
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.8' ]]; then coverage run -a tests/test_*.py; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.9' ]]; then coverage run -a tests/test_*.py; fi
 # must be last (coverage will not track an installed module)
   - python setup.py install
 after_success:
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.8' ]]; then coveralls; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.8' ]]; then coverage xml; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.8' ]]; then python-codacy-coverage -r coverage.xml; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.9' ]]; then coveralls; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.9' ]]; then coverage xml; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' || $TRAVIS_PYTHON_VERSION == '3.9' ]]; then python-codacy-coverage -r coverage.xml; fi
