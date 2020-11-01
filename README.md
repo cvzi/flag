@@ -4,7 +4,7 @@ flag
 [![foodemoji on PyPI](https://img.shields.io/pypi/v/emoji-country-flag.svg)](https://pypi.python.org/pypi/emoji-country-flag)
 [![Python Versions](https://img.shields.io/pypi/pyversions/emoji-country-flag.svg)](https://pypi.python.org/pypi/emoji-country-flag)
 [![Coverage Status](https://coveralls.io/repos/github/cvzi/flag/badge.svg?branch=master)](https://coveralls.io/github/cvzi/flag?branch=master)
-[![Build Status](https://travis-ci.org/cvzi/flag.svg?branch=master)](https://travis-ci.org/cvzi/flag)
+[![Build Status](https://travis-ci.com/cvzi/flag.svg?branch=master)](https://travis-ci.com/cvzi/flag)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e897c2f701ee44f5aa36457d0ab1a84a)](https://app.codacy.com/app/cvzi/flag?utm_source=github.com&utm_medium=referral&utm_content=cvzi/flag&utm_campaign=Badge_Grade_Dashboard)
 [![Maintainability](https://api.codeclimate.com/v1/badges/cf1f88720896db4d1b0a/maintainability)](https://codeclimate.com/github/cvzi/flag/maintainability)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cvzi_flag&metric=alert_status)](https://sonarcloud.io/dashboard?id=cvzi_flag)
