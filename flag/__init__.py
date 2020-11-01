@@ -91,22 +91,43 @@ def flag(countrycode):
     code = [c for c in countrycode.lower() if c in ASCII_LOWER]
     if len(code) > 2 and len(code) < 7:
         # Tag sequence
-        points = [ord(c) + OFFSET_TAG for c in code]
-        if PY2:
-            tags = u"\\U%08x" * len(code) % tuple(points)
-            return BLACKFLAG + tags.decode("unicode-escape") + CANCELTAG
-        tags = "".join([chr(point) for point in points])
-        return BLACKFLAG + tags + CANCELTAG
+        return flag_tag_sequence(code)
     if len(code) == 2:
         # Regional indicator symbols
-        points = [ord(c.upper()) + OFFSET for c in code]
-        if PY2:
-            return ("\\U%08x\\U%08x" % tuple(points)).decode("unicode-escape")
-        return chr(points[0]) + chr(points[1])
+        return flag_regional_indicator(code)
     found = ''.join(code)
     raise ValueError(
         'invalid countrycode, found %d (%r) in %r.' %
         (len(found), found, countrycode))
+
+
+def flag_regional_indicator(code):
+    """Two letters are converted to regional indicator symbols
+
+    :param str code: two letter ISO 3166 code
+    :return: regional indicator symbols of the country flag
+    :rtype: str
+    """
+
+    points = [ord(c.upper()) + OFFSET for c in code]
+    if PY2:
+        return ("\\U%08x\\U%08x" % tuple(points)).decode("unicode-escape")
+    return chr(points[0]) + chr(points[1])
+
+
+def flag_tag_sequence(code):
+    """Three to seven letters/digits are converted to  a tag sequence.
+
+    :param str code: regional code from ISO 3166-2.
+    :return: The unicode tag sequence of the subregional flag
+    :rtype: str
+    """
+    points = [ord(c.lower()) + OFFSET_TAG for c in code]
+    if PY2:
+        tags = u"\\U%08x" * len(code) % tuple(points)
+        return BLACKFLAG + tags.decode("unicode-escape") + CANCELTAG
+    tags = "".join([chr(point) for point in points])
+    return BLACKFLAG + tags + CANCELTAG
 
 
 def flagize(text, subregions=False):
@@ -116,22 +137,13 @@ def flagize(text, subregions=False):
     :param str text: The text
     :param bool subregions: Also replace subregional/subdivision codes
         ``:xx-xxx:`` with unicode flags (flag emoji tag sequences).
-    :return: The text with all occurrences of ``:XX:`` replaced by unicode flags
+    :return: The text with all occurrences of ``:XX:`` replaced by unicode
+        flags
     :rtype: str
     """
 
-    if PY2:
-        def flag(code):
-            points = [ord(x) + OFFSET for x in code.upper()]
-            return ("\\U%08x\\U%08x" % tuple(points)).decode("unicode-escape")
-
-    else:
-        def flag(code):
-            chars = [chr(ord(c) + OFFSET) for c in code.upper()]
-            return chars[0] + chars[1]
-
     def flag_repl(matchobj):
-        return flag(matchobj.group(1))
+        return flag_regional_indicator(matchobj.group(1))
 
     text = re.sub(":([a-zA-Z]{2}):", flag_repl, text)
 
@@ -204,18 +216,9 @@ def flagize_subregional(text):
         unicode flags
     :rtype: str
     """
-    if PY2:
-        def flag(code):
-            points = [ord(x) + OFFSET_TAG for x in code.lower()]
-            tags = u"\\U%08x" * len(points) % tuple(points)
-            return BLACKFLAG + tags.decode("unicode-escape") + CANCELTAG
-    else:
-        def flag(code):
-            tags = "".join([chr(ord(c) + OFFSET_TAG) for c in code.lower()])
-            return BLACKFLAG + tags + CANCELTAG
 
     def flag_repl(matchobj):
-        return flag(matchobj.group(1) + matchobj.group(2))
+        return flag_tag_sequence(matchobj.group(1) + matchobj.group(2))
 
     # Enforces a hyphen after two chars, allows both:
     # - The natural 2-letter unicode_region_subtag and subdivision_suffix like
