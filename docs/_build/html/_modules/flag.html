@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,29 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
@@ -48,7 +49,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> flag
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> flag
           
 
           
@@ -71,6 +72,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -83,6 +85,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -121,7 +124,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="index.html">Module code</a> &raquo;</li>
         
@@ -162,7 +165,7 @@
 <span class="sd">    &#39;England :gb-eng: is part of the UK :GB:&#39;</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.2.0&#39;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.2.3&#39;</span>
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;cuzi&#39;</span>
 <span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;cuzi@openmail.cc&#39;</span>
 <span class="n">__source__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/cvzi/flag&#39;</span>
@@ -204,7 +207,7 @@
 <span class="n">CANCELTAG</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\U000E007F</span><span class="s2">&quot;</span>
 <span class="n">BLACKFLAG</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\U0001F3F4</span><span class="s2">&quot;</span>
 <span class="n">ASCII_LOWER</span> <span class="o">=</span> <span class="s2">&quot;abcdefghijklmnopqrstuvwxyz0123456789&quot;</span>
-<span class="n">PY2</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="ow">is</span> <span class="mi">2</span>
+<span class="n">PY2</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">2</span>
 
 
 <div class="viewcode-block" id="flag"><a class="viewcode-back" href="../index.html#flag.flag">[docs]</a><span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">):</span>
@@ -232,27 +235,45 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">code</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countrycode</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ASCII_LOWER</span><span class="p">]</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
-        <span class="c1"># Tag sequence</span>
-        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">+</span> <span class="n">OFFSET_TAG</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">code</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
-            <span class="n">tags</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">U</span><span class="si">%08x</span><span class="s2">&quot;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">BLACKFLAG</span> <span class="o">+</span> <span class="n">tags</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">CANCELTAG</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">tags</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">])</span>
-            <span class="k">return</span> <span class="n">BLACKFLAG</span> <span class="o">+</span> <span class="n">tags</span> <span class="o">+</span> <span class="n">CANCELTAG</span>
-    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
         <span class="c1"># Regional indicator symbols</span>
-        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="o">+</span> <span class="n">OFFSET</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">code</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">U</span><span class="si">%08x</span><span class="se">\\</span><span class="s2">U</span><span class="si">%08x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">points</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">chr</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">found</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s1">&#39;invalid countrycode, found </span><span class="si">%d</span><span class="s1"> (</span><span class="si">%r</span><span class="s1">) in </span><span class="si">%r</span><span class="s1">.&#39;</span> <span class="o">%</span>
-            <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">found</span><span class="p">),</span> <span class="n">found</span><span class="p">,</span> <span class="n">countrycode</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="n">flag_regional_indicator</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="c1"># Tag sequence</span>
+        <span class="k">return</span> <span class="n">flag_tag_sequence</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="s1">&#39;invalid countrycode, found </span><span class="si">%d</span><span class="s1"> (</span><span class="si">%r</span><span class="s1">) in </span><span class="si">%r</span><span class="s1">.&#39;</span> <span class="o">%</span>
+        <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">found</span><span class="p">),</span> <span class="n">found</span><span class="p">,</span> <span class="n">countrycode</span><span class="p">))</span></div>
+
+
+<span class="k">def</span> <span class="nf">flag_regional_indicator</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Two letters are converted to regional indicator symbols</span>
+
+<span class="sd">    :param str code: two letter ISO 3166 code</span>
+<span class="sd">    :return: regional indicator symbols of the country flag</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="o">+</span> <span class="n">OFFSET</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">code</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">U</span><span class="si">%08x</span><span class="se">\\</span><span class="s2">U</span><span class="si">%08x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">points</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">chr</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">flag_tag_sequence</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Three to seven letters/digits are converted to  a tag sequence.</span>
+
+<span class="sd">    :param str code: regional code from ISO 3166-2.</span>
+<span class="sd">    :return: The unicode tag sequence of the subregional flag</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="o">+</span> <span class="n">OFFSET_TAG</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">code</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">U</span><span class="si">%08x</span><span class="s2">&quot;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">BLACKFLAG</span> <span class="o">+</span> <span class="n">tags</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">CANCELTAG</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">BLACKFLAG</span> <span class="o">+</span> <span class="n">tags</span> <span class="o">+</span> <span class="n">CANCELTAG</span>
 
 
 <div class="viewcode-block" id="flagize"><a class="viewcode-back" href="../index.html#flag.flagize">[docs]</a><span class="k">def</span> <span class="nf">flagize</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -262,22 +283,13 @@
 <span class="sd">    :param str text: The text</span>
 <span class="sd">    :param bool subregions: Also replace subregional/subdivision codes</span>
 <span class="sd">        ``:xx-xxx:`` with unicode flags (flag emoji tag sequences).</span>
-<span class="sd">    :return: The text with all occurrences of ``:XX:`` replaced by unicode flags</span>
+<span class="sd">    :return: The text with all occurrences of ``:XX:`` replaced by unicode</span>
+<span class="sd">        flags</span>
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
-        <span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
-            <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">OFFSET</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">code</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
-            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">U</span><span class="si">%08x</span><span class="se">\\</span><span class="s2">U</span><span class="si">%08x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">points</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span>
-
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
-            <span class="n">chars</span> <span class="o">=</span> <span class="p">[</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">+</span> <span class="n">OFFSET</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">code</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
-            <span class="k">return</span> <span class="n">chars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">chars</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
     <span class="k">def</span> <span class="nf">flag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">flag</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">flag_regional_indicator</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 
     <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;:([a-zA-Z]</span><span class="si">{2}</span><span class="s2">):&quot;</span><span class="p">,</span> <span class="n">flag_repl</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
 
@@ -300,8 +312,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dflagize_py2</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">dflagize_py3</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">dflagize_py3</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">dflagize_py3</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -351,18 +362,9 @@
 <span class="sd">        unicode flags</span>
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
-        <span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
-            <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">OFFSET_TAG</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">code</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
-            <span class="n">tags</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">U</span><span class="si">%08x</span><span class="s2">&quot;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">points</span><span class="p">)</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">BLACKFLAG</span> <span class="o">+</span> <span class="n">tags</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">CANCELTAG</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
-            <span class="n">tags</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">+</span> <span class="n">OFFSET_TAG</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">code</span><span class="o">.</span><span class="n">lower</span><span class="p">()])</span>
-            <span class="k">return</span> <span class="n">BLACKFLAG</span> <span class="o">+</span> <span class="n">tags</span> <span class="o">+</span> <span class="n">CANCELTAG</span>
 
     <span class="k">def</span> <span class="nf">flag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">flag</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">flag_tag_sequence</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
 
     <span class="c1"># Enforces a hyphen after two chars, allows both:</span>
     <span class="c1"># - The natural 2-letter unicode_region_subtag and subdivision_suffix like</span>
@@ -389,8 +391,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dflagize_subregional_py2</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">dflagize_subregional_py3</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">dflagize_subregional_py3</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">dflagize_subregional_py3</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
@@ -466,7 +467,14 @@
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -477,7 +485,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
