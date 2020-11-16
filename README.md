@@ -38,7 +38,7 @@ Example
     '🇮🇱'
     
     >>> flag.flag("GBENG")
-    '🏴󠁧󠁢󠁥󠁮󠁧󠁿 '
+    '🏴󠁧󠁢󠁥󠁮󠁧󠁿'
     
     >>> flag.flagize("Flag of Israel :IL:")
     'Flag of Israel 🇮🇱'
