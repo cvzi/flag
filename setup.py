@@ -25,8 +25,13 @@ setuptools.setup(
     url="https://flag.readthedocs.io/",
     packages=["flag"],
     zip_safe=True,
-    test_suite="nose.collector",
-    tests_require=["emoji", "nose"],
+    extras_require={
+        "test": [
+            "pytest",
+            "emoji",
+            "setuptools"
+        ],
+    },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python",
