@@ -1,5 +1,6 @@
 [run]
 source = flag
+relative_files = True
 
 [report]
 exclude_lines =
