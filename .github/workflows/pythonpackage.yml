@@ -55,6 +55,8 @@ jobs:
       run: |
         coverage xml
         python-codacy-coverage -r coverage.xml
+      env:
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
