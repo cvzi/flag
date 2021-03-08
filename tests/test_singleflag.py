@@ -2,7 +2,6 @@
 
 
 import sys
-import distutils.version
 
 try:
     import flag

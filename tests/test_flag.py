@@ -2,7 +2,6 @@
 
 
 import sys
-import distutils.version
 
 try:
     import flag
@@ -16,8 +15,6 @@ except ImportError:
 
 
 import emoji
-if distutils.version.StrictVersion(emoji.__version__) < distutils.version.StrictVersion('0.5.0'): # pragma: nocover
-    raise ImportError("emoji module version < 0.5.0", "Module/Package `emoji` is version %s, it needs to be at least version 0.5.0" % emoji.__version__) # pragma: nocover
 
 
 allcodes = {
