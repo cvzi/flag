@@ -48,13 +48,13 @@ jobs:
         pip install -r tests/requirements.txt
         pip install coverage
         pip install codacy-coverage
-     - name: Generate coverage
-       run: |
-         coverage run -a tests/test_*.py
-     - name: Submit codacy
-       run: |
-         coverage xml
-         python-codacy-coverage -r coverage.xml
+    - name: Generate coverage
+      run: |
+        coverage run -a tests/test_*.py
+    - name: Submit codacy
+      run: |
+        coverage xml
+        python-codacy-coverage -r coverage.xml
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
