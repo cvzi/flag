@@ -50,7 +50,10 @@ jobs:
         pip install codacy-coverage
     - name: Generate coverage
       run: |
-        coverage run -a tests/test_*.py
+        coverage run -a tests/test_all_subregions.py
+        coverage run -a tests/test_flag.py
+        coverage run -a tests/test_singleflag.py
+        coverage run -a tests/test_subregional.py
     - name: Submit codacy
       run: |
         coverage xml
