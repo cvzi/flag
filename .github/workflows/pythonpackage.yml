@@ -85,7 +85,6 @@ jobs:
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.test.exclusions=tests/**
           -Dsonar.tests=tests/
-          -Dsonar.verbose=true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
