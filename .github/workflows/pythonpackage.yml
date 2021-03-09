@@ -38,6 +38,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        # 0 indicates all history for all branches and tags
+        fetch-depth: 0
     - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
@@ -69,3 +73,19 @@ jobs:
     - name: Codecov
       uses: codecov/codecov-action@v1
       continue-on-error: true
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1.5
+      continue-on-error: true
+      with:
+        args: >
+          -Dsonar.organization=cvzi-github
+          -Dsonar.projectKey=cvzi_flag
+          -Dsonar.python.coverage.reportPaths=coverage.xml
+          -Dsonar.sources=flag
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.test.exclusions=tests/**
+          -Dsonar.tests=tests/
+          -Dsonar.verbose=true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
