@@ -34,13 +34,13 @@ Example
     >>> flag.flagize("Flag of Israel :IL:")
     'Flag of Israel 🇮🇱'
 
-    >>> flag.dflagize(u"Flag of Israel 🇮🇱")
+    >>> flag.dflagize("Flag of Israel 🇮🇱")
     'Flag of Israel :IL:'
 
     >>> flag.flagize("England :gb-eng: is part of the UK :GB:", subregions=True)
     'England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧'
 
-    >>> flag.dflagize(u"England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧", subregions=True)
+    >>> flag.dflagize("England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧", subregions=True)
     'England :gb-eng: is part of the UK :GB:'
 
 Install

@@ -11,11 +11,11 @@ Unicode country code emoji flags for Python
     '🇮🇱'
     >>> flag.flagize("Flag of Israel :IL:")
     'Flag of Israel 🇮🇱'
-    >>> flag.dflagize(u"Flag of Israel 🇮🇱")
+    >>> flag.dflagize("Flag of Israel 🇮🇱")
     'Flag of Israel :IL:'
     >>> flag.flagize(":gb-eng: is part of the UK :GB:", subregions=True)
     'England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧'
-    >>> flag.dflagize(u"England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧", subregions=True)
+    >>> flag.dflagize("England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧", subregions=True)
     'England :gb-eng: is part of the UK :GB:'
 """
 
@@ -58,8 +58,8 @@ import re
 
 OFFSET = 127397  # = ord("🇦") - ord("A")
 OFFSET_TAG = 0xE0000
-CANCELTAG = u"\U000E007F"
-BLACKFLAG = u"\U0001F3F4"
+CANCELTAG = "\U000E007F"
+BLACKFLAG = "\U0001F3F4"
 ASCII_LOWER = "abcdefghijklmnopqrstuvwxyz0123456789"
 
 
@@ -165,7 +165,7 @@ def dflagize(text, subregions=False):
     def dflag_repl(matchobj):
         return dflag(matchobj.group(0))
 
-    regex = re.compile(u"([\U0001F1E6-\U0001F1FF]{2})", flags=re.UNICODE)
+    regex = re.compile("([\U0001F1E6-\U0001F1FF]{2})", flags=re.UNICODE)
 
     text = regex.sub(dflag_repl, text)
 
@@ -222,7 +222,7 @@ def dflagize_subregional(text):
 
     regex = re.compile(
         BLACKFLAG +
-        u"([\U000E0030-\U000E0039\U000E0061-\U000E007A]{3,6})" +
+        "([\U000E0030-\U000E0039\U000E0061-\U000E007A]{3,6})" +
         CANCELTAG,
         flags=re.UNICODE)
     text = regex.sub(dflag_repl, text)
