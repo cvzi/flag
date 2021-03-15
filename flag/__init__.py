@@ -48,6 +48,7 @@ SOFTWARE.
 """
 
 __all__ = [
+    "flag",
     "flagize",
     "dflagize",
     "flagize_subregional",
