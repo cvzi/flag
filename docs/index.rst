@@ -34,13 +34,13 @@ Example
     >>> flag.flagize("Flag of Israel :IL:")
     'Flag of Israel 🇮🇱'
 
-    >>> flag.dflagize(u"Flag of Israel 🇮🇱")
+    >>> flag.dflagize("Flag of Israel 🇮🇱")
     'Flag of Israel :IL:'
 
     >>> flag.flagize("England :gb-eng: is part of the UK :GB:", subregions=True)
     'England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧'
 
-    >>> flag.dflagize(u"England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧", subregions=True)
+    >>> flag.dflagize("England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧", subregions=True)
     'England :gb-eng: is part of the UK :GB:'
 
 Install
@@ -73,9 +73,9 @@ Alone they look like this:
 🇦 🇧 🇨 🇩 🇪 🇫 🇬 🇭 🇮 🇯 🇰 🇱 🇲 🇳 🇴 🇵 🇶 🇷 🇸 🇹 🇺 🇻 🇼 🇽 🇾 🇿
 
 If you pair them up according to ISO 3166 some browsers and phones will display a flag.  
-For example CZ is Czechia: 🇨 + 🇿 = 🇨🇿
+For example TW is Taiwan: 🇹 + 🇼 = 🇹🇼
 
-So, to encode an ASCII code like ``:NR:`` to 🇳🇷, we just need to convert the ASCII **N** and **R** to the corresponding regional indicator symbols 🇳 and 🇷.
+So, to encode an ASCII code like ``:TW:`` to 🇹🇼, we just need to convert the ASCII **T** and **R** to the corresponding regional indicator symbols 🇹 and 🇼.
 To reverse it, we translate the regional indicator symbols back to ASCII letters.
 
 `How do subregional flags work? <How subregional flags work_>`_

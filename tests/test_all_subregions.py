@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 
 import sys
-import distutils.version
 
 try:
     import flag
