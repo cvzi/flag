@@ -3,7 +3,11 @@ import os
 import io
 
 with io.open("README.md", encoding="utf-8") as f:
-    long_description = f.read().strip()
+    long_description = []
+    for line in f:
+        if not line.strip().startswith("[!["):
+            long_description.append(line)
+    long_description = "".join(long_description).strip()
 
 version = None
 with io.open(os.path.join("flag", "__init__.py"), encoding="utf-8") as f:
