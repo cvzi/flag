@@ -56,7 +56,7 @@ __all__ = [
 import sys
 import re
 
-OFFSET = 127397  # = ord("🇦") - ord("A")
+OFFSET = ord("🇦") - ord("A")
 OFFSET_TAG = 0xE0000
 CANCELTAG = "\U000E007F"
 BLACKFLAG = "\U0001F3F4"
