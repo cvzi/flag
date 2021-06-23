@@ -88,6 +88,9 @@ Functions
 .. autofunction:: dflagize
 .. autofunction:: flagize_subregional
 .. autofunction:: dflagize_subregional
+.. autoclass:: Flag
+   :special-members: __init__
+   :members: flagize, dflagize, flagize_subregional, dflagize_subregional
 
 Supported emojis and patterns
 =============================
