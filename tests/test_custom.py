@@ -15,8 +15,10 @@ except ImportError:
 
 
 def test_custom_simple():
-    for a, b in [("🇧", "🇧"), ("🇩🇪", "🇩🇪"), ("DE", "DE"), ("A", "B"), ("1", "2"), ("#", "#"), (".", "."), ("0", "123"), ("\U0001F3F4", "\U0001F3F4")]:
+    for a, b in [("🇧", "🇧"), ("🇩🇪", "🇩🇪"), ("DE", "DE"), ("A", "B"), ("1", "2"), ("#", "#"), (".", "."), ("-", "z"), ("0", "123"), ("\U0001F3F4", "\U0001F3F4")]:
         f = flag.Flag(a, b, warn=False)
+
+        assert f.flag(":il-") == "🇮🇱"
 
         assert "🇩🇪" == f.flagize("%sDE%s" % (a, b))
 
@@ -68,6 +70,15 @@ def test_warnings():
         assert issubclass(w[-1].category, UserWarning)
         assert "subregional" in str(w[-1].message)
 
+        f = flag.Flag(*args)
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            f.flagize_subregional("️🇮🇱")
+
+        assert len(w) == 1
+        assert issubclass(w[-1].category, UserWarning)
+        assert "subregional" in str(w[-1].message)
+
     for args in [("", "-"), ("", "b"), ("", "012"), ("", "AbC")]:
         f = flag.Flag(*args)
         with warnings.catch_warnings(record=True) as w:
@@ -75,7 +86,8 @@ def test_warnings():
             f.flagize("️🇮🇱", subregions=True)
             f.flagize("️🇮🇱", subregions=True)
             f.flagize("️🇮🇱", subregions=True)
-            f.flagize("️🇮🇱", subregions=True)
+            f.flagize_subregional("️🇮🇱")
+            f.flagize_subregional("️🇮🇱")
 
         assert len(w) == 2
         assert issubclass(w[-1].category, UserWarning)
