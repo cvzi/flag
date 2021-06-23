@@ -37,6 +37,12 @@ setuptools.setup(
             "setuptools"
         ],
     },
+    package_data={
+        "flag": [
+            "py.typed",
+            "*.pyi"
+        ],
+    },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python",
@@ -51,6 +57,7 @@ setuptools.setup(
         "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
         "Topic :: Communications :: Chat",
         "Topic :: Printing",
-        "Topic :: Text Processing :: General"
+        "Topic :: Text Processing :: General",
+        "Typing :: Typed"
     ]
 )
