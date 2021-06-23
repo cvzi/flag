@@ -58,6 +58,8 @@ jobs:
         coverage run -a tests/test_flag.py
         coverage run -a tests/test_singleflag.py
         coverage run -a tests/test_subregional.py
+        coverage run -a tests/test_module.py
+        coverage run -a tests/test_custom.py
     - name: Submit codacy
       run: |
         coverage xml
