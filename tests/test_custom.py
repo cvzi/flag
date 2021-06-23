@@ -19,6 +19,7 @@ def test_custom_simple():
         f = flag.Flag(a, b, warn=False)
 
         assert f.flag(":il-") == "🇮🇱"
+        assert flag.Flag.flag(":il-") == "🇮🇱"
 
         assert "🇩🇪" == f.flagize("%sDE%s" % (a, b))
 
