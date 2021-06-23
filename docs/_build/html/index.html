@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>flag &mdash; flag  documentation</title>
   
@@ -13,10 +13,15 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
+
   
+  
+
   
 
   
@@ -26,10 +31,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -49,7 +54,7 @@
           
 
           
-            <a href="#" class="icon icon-home" alt="Documentation Home"> flag
+            <a href="#" class="icon icon-home"> flag
           
 
           
@@ -136,6 +141,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -147,7 +154,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -219,8 +226,8 @@ To reverse it, we translate the regional indicator symbols back to ASCII letters
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt id="flag.flag">
-<code class="sig-prename descclassname">flag.</code><code class="sig-name descname">flag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">countrycode</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/flag.html#flag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.flag" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="flag.flag">
+<span class="sig-prename descclassname"><span class="pre">flag.</span></span><span class="sig-name descname"><span class="pre">flag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">countrycode</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="_modules/flag.html#flag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flag.flag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encodes a single flag to unicode. Two letters are converted to regional
 indicator symbols
 Three or more letters/digits are converted to tag sequences.
@@ -251,8 +258,8 @@ from ISO 3166-2.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="flag.flagize">
-<code class="sig-prename descclassname">flag.</code><code class="sig-name descname">flagize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">subregions</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/flag.html#flagize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.flagize" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="flag.flagize">
+<span class="sig-prename descclassname"><span class="pre">flag.</span></span><span class="sig-name descname"><span class="pre">flagize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subregions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="_modules/flag.html#flagize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flag.flagize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode flags. Replace all two letter codes <code class="docutils literal notranslate"><span class="pre">:XX:</span></code> with unicode flags
 (emoji flag sequences)</p>
 <dl class="field-list simple">
@@ -274,8 +281,8 @@ flags</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="flag.dflagize">
-<code class="sig-prename descclassname">flag.</code><code class="sig-name descname">dflagize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">subregions</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/flag.html#dflagize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.dflagize" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="flag.dflagize">
+<span class="sig-prename descclassname"><span class="pre">flag.</span></span><span class="sig-name descname"><span class="pre">dflagize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subregions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="_modules/flag.html#dflagize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flag.dflagize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decode flags. Replace all unicode country flags (emoji flag sequences)
 in text with ascii two letter code <code class="docutils literal notranslate"><span class="pre">:XX:</span></code></p>
 <dl class="field-list simple">
@@ -297,8 +304,8 @@ sequence <code class="docutils literal notranslate"><span class="pre">:XX:</span
 </dd></dl>
 
 <dl class="py function">
-<dt id="flag.flagize_subregional">
-<code class="sig-prename descclassname">flag.</code><code class="sig-name descname">flagize_subregional</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/flag.html#flagize_subregional"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.flagize_subregional" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="flag.flagize_subregional">
+<span class="sig-prename descclassname"><span class="pre">flag.</span></span><span class="sig-name descname"><span class="pre">flagize_subregional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="_modules/flag.html#flagize_subregional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flag.flagize_subregional" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode subregional/subdivision flags. Replace all regional codes
 <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code> with unicode flags (flag emoji tag sequences)</p>
 <dl class="field-list simple">
@@ -316,8 +323,8 @@ unicode flags</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="flag.dflagize_subregional">
-<code class="sig-prename descclassname">flag.</code><code class="sig-name descname">dflagize_subregional</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/flag.html#dflagize_subregional"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.dflagize_subregional" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="flag.dflagize_subregional">
+<span class="sig-prename descclassname"><span class="pre">flag.</span></span><span class="sig-name descname"><span class="pre">dflagize_subregional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="_modules/flag.html#dflagize_subregional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flag.dflagize_subregional" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decode subregional/subdivision flags. Replace all unicode regional
 flags (flag emoji tag sequences) in text with their ascii
 code <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</span></code></p>
@@ -336,13 +343,13 @@ sequence <code class="docutils literal notranslate"><span class="pre">:xx-xxx:</
 </dd></dl>
 
 <dl class="py class">
-<dt id="flag.Flag">
-<em class="property">class </em><code class="sig-prename descclassname">flag.</code><code class="sig-name descname">Flag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prefix_str</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">':'</span></em>, <em class="sig-param"><span class="n">suffix_str</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">':'</span></em>, <em class="sig-param"><span class="n">warn</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flag.html#Flag"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.Flag" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="flag.Flag">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">flag.</span></span><span class="sig-name descname"><span class="pre">Flag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">':'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">':'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flag.html#Flag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flag.Flag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use this class if you want a different prefix and suffix instead
 of colons. Offers the same methods as the module.</p>
 <dl class="py method">
-<dt id="flag.Flag.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prefix_str</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">':'</span></em>, <em class="sig-param"><span class="n">suffix_str</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">':'</span></em>, <em class="sig-param"><span class="n">warn</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/flag.html#Flag.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.Flag.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="flag.Flag.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">':'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix_str</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">':'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warn</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="_modules/flag.html#Flag.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flag.Flag.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a custom prefix and suffix. Instead of <code class="docutils literal notranslate"><span class="pre">:XY:</span></code> it will
 use <code class="docutils literal notranslate"><span class="pre">{prefix}XY{suffix}</span></code>.</p>
 <p>To encode subregional flags, use a suffix that is either longer
@@ -359,8 +366,8 @@ does not start with a - (minus).</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="flag.Flag.dflagize">
-<code class="sig-name descname">dflagize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">subregions</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/flag.html#Flag.dflagize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.Flag.dflagize" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="flag.Flag.dflagize">
+<span class="sig-name descname"><span class="pre">dflagize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subregions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="_modules/flag.html#Flag.dflagize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flag.Flag.dflagize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decode flags. Replace all unicode country flags (emoji flag
 sequences) in text with ascii two letter code <code class="docutils literal notranslate"><span class="pre">{prefix}XX{suffix}</span></code></p>
 <dl class="field-list simple">
@@ -382,8 +389,8 @@ sequence <code class="docutils literal notranslate"><span class="pre">{prefix}XX
 </dd></dl>
 
 <dl class="py method">
-<dt id="flag.Flag.dflagize_subregional">
-<code class="sig-name descname">dflagize_subregional</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/flag.html#Flag.dflagize_subregional"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.Flag.dflagize_subregional" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="flag.Flag.dflagize_subregional">
+<span class="sig-name descname"><span class="pre">dflagize_subregional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="_modules/flag.html#Flag.dflagize_subregional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flag.Flag.dflagize_subregional" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decode subregional/subdivision flags. Replace all unicode regional
 flags (flag emoji tag sequences) in text with their ascii
 code <code class="docutils literal notranslate"><span class="pre">{prefix}xx-xxx{suffix}</span></code></p>
@@ -402,8 +409,8 @@ sequence <code class="docutils literal notranslate"><span class="pre">{prefix}xx
 </dd></dl>
 
 <dl class="py method">
-<dt id="flag.Flag.flagize">
-<code class="sig-name descname">flagize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">subregions</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/flag.html#Flag.flagize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.Flag.flagize" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="flag.Flag.flagize">
+<span class="sig-name descname"><span class="pre">flagize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subregions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="_modules/flag.html#Flag.flagize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flag.Flag.flagize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode flags. Replace all two letter codes <code class="docutils literal notranslate"><span class="pre">{prefix}XX{suffix}</span></code> with unicode
 flags (emoji flag sequences)</p>
 <p>For this method the suffix should not contain
@@ -427,8 +434,8 @@ flags</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="flag.Flag.flagize_subregional">
-<code class="sig-name descname">flagize_subregional</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/flag.html#Flag.flagize_subregional"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#flag.Flag.flagize_subregional" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="flag.Flag.flagize_subregional">
+<span class="sig-name descname"><span class="pre">flagize_subregional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="reference internal" href="_modules/flag.html#Flag.flagize_subregional"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flag.Flag.flagize_subregional" title="Permalink to this definition">¶</a></dt>
 <dd><p>Encode subregional/subdivision flags. Replace all regional codes
 <code class="docutils literal notranslate"><span class="pre">{prefix}xx-xxx{suffix}</span></code> with unicode flags (flag emoji tag sequences)</p>
 <p>For this method the suffix should not contain
@@ -1339,7 +1346,6 @@ So, if the particular flag is not supported or if tag flags are not supported at
            
           </div>
           <footer>
-  
 
   <hr/>
 
@@ -1351,14 +1357,13 @@ So, if the particular flag is not supported or if tag flags are not supported at
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
