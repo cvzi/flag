@@ -157,19 +157,23 @@
 <span class="sd">    &#39;🇮🇱&#39;</span>
 <span class="sd">    &gt;&gt;&gt; flag.flagize(&quot;Flag of Israel :IL:&quot;)</span>
 <span class="sd">    &#39;Flag of Israel 🇮🇱&#39;</span>
-<span class="sd">    &gt;&gt;&gt; flag.dflagize(u&quot;Flag of Israel 🇮🇱&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; flag.dflagize(&quot;Flag of Israel 🇮🇱&quot;)</span>
 <span class="sd">    &#39;Flag of Israel :IL:&#39;</span>
 <span class="sd">    &gt;&gt;&gt; flag.flagize(&quot;:gb-eng: is part of the UK :GB:&quot;, subregions=True)</span>
 <span class="sd">    &#39;England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧&#39;</span>
-<span class="sd">    &gt;&gt;&gt; flag.dflagize(u&quot;England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧&quot;, subregions=True)</span>
+<span class="sd">    &gt;&gt;&gt; flag.dflagize(&quot;England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧&quot;, subregions=True)</span>
 <span class="sd">    &#39;England :gb-eng: is part of the UK :GB:&#39;</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">__version__</span> <span class="o">=</span> <span class="s1">&#39;1.2.3&#39;</span>
-<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;cuzi&#39;</span>
-<span class="n">__email__</span> <span class="o">=</span> <span class="s1">&#39;cuzi@openmail.cc&#39;</span>
-<span class="n">__source__</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/cvzi/flag&#39;</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;1.2.4&#39;</span>
+<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;cuzi&#39;</span>
+<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;cuzi@openmail.cc&#39;</span>
+<span class="n">__source__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/cvzi/flag&#39;</span>
+<span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">MIT License</span>
 
 <span class="s2">Copyright (c) cuzi 2018</span>
@@ -194,23 +198,259 @@
 <span class="s2">&quot;&quot;&quot;</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;flag&quot;</span><span class="p">,</span>
     <span class="s2">&quot;flagize&quot;</span><span class="p">,</span>
     <span class="s2">&quot;dflagize&quot;</span><span class="p">,</span>
     <span class="s2">&quot;flagize_subregional&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dflagize_subregional&quot;</span><span class="p">]</span>
+    <span class="s2">&quot;dflagize_subregional&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Flag&quot;</span><span class="p">]</span>
 
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">re</span>
 
-<span class="n">OFFSET</span> <span class="o">=</span> <span class="mi">127397</span>  <span class="c1"># = ord(&quot;🇦&quot;) - ord(&quot;A&quot;)</span>
+<span class="n">OFFSET</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;🇦&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
 <span class="n">OFFSET_TAG</span> <span class="o">=</span> <span class="mh">0xE0000</span>
-<span class="n">CANCELTAG</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\U000E007F</span><span class="s2">&quot;</span>
-<span class="n">BLACKFLAG</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\U0001F3F4</span><span class="s2">&quot;</span>
+<span class="n">CANCELTAG</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\U000E007F</span><span class="s2">&quot;</span>
+<span class="n">BLACKFLAG</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\U0001F3F4</span><span class="s2">&quot;</span>
 <span class="n">ASCII_LOWER</span> <span class="o">=</span> <span class="s2">&quot;abcdefghijklmnopqrstuvwxyz0123456789&quot;</span>
-<span class="n">PY2</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">2</span>
 
 
-<div class="viewcode-block" id="flag"><a class="viewcode-back" href="../index.html#flag.flag">[docs]</a><span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">check_prefix</span><span class="p">(</span><span class="n">custom_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Check if prefix will safely work with flagize and subregional flags</span>
+
+<span class="sd">    :param str custom_str: Custom prefix</span>
+<span class="sd">    :return: False if the string will safely work with subregional flags</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">custom_str</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+
+<span class="k">def</span> <span class="nf">check_suffix</span><span class="p">(</span><span class="n">custom_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Check if suffix will safely work with flagize and subregional flags</span>
+
+<span class="sd">    :param str custom_str: Custom suffix</span>
+<span class="sd">    :return: False if the string will safely work with subregional flags</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">custom_str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">custom_str</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">custom_str</span> <span class="o">=</span> <span class="n">custom_str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ASCII_LOWER</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">custom_str</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">flag_regional_indicator</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Two letters are converted to regional indicator symbols</span>
+
+<span class="sd">    :param str code: two letter ISO 3166 code</span>
+<span class="sd">    :return: regional indicator symbols of the country flag</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="o">+</span> <span class="n">OFFSET</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">code</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">flag_tag_sequence</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Three to seven letters/digits are converted to  a tag sequence.</span>
+
+<span class="sd">    :param str code: regional code from ISO 3166-2.</span>
+<span class="sd">    :return: The unicode tag sequence of the subregional flag</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">tags</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="o">+</span> <span class="n">OFFSET_TAG</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">code</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">BLACKFLAG</span> <span class="o">+</span> <span class="n">tags</span> <span class="o">+</span> <span class="n">CANCELTAG</span>
+
+
+<div class="viewcode-block" id="Flag"><a class="viewcode-back" href="../index.html#flag.Flag">[docs]</a><span class="k">class</span> <span class="nc">Flag</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Use this class if you want a different prefix and suffix instead</span>
+<span class="sd">    of colons. Offers the same methods as the module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Flag.__init__"><a class="viewcode-back" href="../index.html#flag.Flag.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span>
+                 <span class="n">suffix_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">warn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Set a custom prefix and suffix. Instead of ``:XY:`` it will</span>
+<span class="sd">        use ``{prefix}XY{suffix}``.</span>
+
+<span class="sd">        To encode subregional flags, use a suffix that is either longer</span>
+<span class="sd">        than 4 characters or that does not contain A-Z, a-z, 0-9 and</span>
+<span class="sd">        does not start with a - (minus).</span>
+
+<span class="sd">        :param str prefix_str: The leading symbols</span>
+<span class="sd">        :param str suffix_str: The trailing symbols</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span> <span class="o">=</span> <span class="n">prefix_str</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">prefix_str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_warn</span> <span class="o">=</span> <span class="n">warn</span> <span class="ow">and</span> <span class="n">check_prefix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span> <span class="o">=</span> <span class="n">suffix_str</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">suffix_str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_warn</span> <span class="o">=</span> <span class="n">warn</span> <span class="ow">and</span> <span class="n">check_suffix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Encodes a single flag to unicode. Two letters are converted to</span>
+<span class="sd">        regional indicator symbols</span>
+<span class="sd">        Three or more letters/digits are converted to tag sequences.</span>
+<span class="sd">        Dashes, colons and other symbols are removed from input, only a-z, A-Z</span>
+<span class="sd">        and 0-9 are processed.</span>
+
+<span class="sd">        In general a valid flag is either a two letter code from ISO 3166</span>
+<span class="sd">        (e.g. ``GB``), a code from ISO 3166-2 (e.g. ``GBENG``) or a numeric</span>
+<span class="sd">        code from ISO 3166-1.</span>
+<span class="sd">        However, not all codes produce valid unicode, see</span>
+<span class="sd">        http://unicode.org/reports/tr51/#flag-emoji-tag-sequences for more</span>
+<span class="sd">        information.</span>
+<span class="sd">        From ISO 3166-2 only England ``gbeng``, Scotland ``gbsct`` and</span>
+<span class="sd">        Wales ``gbwls`` are considered RGI (recommended for general</span>
+<span class="sd">        interchange) by the Unicode Consortium,</span>
+<span class="sd">        see http://www.unicode.org/Public/emoji/latest/emoji-test.txt</span>
+
+<span class="sd">        :param str countrycode: Two letter ISO 3166 code or a regional code</span>
+<span class="sd">            from ISO 3166-2.</span>
+<span class="sd">        :return: The unicode representation of the flag</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Flag.flagize"><a class="viewcode-back" href="../index.html#flag.Flag.flagize">[docs]</a>    <span class="k">def</span> <span class="nf">flagize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Encode flags. Replace all two letter codes ``{prefix}XX{suffix}`` with unicode</span>
+<span class="sd">        flags (emoji flag sequences)</span>
+
+<span class="sd">        For this method the suffix should not contain</span>
+<span class="sd">        A-Z, a-z or 0-9 and not start with a - (minus).</span>
+
+<span class="sd">        :param str text: The text</span>
+<span class="sd">        :param bool subregions: Also replace subregional/subdivision codes</span>
+<span class="sd">            ``{prefix}xx-xxx{suffix}`` with unicode flags (flag emoji tag sequences).</span>
+<span class="sd">        :return: The text with all occurrences of ``{prefix}XX{suffix}`` replaced by unicode</span>
+<span class="sd">            flags</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">flag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">flag_regional_indicator</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix_re</span> <span class="o">+</span>
+                      <span class="s2">&quot;([a-zA-Z]</span><span class="si">{2}</span><span class="s2">)&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_re</span><span class="p">,</span> <span class="n">flag_repl</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">subregions</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">text</span></div>
+
+<div class="viewcode-block" id="Flag.dflagize"><a class="viewcode-back" href="../index.html#flag.Flag.dflagize">[docs]</a>    <span class="k">def</span> <span class="nf">dflagize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Decode flags. Replace all unicode country flags (emoji flag</span>
+<span class="sd">        sequences) in text with ascii two letter code ``{prefix}XX{suffix}``</span>
+
+<span class="sd">        :param str text: The text</span>
+<span class="sd">        :param bool subregions: Also replace subregional/subdivision flags</span>
+<span class="sd">            (flag emoji tag sequences) with ``{prefix}xx-xxx{suffix}``</span>
+<span class="sd">        :return: The text with all unicode flags replaced by ascii</span>
+<span class="sd">            sequence ``{prefix}XX{suffix}``</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s%%</span><span class="s2">c</span><span class="si">%%</span><span class="s2">c</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">dflag</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">OFFSET</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pattern</span> <span class="o">%</span> <span class="n">points</span>
+
+        <span class="k">def</span> <span class="nf">dflag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">dflag</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;([</span><span class="se">\U0001F1E6</span><span class="s2">-</span><span class="se">\U0001F1FF</span><span class="s2">]</span><span class="si">{2}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
+
+        <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">dflag_repl</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">subregions</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dflagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">text</span></div>
+
+<div class="viewcode-block" id="Flag.flagize_subregional"><a class="viewcode-back" href="../index.html#flag.Flag.flagize_subregional">[docs]</a>    <span class="k">def</span> <span class="nf">flagize_subregional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Encode subregional/subdivision flags. Replace all regional codes</span>
+<span class="sd">        ``{prefix}xx-xxx{suffix}`` with unicode flags (flag emoji tag sequences)</span>
+
+<span class="sd">        For this method the suffix should not contain</span>
+<span class="sd">        A-Z, a-z or 0-9 and not start with a - (minus).</span>
+
+<span class="sd">        :param str text: The text</span>
+<span class="sd">        :return: The text with all occurrences of ``{prefix}xx-xxx{suffix}`` replaced by</span>
+<span class="sd">            unicode flags</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_warn</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="sd">&quot;&quot;&quot;The empty prefix (%r) is unsafe for subregional flags.</span>
+<span class="sd">You can use Flag(%r, %r, warn=False) to disable this warning&quot;&quot;&quot;</span> <span class="o">%</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">),</span> <span class="ne">UserWarning</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_warn</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_warn</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="sd">&quot;&quot;&quot;The suffix (%r) is unsafe for subregional flags</span>
+<span class="sd">because it is short and contains a-z, 0-9 or starts with -</span>
+<span class="sd">You can use Flag(%r, %r, warn=False) to disable this warning&quot;&quot;&quot;</span> <span class="o">%</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">),</span> <span class="ne">UserWarning</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_warn</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">def</span> <span class="nf">flag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">flag_tag_sequence</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="c1"># Enforces a hyphen after two chars, allows both:</span>
+        <span class="c1"># - The natural 2-letter unicode_region_subtag and subdivision_suffix</span>
+        <span class="c1">#   like California USCA &quot;:us-ca:&quot;, England GBENG &quot;:gb-eng:&quot;</span>
+        <span class="c1"># - For sake of completeness: 3-digit unicode_region_subtag like 840</span>
+        <span class="c1">#   for US formatted as &quot;:84-0:&quot;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_re</span> <span class="o">+</span>
+            <span class="s2">&quot;([a-zA-Z]</span><span class="si">{2}</span><span class="s2">|[0-9]</span><span class="si">{2}</span><span class="s2">)-([0-9a-zA-Z]{1,4})&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_re</span><span class="p">,</span>
+            <span class="n">flag_repl</span><span class="p">,</span>
+            <span class="n">text</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">text</span></div>
+
+<div class="viewcode-block" id="Flag.dflagize_subregional"><a class="viewcode-back" href="../index.html#flag.Flag.dflagize_subregional">[docs]</a>    <span class="k">def</span> <span class="nf">dflagize_subregional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Decode subregional/subdivision flags. Replace all unicode regional</span>
+<span class="sd">        flags (flag emoji tag sequences) in text with their ascii</span>
+<span class="sd">        code ``{prefix}xx-xxx{suffix}``</span>
+
+<span class="sd">        :param str text: The text</span>
+<span class="sd">        :return: The text with all regional flags replaced by ascii</span>
+<span class="sd">            sequence ``{prefix}xx-xxx{suffix}``</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">dflag</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">OFFSET_TAG</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]</span>
+            <span class="n">subregion</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%c</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">point</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">:]])</span>
+            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s%c%c</span><span class="s2">-</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span>
+                                    <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                    <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                    <span class="n">subregion</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">dflag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">dflag</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+            <span class="n">BLACKFLAG</span> <span class="o">+</span>
+            <span class="s2">&quot;([</span><span class="se">\U000E0030</span><span class="s2">-</span><span class="se">\U000E0039\U000E0061</span><span class="s2">-</span><span class="se">\U000E007A</span><span class="s2">]{3,6})&quot;</span> <span class="o">+</span>
+            <span class="n">CANCELTAG</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">dflag_repl</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">text</span></div></div>
+
+
+<div class="viewcode-block" id="flag"><a class="viewcode-back" href="../index.html#flag.flag">[docs]</a><span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Encodes a single flag to unicode. Two letters are converted to regional</span>
 <span class="sd">    indicator symbols</span>
 <span class="sd">    Three or more letters/digits are converted to tag sequences.</span>
@@ -247,36 +487,7 @@
         <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">found</span><span class="p">),</span> <span class="n">found</span><span class="p">,</span> <span class="n">countrycode</span><span class="p">))</span></div>
 
 
-<span class="k">def</span> <span class="nf">flag_regional_indicator</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Two letters are converted to regional indicator symbols</span>
-
-<span class="sd">    :param str code: two letter ISO 3166 code</span>
-<span class="sd">    :return: regional indicator symbols of the country flag</span>
-<span class="sd">    :rtype: str</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="o">+</span> <span class="n">OFFSET</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">code</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">U</span><span class="si">%08x</span><span class="se">\\</span><span class="s2">U</span><span class="si">%08x</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">points</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">chr</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-
-
-<span class="k">def</span> <span class="nf">flag_tag_sequence</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Three to seven letters/digits are converted to  a tag sequence.</span>
-
-<span class="sd">    :param str code: regional code from ISO 3166-2.</span>
-<span class="sd">    :return: The unicode tag sequence of the subregional flag</span>
-<span class="sd">    :rtype: str</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="o">+</span> <span class="n">OFFSET_TAG</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">code</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
-        <span class="n">tags</span> <span class="o">=</span> <span class="sa">u</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">U</span><span class="si">%08x</span><span class="s2">&quot;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">BLACKFLAG</span> <span class="o">+</span> <span class="n">tags</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">CANCELTAG</span>
-    <span class="n">tags</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="n">point</span><span class="p">)</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">BLACKFLAG</span> <span class="o">+</span> <span class="n">tags</span> <span class="o">+</span> <span class="n">CANCELTAG</span>
-
-
-<div class="viewcode-block" id="flagize"><a class="viewcode-back" href="../index.html#flag.flagize">[docs]</a><span class="k">def</span> <span class="nf">flagize</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="flagize"><a class="viewcode-back" href="../index.html#flag.flagize">[docs]</a><span class="k">def</span> <span class="nf">flagize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Encode flags. Replace all two letter codes ``:XX:`` with unicode flags</span>
 <span class="sd">    (emoji flag sequences)</span>
 
@@ -288,18 +499,10 @@
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">flag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">flag_regional_indicator</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-
-    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;:([a-zA-Z]</span><span class="si">{2}</span><span class="s2">):&quot;</span><span class="p">,</span> <span class="n">flag_repl</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">subregions</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="n">flagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">text</span></div>
+    <span class="k">return</span> <span class="n">standard</span><span class="o">.</span><span class="n">flagize</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="dflagize"><a class="viewcode-back" href="../index.html#flag.dflagize">[docs]</a><span class="k">def</span> <span class="nf">dflagize</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="dflagize"><a class="viewcode-back" href="../index.html#flag.dflagize">[docs]</a><span class="k">def</span> <span class="nf">dflagize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Decode flags. Replace all unicode country flags (emoji flag sequences)</span>
 <span class="sd">    in text with ascii two letter code ``:XX:``</span>
 
@@ -310,50 +513,11 @@
 <span class="sd">        sequence ``:XX:``</span>
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">dflagize_py2</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">dflagize_py3</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="p">)</span></div>
+
+    <span class="k">return</span> <span class="n">standard</span><span class="o">.</span><span class="n">dflagize</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">dflagize_py3</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">dflag</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-        <span class="n">points</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">OFFSET</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">i</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s2">&quot;:</span><span class="si">%c%c</span><span class="s2">:&quot;</span> <span class="o">%</span> <span class="n">points</span>
-
-    <span class="k">def</span> <span class="nf">dflag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">dflag</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-
-    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;([</span><span class="se">\U0001F1E6</span><span class="s2">-</span><span class="se">\U0001F1FF</span><span class="s2">]</span><span class="si">{2}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
-
-    <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">dflag_repl</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">subregions</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="n">dflagize_subregional_py3</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">text</span>
-
-
-<span class="k">def</span> <span class="nf">dflagize_py2</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">dflag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
-        <span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mi">127462</span> <span class="ow">and</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mi">127487</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">127462</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mi">127487</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;:</span><span class="si">%c%c</span><span class="s2">:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">OFFSET</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="n">OFFSET</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Not a regional indicator</span>
-
-    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">U([0-9a-fA-F]</span><span class="si">{8}</span><span class="s2">)</span><span class="se">\\</span><span class="s2">U([0-9a-fA-F]</span><span class="si">{8}</span><span class="s2">)&quot;</span><span class="p">)</span>
-
-    <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">dflag_repl</span><span class="p">,</span> <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">))</span>
-
-    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">subregions</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="n">dflagize_subregional_py2</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">text</span>
-
-
-<div class="viewcode-block" id="flagize_subregional"><a class="viewcode-back" href="../index.html#flag.flagize_subregional">[docs]</a><span class="k">def</span> <span class="nf">flagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<div class="viewcode-block" id="flagize_subregional"><a class="viewcode-back" href="../index.html#flag.flagize_subregional">[docs]</a><span class="k">def</span> <span class="nf">flagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Encode subregional/subdivision flags. Replace all regional codes</span>
 <span class="sd">    ``:xx-xxx:`` with unicode flags (flag emoji tag sequences)</span>
 
@@ -363,23 +527,10 @@
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">flag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">flag_tag_sequence</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-
-    <span class="c1"># Enforces a hyphen after two chars, allows both:</span>
-    <span class="c1"># - The natural 2-letter unicode_region_subtag and subdivision_suffix like</span>
-    <span class="c1">#   California USCA &quot;:us-ca:&quot;, England GBENG &quot;:gb-eng:&quot;</span>
-    <span class="c1"># - For sake of completeness: 3-digit unicode_region_subtag like 840 for</span>
-    <span class="c1">#   US formatted as &quot;:84-0:&quot;</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-        <span class="s2">&quot;:([a-zA-Z]</span><span class="si">{2}</span><span class="s2">|[0-9]</span><span class="si">{2}</span><span class="s2">)-([0-9a-zA-Z]{1,4}):&quot;</span><span class="p">,</span>
-        <span class="n">flag_repl</span><span class="p">,</span>
-        <span class="n">text</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">text</span></div>
+    <span class="k">return</span> <span class="n">standard</span><span class="o">.</span><span class="n">flagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="dflagize_subregional"><a class="viewcode-back" href="../index.html#flag.dflagize_subregional">[docs]</a><span class="k">def</span> <span class="nf">dflagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<div class="viewcode-block" id="dflagize_subregional"><a class="viewcode-back" href="../index.html#flag.dflagize_subregional">[docs]</a><span class="k">def</span> <span class="nf">dflagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Decode subregional/subdivision flags. Replace all unicode regional</span>
 <span class="sd">    flags (flag emoji tag sequences) in text with their ascii</span>
 <span class="sd">    code ``:xx-xxx:``</span>
@@ -389,69 +540,11 @@
 <span class="sd">        sequence ``:xx-xxx:``</span>
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">dflagize_subregional_py2</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">dflagize_subregional_py3</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
+
+    <span class="k">return</span> <span class="n">standard</span><span class="o">.</span><span class="n">dflagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">dflagize_subregional_py3</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">dflag</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-        <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">OFFSET_TAG</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]</span>
-        <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%c</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">point</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">:]])</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;:</span><span class="si">%c%c</span><span class="s2">-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">suffix</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">dflag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">dflag</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-
-    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-        <span class="n">BLACKFLAG</span> <span class="o">+</span>
-        <span class="sa">u</span><span class="s2">&quot;([</span><span class="se">\U000E0030</span><span class="s2">-</span><span class="se">\U000E0039\U000E0061</span><span class="s2">-</span><span class="se">\U000E007A</span><span class="s2">]{3,6})&quot;</span> <span class="o">+</span>
-        <span class="n">CANCELTAG</span><span class="p">,</span>
-        <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">dflag_repl</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">text</span>
-
-
-<span class="k">def</span> <span class="nf">dflagize_subregional_py2</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-        <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">BLACKFLAG</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span> <span class="o">+</span>
-        <span class="sa">r</span><span class="s2">&quot;((?:</span><span class="se">\\</span><span class="s2">U[0-9a-fA-F]</span><span class="si">{8}</span><span class="s2">){3,6})&quot;</span> <span class="o">+</span>
-        <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">CANCELTAG</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">))</span>
-
-    <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-        <span class="n">_dflagize_subregional_py2_repl</span><span class="p">,</span>
-        <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">))</span>
-
-    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;unicode-escape&quot;</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">_is_not_valid_tag</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mh">0xE0030</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mh">0xE007A</span> <span class="ow">or</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mh">0xE0039</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mh">0xE0061</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">_dflagize_subregional_py2_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
-    <span class="n">plain</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="n">skipped</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">group1</span> <span class="o">=</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">while</span> <span class="n">group1</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\U0001f3f4</span><span class="s2">&quot;</span><span class="p">):</span>
-        <span class="c1"># This is a special case where there was a black flag followed</span>
-        <span class="c1"># by a subregional flag. The pattern matches from the first black</span>
-        <span class="c1"># flag, but the for loop would skip the whole regional flag,</span>
-        <span class="c1"># because the second char would be a black flag again.</span>
-        <span class="c1"># Save the skipped black flag and shorten the match:</span>
-        <span class="n">skipped</span> <span class="o">+=</span> <span class="n">group1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
-        <span class="n">group1</span> <span class="o">=</span> <span class="n">group1</span><span class="p">[</span><span class="mi">10</span><span class="p">:]</span>
-
-    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">group1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">U&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]:</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">_is_not_valid_tag</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Not a valid tag</span>
-
-        <span class="n">plain</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%c</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">OFFSET_TAG</span><span class="p">))</span>
-
-    <span class="k">return</span> <span class="n">skipped</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">plain</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">plain</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plain</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span>
+<span class="n">standard</span> <span class="o">=</span> <span class="n">Flag</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">)</span>
 </pre></div>
 
            </div>
