@@ -333,7 +333,7 @@ def flag(countrycode: str) -> str:
     if len(code) == 2:
         # Regional indicator symbols
         return flag_regional_indicator(code)
-    elif len(code) > 2 and len(code) < 7:
+    if len(code) > 2 and len(code) < 7:
         # Tag sequence
         return flag_tag_sequence(code)
     found = ''.join(code)
