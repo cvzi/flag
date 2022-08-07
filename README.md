@@ -60,7 +60,7 @@ Install
 
 See: [https://pypi.org/project/emoji-country-flag/](https://pypi.org/project/emoji-country-flag/)
 
-Python 3.6 or higher is required for the latest release.
+Python 3.7 or higher is required for the latest release.
 The last release for Python 2.7, 3.4 and 3.5 was [v1.2.4](https://github.com/cvzi/flag/releases/tag/v1.2.4).
 
 Documentation
