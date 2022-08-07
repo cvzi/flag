@@ -76,7 +76,7 @@ jobs:
       uses: codecov/codecov-action@v3
       continue-on-error: true
     - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v1.5
+      uses: SonarSource/sonarcloud-github-action@v1.6
       continue-on-error: true
       with:
         args: >
