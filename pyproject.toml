@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=67.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "emoji-country-flag"
+dynamic = ["version"]
+authors = [{name = "cuzi", email = "cuzi@openmail.cc"}]
+license.text = "MIT"
+description = "En/Decode unicode country flags emoji"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Communications :: Chat",
+    "Topic :: Printing",
+    "Topic :: Text Processing :: General",
+    "Typing :: Typed",
+]
+
+[project.urls]
+homepage = "https://github.com/cvzi/flag"
+documentation = "https://flag.readthedocs.io/"
+repository = "https://github.com/cvzi/flag"
+downloads = "https://pypi.org/project/emoji-country-flag/"
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "emoji",
+    "setuptools",
+]
+
+[tool.distutils.bdist_wheel]
+universal = 1
+
+[tool.setuptools]
+packages = ["flag"]
+zip-safe = true
+license-files = ["LICENSE"]
+include-package-data = false
+
+[tool.setuptools.package-data]
+flag = [
+    "py.typed",
+    "*.pyi",
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "flag.__version__"}

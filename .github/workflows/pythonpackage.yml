@@ -18,8 +18,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r tests/requirements.txt
+        python -m pip install --upgrade pip build
+        python -m pip install -r tests/requirements.txt
     - name: Lint with flake8
       run: |
         pip install flake8
@@ -32,7 +32,7 @@ jobs:
         pytest
     - name: Test install
       run: |
-        python setup.py install
+        python -m pip install .
 
   coverage:
     runs-on: ubuntu-latest
@@ -49,9 +49,10 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r tests/requirements.txt
-        pip install coverage
-        pip install codacy-coverage
+        python -m pip install --upgrade build
+        python -m pip install -r tests/requirements.txt
+        python -m pip install coverage
+        python -m pip install codacy-coverage
     - name: Generate coverage
       run: |
         coverage run -a tests/test_all_subregions.py
