@@ -1,31 +1,70 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
   <title>flag &mdash; flag  documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-    <script src="../_static/js/theme.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="../index.html" class="icon icon-home"> flag
+          
+
+          
           </a>
+
+          
+            
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -33,33 +72,83 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
               <!-- Local TOC -->
               <div class="local-toc"></div>
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">flag</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
+    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
           <li><a href="index.html">Module code</a> &raquo;</li>
+        
       <li>flag</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+            
   <h1>Source code for flag</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -87,7 +176,7 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;1.3.1&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;1.3.2&#39;</span>
 <span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;cuzi&#39;</span>
 <span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;cuzi@openmail.cc&#39;</span>
 <span class="n">__source__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/cvzi/flag&#39;</span>
@@ -132,7 +221,7 @@
 
 
 <span class="k">def</span> <span class="nf">check_prefix</span><span class="p">(</span><span class="n">custom_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Check if prefix will safely work with flagize and subregional flags</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if prefix will safely work with flagize and subregional flags</span>
 
 <span class="sd">    :param str custom_str: Custom prefix</span>
 <span class="sd">    :return: False if the string will safely work with subregional flags</span>
@@ -143,7 +232,7 @@
 
 
 <span class="k">def</span> <span class="nf">check_suffix</span><span class="p">(</span><span class="n">custom_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Check if suffix will safely work with flagize and subregional flags</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if suffix will safely work with flagize and subregional flags</span>
 
 <span class="sd">    :param str custom_str: Custom suffix</span>
 <span class="sd">    :return: False if the string will safely work with subregional flags</span>
@@ -161,7 +250,7 @@
 
 
 <span class="k">def</span> <span class="nf">flag_regional_indicator</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Two letters are converted to regional indicator symbols</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Two letters are converted to regional indicator symbols</span>
 
 <span class="sd">    :param str code: two letter ISO 3166 code</span>
 <span class="sd">    :return: regional indicator symbols of the country flag</span>
@@ -172,7 +261,7 @@
 
 
 <span class="k">def</span> <span class="nf">flag_tag_sequence</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Three to seven letters/digits are converted to  a tag sequence.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Three to seven letters/digits are converted to  a tag sequence.</span>
 
 <span class="sd">    :param str code: regional code from ISO 3166-2.</span>
 <span class="sd">    :return: The unicode tag sequence of the subregional flag</span>
@@ -184,13 +273,13 @@
 
 
 <div class="viewcode-block" id="Flag"><a class="viewcode-back" href="../index.html#flag.Flag">[docs]</a><span class="k">class</span> <span class="nc">Flag</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Use this class if you want a different prefix and suffix instead</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use this class if you want a different prefix and suffix instead</span>
 <span class="sd">    of colons. Offers the same methods as the module.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Flag.__init__"><a class="viewcode-back" href="../index.html#flag.Flag.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span>
                  <span class="n">suffix_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">warn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Set a custom prefix and suffix. Instead of ``:XY:`` it will</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set a custom prefix and suffix. Instead of ``:XY:`` it will</span>
 <span class="sd">        use ``{prefix}XY{suffix}``.</span>
 
 <span class="sd">        To encode subregional flags, use a suffix that is either longer</span>
@@ -211,7 +300,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Encodes a single flag to unicode. Two letters are converted to</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Encodes a single flag to unicode. Two letters are converted to</span>
 <span class="sd">        regional indicator symbols</span>
 <span class="sd">        Three or more letters/digits are converted to tag sequences.</span>
 <span class="sd">        Dashes, colons and other symbols are removed from input, only a-z, A-Z</span>
@@ -237,7 +326,7 @@
         <span class="k">return</span> <span class="n">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Flag.flagize"><a class="viewcode-back" href="../index.html#flag.Flag.flagize">[docs]</a>    <span class="k">def</span> <span class="nf">flagize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Encode flags. Replace all two letter codes ``{prefix}XX{suffix}`` with unicode</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Encode flags. Replace all two letter codes ``{prefix}XX{suffix}`` with unicode</span>
 <span class="sd">        flags (emoji flag sequences)</span>
 
 <span class="sd">        For this method the suffix should not contain</span>
@@ -263,7 +352,7 @@
         <span class="k">return</span> <span class="n">text</span></div>
 
 <div class="viewcode-block" id="Flag.dflagize"><a class="viewcode-back" href="../index.html#flag.Flag.dflagize">[docs]</a>    <span class="k">def</span> <span class="nf">dflagize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Decode flags. Replace all unicode country flags (emoji flag</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Decode flags. Replace all unicode country flags (emoji flag</span>
 <span class="sd">        sequences) in text with ascii two letter code ``{prefix}XX{suffix}``</span>
 
 <span class="sd">        :param str text: The text</span>
@@ -293,7 +382,7 @@
         <span class="k">return</span> <span class="n">text</span></div>
 
 <div class="viewcode-block" id="Flag.flagize_subregional"><a class="viewcode-back" href="../index.html#flag.Flag.flagize_subregional">[docs]</a>    <span class="k">def</span> <span class="nf">flagize_subregional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Encode subregional/subdivision flags. Replace all regional codes</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Encode subregional/subdivision flags. Replace all regional codes</span>
 <span class="sd">        ``{prefix}xx-xxx{suffix}`` with unicode flags (flag emoji tag sequences)</span>
 
 <span class="sd">        For this method the suffix should not contain</span>
@@ -307,13 +396,13 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_warn</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="sd">&quot;&quot;&quot;The empty prefix (%r) is unsafe for subregional flags.</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;The empty prefix (%r) is unsafe for subregional flags.</span>
 <span class="sd">You can use Flag(%r, %r, warn=False) to disable this warning&quot;&quot;&quot;</span> <span class="o">%</span>
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">),</span> <span class="ne">UserWarning</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_warn</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_warn</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="sd">&quot;&quot;&quot;The suffix (%r) is unsafe for subregional flags</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;The suffix (%r) is unsafe for subregional flags</span>
 <span class="sd">because it is short and contains a-z, 0-9 or starts with -</span>
 <span class="sd">You can use Flag(%r, %r, warn=False) to disable this warning&quot;&quot;&quot;</span> <span class="o">%</span>
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">),</span> <span class="ne">UserWarning</span><span class="p">)</span>
@@ -336,7 +425,7 @@
         <span class="k">return</span> <span class="n">text</span></div>
 
 <div class="viewcode-block" id="Flag.dflagize_subregional"><a class="viewcode-back" href="../index.html#flag.Flag.dflagize_subregional">[docs]</a>    <span class="k">def</span> <span class="nf">dflagize_subregional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Decode subregional/subdivision flags. Replace all unicode regional</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Decode subregional/subdivision flags. Replace all unicode regional</span>
 <span class="sd">        flags (flag emoji tag sequences) in text with their ascii</span>
 <span class="sd">        code ``{prefix}xx-xxx{suffix}``</span>
 
@@ -369,7 +458,7 @@
 
 
 <div class="viewcode-block" id="flag"><a class="viewcode-back" href="../index.html#flag.flag">[docs]</a><span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Encodes a single flag to unicode. Two letters are converted to regional</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Encodes a single flag to unicode. Two letters are converted to regional</span>
 <span class="sd">    indicator symbols</span>
 <span class="sd">    Three or more letters/digits are converted to tag sequences.</span>
 <span class="sd">    Dashes, colons and other symbols are removed from input, only a-z, A-Z and</span>
@@ -406,7 +495,7 @@
 
 
 <div class="viewcode-block" id="flagize"><a class="viewcode-back" href="../index.html#flag.flagize">[docs]</a><span class="k">def</span> <span class="nf">flagize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Encode flags. Replace all two letter codes ``:XX:`` with unicode flags</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode flags. Replace all two letter codes ``:XX:`` with unicode flags</span>
 <span class="sd">    (emoji flag sequences)</span>
 
 <span class="sd">    :param str text: The text</span>
@@ -421,7 +510,7 @@
 
 
 <div class="viewcode-block" id="dflagize"><a class="viewcode-back" href="../index.html#flag.dflagize">[docs]</a><span class="k">def</span> <span class="nf">dflagize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Decode flags. Replace all unicode country flags (emoji flag sequences)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decode flags. Replace all unicode country flags (emoji flag sequences)</span>
 <span class="sd">    in text with ascii two letter code ``:XX:``</span>
 
 <span class="sd">    :param str text: The text</span>
@@ -436,7 +525,7 @@
 
 
 <div class="viewcode-block" id="flagize_subregional"><a class="viewcode-back" href="../index.html#flag.flagize_subregional">[docs]</a><span class="k">def</span> <span class="nf">flagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Encode subregional/subdivision flags. Replace all regional codes</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode subregional/subdivision flags. Replace all regional codes</span>
 <span class="sd">    ``:xx-xxx:`` with unicode flags (flag emoji tag sequences)</span>
 
 <span class="sd">    :param str text: The text</span>
@@ -449,7 +538,7 @@
 
 
 <div class="viewcode-block" id="dflagize_subregional"><a class="viewcode-back" href="../index.html#flag.dflagize_subregional">[docs]</a><span class="k">def</span> <span class="nf">dflagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Decode subregional/subdivision flags. Replace all unicode regional</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decode subregional/subdivision flags. Replace all unicode regional</span>
 <span class="sd">    flags (flag emoji tag sequences) in text with their ascii</span>
 <span class="sd">    code ``:xx-xxx:``</span>
 
@@ -466,30 +555,45 @@
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p></p>
-  </div>
+    <p>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
-  <script>
+  
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
