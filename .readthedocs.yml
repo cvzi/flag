@@ -1,4 +1,7 @@
 ﻿# .readthedocs.yml
 
+python:
+  version: "3.11"
+
 # Don't build any extra formats, because the fail with unicode flag symbols
 formats: []
