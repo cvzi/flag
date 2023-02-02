@@ -24,7 +24,7 @@ import warnings
 import re
 from typing import List
 
-__version__: str = '1.3.1'
+__version__: str = '1.3.2'
 __author__: str = 'cuzi'
 __email__: str = 'cuzi@openmail.cc'
 __source__: str = 'https://github.com/cvzi/flag'
