@@ -1,4 +1,4 @@
-sphinx==7.2.5
+sphinx==7.2.6
 sphinx-rtd-theme
 sphinxcontrib-jquery
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
