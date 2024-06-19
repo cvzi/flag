@@ -1,16 +1,4 @@
-# -*- coding: UTF-8 -*-
-
-
-import sys
-
-try:
-    import flag
-except ImportError:
-    import os
-    include = os.path.relpath(os.path.join(os.path.dirname(__file__), ".."))
-    sys.path.insert(0, include)
-    import flag
-    print("Imported flag from %s" % os.path.abspath(os.path.join(include, "flag")))
+import flag
 
 
 twoletters = {
@@ -271,7 +259,7 @@ twoletters = {
     "\U0001f1ff\U0001f1f2": "zm",
     "\U0001f1ff\U0001f1fc": "zw",
     "\U0001f1e6\U0001f1fd": "ax",
-    "\U0001f1fa\U0001f1f3": "un"
+    "\U0001f1fa\U0001f1f3": "un",
 }
 
 moreletters = {
@@ -282,12 +270,27 @@ moreletters = {
 
 
 def test_example():
-    assert "🇩🇪" == flag.flag(":DE:") == flag.flag(
-        "DE") == flag.flag("de") == flag.flag(":de:")
-    assert "\U0001f3f4\U000e0067\U000e0062\U000e0065\U000e006e\U000e0067\U000e007f" == flag.flag(
-        ":GBENG:") == flag.flag("GBENG") == flag.flag("gbeng") == flag.flag(":gbeng:")
-    assert "\U0001f3f4\U000e0067\U000e0062\U000e0065\U000e006e\U000e0067\U000e007f" == flag.flag(
-        ":GB-ENG:") == flag.flag("GB-ENG") == flag.flag("gb-eng") == flag.flag(":gb-eng:")
+    assert (
+        "🇩🇪"
+        == flag.flag(":DE:")
+        == flag.flag("DE")
+        == flag.flag("de")
+        == flag.flag(":de:")
+    )
+    assert (
+        "\U0001f3f4\U000e0067\U000e0062\U000e0065\U000e006e\U000e0067\U000e007f"
+        == flag.flag(":GBENG:")
+        == flag.flag("GBENG")
+        == flag.flag("gbeng")
+        == flag.flag(":gbeng:")
+    )
+    assert (
+        "\U0001f3f4\U000e0067\U000e0062\U000e0065\U000e006e\U000e0067\U000e007f"
+        == flag.flag(":GB-ENG:")
+        == flag.flag("GB-ENG")
+        == flag.flag("gb-eng")
+        == flag.flag(":gb-eng:")
+    )
 
 
 def raisesException(func, ExceptionClass):
@@ -331,18 +334,3 @@ def test_moreletters():
 
         d = flag.flag(value.upper())
         assert code == d
-
-
-def runall():
-    for fname, f in list(globals().items()):
-        if fname.startswith('test_'):
-            print("%s()" % fname)
-            f()
-            print("Ok.")
-
-
-if __name__ == '__main__':
-    if 'idlelib' in sys.modules:
-        print("Please run this file in a console!")
-
-    runall()

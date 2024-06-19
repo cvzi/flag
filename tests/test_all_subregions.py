@@ -1,34 +1,23 @@
-# -*- coding: UTF-8 -*-
-
-import sys
-
-try:
-    import flag
-except ImportError:
-    import os
-    include = os.path.relpath(os.path.join(os.path.dirname(__file__), ".."))
-    sys.path.insert(0, include)
-    import flag
-    print("Imported flag from %s" % os.path.abspath(os.path.join(include, "flag")))
+import flag
 
 
 def encode(text):
-    assert flag.flagize(
-        text, subregions=True) == flag.flagize(
-        flag.flagize_subregional(text))
-    assert flag.flagize(
-        flag.flagize_subregional(text)) == flag.flagize_subregional(
-        flag.flagize(text))
+    assert flag.flagize(text, subregions=True) == flag.flagize(
+        flag.flagize_subregional(text)
+    )
+    assert flag.flagize(flag.flagize_subregional(text)) == flag.flagize_subregional(
+        flag.flagize(text)
+    )
     return flag.flagize(text, subregions=True)
 
 
 def decode(text):
-    assert flag.dflagize(
-        text, subregions=True) == flag.dflagize(
-        flag.dflagize_subregional(text))
-    assert flag.dflagize(
-        flag.dflagize_subregional(text)) == flag.dflagize_subregional(
-        flag.dflagize(text))
+    assert flag.dflagize(text, subregions=True) == flag.dflagize(
+        flag.dflagize_subregional(text)
+    )
+    assert flag.dflagize(flag.dflagize_subregional(text)) == flag.dflagize_subregional(
+        flag.dflagize(text)
+    )
     return flag.dflagize(text, subregions=True)
 
 
@@ -5010,7 +4999,7 @@ subdivisions = {
     "zw-mn": "Matabeleland North, Zimbabwe",
     "zw-ms": "Matabeleland South, Zimbabwe",
     "zw-mv": "Masvingo, Zimbabwe",
-    "zw-mw": "Mashonaland West, Zimbabwe"
+    "zw-mw": "Mashonaland West, Zimbabwe",
 }
 
 
@@ -5282,7 +5271,7 @@ subregions = {
     "876": "Wallis and Futuna Islands",
     "882": "Samoa",
     "887": "Yemen",
-    "894": "Zambia"
+    "894": "Zambia",
 }
 
 
@@ -5317,18 +5306,3 @@ def test_subregions():
         assert z.startswith(":")
         assert z.endswith(":")
         assert x == z
-
-
-def runall():
-    for fname, f in list(globals().items()):
-        if fname.startswith('test_'):
-            print("%s()" % fname)
-            f()
-            print("Ok.")
-
-
-if __name__ == '__main__':
-    if 'idlelib' in sys.modules:
-        print("Please run this file in a console!")
-
-    runall()

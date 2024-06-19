@@ -1,23 +1,9 @@
-# -*- coding: UTF-8 -*-
-
-
-import sys
-
-try:
-    import flag
-except ImportError:
-    import os
-    include = os.path.relpath(os.path.join(os.path.dirname(__file__), ".."))
-    sys.path.insert(0, include)
-    import flag
-    print("Imported flag from %s" % os.path.abspath(os.path.join(include, "flag")))
-
-
 import emoji
+
+import flag
 
 
 basic = {
-
     "\U0001f3f4\U000e0067\U000e0062\U000e0065\U000e006e\U000e0067\U000e007f": ":gb-eng:",
     # Black flag+Flag of England:
     "\U0001f3f4\U0001f3f4\U000e0067\U000e0062\U000e0065\U000e006e\U000e0067\U000e007f": "\U0001f3f4:gb-eng:",
@@ -53,7 +39,6 @@ valid_codes = {
     "\U0001f3f4\U000e0067\U000e0062\U000e0065\U000e006e\U000e0067\U000e007f": "gb-eng",  # RGI
     "\U0001f3f4\U000e0067\U000e0062\U000e0073\U000e0063\U000e0074\U000e007f": "gb-sct",  # RGI
     "\U0001f3f4\U000e0067\U000e0062\U000e0077\U000e006c\U000e0073\U000e007f": "gb-wls",  # RGI
-
     # Ontario:
     "\U0001f3f4\U000e0063\U000e0061\U000e006f\U000e006e\U000e007f": "ca-on",
     # Normandy:
@@ -62,7 +47,6 @@ valid_codes = {
     "\U0001f3f4\U000e0061\U000e0067\U000e0030\U000e0033\U000e007f": "ag-03",
     # Benguela in Angola:
     "\U0001f3f4\U000e0061\U000e006f\U000e0062\U000e0067\U000e0075\U000e007f": "ao-bgu",
-
     # Ardennes:
     "\U0001f3f4\U000e0066\U000e0072\U000e0030\U000e0038\U000e007f": "fr-08",
     # Limón, Costa Rica:
@@ -71,7 +55,6 @@ valid_codes = {
     "\U0001f3f4\U000e006d\U000e007a\U000e0071\U000e007f": "mz-q",
     # Westfjords, Iceland:
     "\U0001f3f4\U000e0069\U000e0073\U000e0034\U000e007f": "is-4",
-
     # 3-digit unicode_region_subtag for World
     "\U0001f3f4\U000e0030\U000e0030\U000e0031\U000e007f": "00-1",
     # 3-digit unicode_region_subtag for Africa
@@ -80,15 +63,14 @@ valid_codes = {
     "\U0001f3f4\U000e0030\U000e0031\U000e0039\U000e007f": "01-9",
     # 3-digit unicode_region_subtag for US
     "\U0001f3f4\U000e0038\U000e0034\U000e0030\U000e007f": "84-0",
-
     # Unknown subdivision of the US
-    "\U0001f3f4\U000e0075\U000e0073\U000e007a\U000e007a\U000e007a\U000e007a\U000e007f": "us-zzzz"
+    "\U0001f3f4\U000e0075\U000e0073\U000e007a\U000e007a\U000e007a\U000e007a\U000e007f": "us-zzzz",
 }
 
 emoji_module = {
     ":Scotland:": ":gb-sct:",
     ":Wales:": ":gb-wls:",
-    ":England:": ":gb-eng:"
+    ":England:": ":gb-eng:",
 }
 
 wrong_codes = [
@@ -111,34 +93,33 @@ wrong_codes = [
     # blackflag whiteflag b e n g cancel:
     "\U0001f3f4\U0001f3f3\U000e0062\U000e0065\U000e006e\U000e0067\U000e007f",
     # Pirate flag:
-    "\U0001F3F4\U0000200D\U00002620\U0000FE0F",
+    "\U0001f3f4\U0000200d\U00002620\U0000fe0f",
     # blackflag G b e n g cancel:
     "\U0001f3f4\U000e0047\U000e0062\U000e0065\U000e006e\U000e0067\U000e007f",
     # blackflag g b E n g cancel:
     "\U0001f3f4\U000e0067\U000e0062\U000e0045\U000e006e\U000e0067\U000e007f",
     # blackflag g b - e n g cancel:
     "\U0001f3f4\U000e0067\U000e0062\U000e002d\U000e0065\U000e006e\U000e0067\U000e007f",
-
 ]
 
 
 def encode(text):
-    assert flag.flagize(
-        text, subregions=True) == flag.flagize(
-        flag.flagize_subregional(text))
-    assert flag.flagize(
-        flag.flagize_subregional(text)) == flag.flagize_subregional(
-        flag.flagize(text))
+    assert flag.flagize(text, subregions=True) == flag.flagize(
+        flag.flagize_subregional(text)
+    )
+    assert flag.flagize(flag.flagize_subregional(text)) == flag.flagize_subregional(
+        flag.flagize(text)
+    )
     return flag.flagize(text, subregions=True)
 
 
 def decode(text):
-    assert flag.dflagize(
-        text, subregions=True) == flag.dflagize(
-        flag.dflagize_subregional(text))
-    assert flag.dflagize(
-        flag.dflagize_subregional(text)) == flag.dflagize_subregional(
-        flag.dflagize(text))
+    assert flag.dflagize(text, subregions=True) == flag.dflagize(
+        flag.dflagize_subregional(text)
+    )
+    assert flag.dflagize(flag.dflagize_subregional(text)) == flag.dflagize_subregional(
+        flag.dflagize(text)
+    )
     return flag.dflagize(text, subregions=True)
 
 
@@ -182,18 +163,3 @@ def test_wrong_codes():
         x = decode(code)
 
         assert code == x
-
-
-def runall():
-    for fname, f in list(globals().items()):
-        if fname.startswith('test_'):
-            print("%s()" % fname)
-            f()
-            print("Ok.")
-
-
-if __name__ == '__main__':
-    if 'idlelib' in sys.modules:
-        print("Please run this file in a console!")
-
-    runall()
