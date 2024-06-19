@@ -4,66 +4,87 @@ on: [push]
 
 jobs:
 
-  build:
+  build-package:
+    name: Build & verify package
     runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: hynek/build-and-inspect-python-package@v2
+        id: baipp
+
+    outputs:
+      python-versions: ${{ steps.baipp.outputs.supported_python_classifiers_json_array }}
+
+  test:
+    runs-on: ubuntu-latest
+
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.8, 3.9, "3.10", "3.11", "3.12", "3.13.0-alpha - 3.13.0"]
+        python-version: ["3.10", "3.11", "3.12", "3.13.0-alpha - 3.13.0"]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip build
-        python -m pip install -r tests/requirements.txt
-    - name: Lint with flake8
-      run: |
-        pip install flake8
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 flag --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 flag --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        python -m pip install .[test]
     - name: Test with pytest
-      run: |
-        pytest
+      run: pytest
     - name: Test install
-      run: |
-        python -m pip install .
-    - name: Test build
-      run: |
-        python -m build
+      run: python -m pip install .
+
+  testwheel:
+    runs-on: ubuntu-latest
+    needs: build-package
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13.0-alpha - 3.13.0"]
+    steps:
+
+    - name: Download pre-built packages
+      uses: actions/download-artifact@v4
+      with:
+        name: Packages
+        path: dist
+    - name: Extract source tarball
+      run: tar xf dist/*.tar.gz --strip-components=1
+    - name: Remove source code
+      run: rm -R flag
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install tox
+      run: python -Im pip install tox
+    - name: Run tox on wheel
+      run: python -Im tox run --installpkg dist/*.whl
+
 
   coverage:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
-        # 0 indicates all history for all branches and tags
         fetch-depth: 0
     - name: Set up Python 3.12
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: "3.12"
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install --upgrade build
-        python -m pip install -r tests/requirements.txt
-        python -m pip install coverage
-        python -m pip install codacy-coverage
+        python -m pip install .[test] .[coverage]
     - name: Generate coverage
-      run: |
-        coverage run -a tests/test_all_subregions.py
-        coverage run -a tests/test_flag.py
-        coverage run -a tests/test_singleflag.py
-        coverage run -a tests/test_subregional.py
-        coverage run -a tests/test_module.py
-        coverage run -a tests/test_custom.py
+      run: coverage run -m pytest
     - name: Submit codacy
       run: |
         coverage xml
@@ -77,10 +98,10 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
       continue-on-error: true
     - name: Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       continue-on-error: true
     - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v1.6
+      uses: SonarSource/sonarcloud-github-action@v2
       continue-on-error: true
       with:
         args: >

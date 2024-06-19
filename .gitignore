@@ -109,3 +109,4 @@ ENV/
 .scannerwork/
 
 runtests.py
+windows_tools/
