@@ -4,7 +4,5 @@
     "config:base"
   ],
   "ignorePaths": ["**/examples/**"],
-  "pip_requirements": {
-    "fileMatch": ["tests/requirements.txt"]
-  }
+  "addLabels": ["dependencies"]
 }

@@ -1,21 +1,14 @@
-[build-system]
-requires = ["setuptools>=67.1"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "emoji-country-flag"
 dynamic = ["version"]
 authors = [{name = "cuzi", email = "cuzi@openmail.cc"}]
 license.text = "MIT"
 description = "En/Decode unicode country flags emoji"
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -41,16 +34,30 @@ content-type = "text/markdown"
 
 [project.optional-dependencies]
 test = [
-    "pytest",
-    "emoji",
-    "setuptools",
+    "pytest >= 8.2.2",
+    "emoji >= 2.12.1",
+    "tox >= 4.15.0"
+]
+coverage = [
+    "coverage >= 7.5.1",
+    "codacy_coverage >= 1.3.11",
+]
+ruff = [
+    "ruff >= 0.4.7",
+]
+docs = [
+    "sphinx >= 7.3.7",
+    "sphinx-rtd-theme >= 2.0.0",
+   " sphinxcontrib-jquery >= 4.1",
 ]
 
-[tool.distutils.bdist_wheel]
-universal = 1
+[build-system]
+requires = ["setuptools>=67.1"]
+build-backend = "setuptools.build_meta"
+
 
 [tool.setuptools]
-packages = ["flag"]
+packages = ["flag", "flag.data"]
 zip-safe = true
 license-files = ["LICENSE"]
 include-package-data = false
@@ -58,8 +65,66 @@ include-package-data = false
 [tool.setuptools.package-data]
 flag = [
     "py.typed",
-    "*.pyi",
+    "LICENSE",
+    "data/LICENSE",
+    "data/region.xml",
+    "data/subdivision.xml",
 ]
 
 [tool.setuptools.dynamic]
 version = {attr = "flag.__version__"}
+
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = [
+    "--import-mode=importlib",
+]
+
+[tool.pyright]
+pythonVersion = "3.10"
+pythonPlatform = "All"
+typeCheckingMode = "strict"
+exclude = [
+  "**/__pycache__",
+  ".mypy_cache",
+  ".pytest_cache",
+  ".ruff_cache",
+  ".vscode",
+  ".git",
+  ".tox",
+  ".venv",
+  "build",
+  "dist",
+  "tests",
+  "windows_tools",
+]
+# TODO remove the superfluos ignore
+
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    env_list =
+        py310
+        py311
+        py312
+        pypy3s
+
+    minversion = 4.15.0
+
+    [testenv]
+    description = run the tests with pytest
+    package = wheel
+    wheel_build_env = .pkg
+    changedir = tests
+    deps =
+        pytest>=6
+        emoji>2
+    commands =
+        pytest {tty:--color=yes} --basetemp="{envtmpdir}" {posargs}
+"""
+
+
+[tool.ruff]
+line-length = 88
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "B", "Q"]
