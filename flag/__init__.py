@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Converts flag emoji to ascii and back
 https://github.com/cvzi/flag
@@ -19,15 +18,23 @@ Unicode country code emoji flags for Python
     'England :gb-eng: is part of the UK :GB:'
 """
 
-import sys
 import warnings
 import re
-from typing import List
+from typing import (
+    Callable,
+    MutableMapping,
+    Mapping,
+    Any,
+    Literal,
+    Iterable,
+    Optional,
+    List,
+)
 
-__version__: str = '1.3.2'
-__author__: str = 'cuzi'
-__email__: str = 'cuzi@openmail.cc'
-__source__: str = 'https://github.com/cvzi/flag'
+__version__: str = "2.0.0"
+__author__: str = "cuzi"
+__email__: str = "cuzi@openmail.cc"
+__source__: str = "https://github.com/cvzi/flag"
 __license__: str = """
 MIT License
 
@@ -58,14 +65,34 @@ __all__ = [
     "dflagize",
     "flagize_subregional",
     "dflagize_subregional",
-    "Flag"]
+    "Flag",
+]
 
 
 OFFSET = ord("🇦") - ord("A")
 OFFSET_TAG = 0xE0000
-CANCELTAG = "\U000E007F"
-BLACKFLAG = "\U0001F3F4"
+CANCELTAG = "\U000e007f"
+BLACKFLAG = "\U0001f3f4"
 ASCII_LOWER = "abcdefghijklmnopqrstuvwxyz0123456789"
+
+_FlagInfo = MutableMapping[str, str | bool | None]
+_FlagInfos = MutableMapping[str, _FlagInfo]
+
+
+class FlagError(ValueError):
+    pass
+
+
+class InvalidFlag(FlagError):
+    pass
+
+
+class UnsupportedFlag(FlagError):
+    pass
+
+
+class UnknownCountryCode(InvalidFlag):
+    pass
 
 
 def check_prefix(custom_str: str) -> bool:
@@ -97,7 +124,7 @@ def check_suffix(custom_str: str) -> bool:
     return False
 
 
-def flag_regional_indicator(code: List[str]) -> str:
+def flag_regional_indicator(code: Iterable[str]) -> str:
     """Two letters are converted to regional indicator symbols
 
     :param str code: two letter ISO 3166 code
@@ -108,7 +135,7 @@ def flag_regional_indicator(code: List[str]) -> str:
     return "".join([chr(ord(c.upper()) + OFFSET) for c in code])
 
 
-def flag_tag_sequence(code: List[str]) -> str:
+def flag_tag_sequence(code: Iterable[str]) -> str:
     """Three to seven letters/digits are converted to  a tag sequence.
 
     :param str code: regional code from ISO 3166-2.
@@ -121,12 +148,24 @@ def flag_tag_sequence(code: List[str]) -> str:
 
 
 class Flag:
-    """Use this class if you want a different prefix and suffix instead
-    of colons. Offers the same methods as the module.
+    """This class offers different prefix and suffix instead
+    of colons and allows to only convert widely supported or valid flags.
     """
 
-    def __init__(self, prefix_str: str = ":",
-                 suffix_str: str = ":", warn: bool = True) -> None:
+    only_supported: bool
+    only_valid: bool
+    allow_subregions: bool
+    _data: Optional[_FlagInfos]
+
+    def __init__(
+        self,
+        prefix_str: str = ":",
+        suffix_str: str = ":",
+        only_supported: bool = True,
+        only_valid: bool = True,
+        allow_subregions: bool = True,
+        warn: bool = True,
+    ) -> None:
         """Set a custom prefix and suffix. Instead of ``:XY:`` it will
         use ``{prefix}XY{suffix}``.
 
@@ -136,6 +175,10 @@ class Flag:
 
         :param str prefix_str: The leading symbols
         :param str suffix_str: The trailing symbols
+        :param bool only_supported: Only convert country codes that are widely supported by browsers and devices
+        :param bool only_valid: Only convert country codes that are considered "valid" by Unicode
+        :param bool allow_subregions: Also replace subregional/subdivision codes e.g. Scottland as :gb-sct:
+        :param bool warn: Show a warning if an unsafe prefix or suffix is used
         """
 
         self._prefix = prefix_str
@@ -146,8 +189,13 @@ class Flag:
         self._suffix_re = re.escape(suffix_str)
         self._suffix_warn = warn and check_suffix(self._suffix)
 
-    @staticmethod
-    def flag(countrycode: str) -> str:
+        self.only_supported = only_supported
+        self.only_valid = only_valid
+        self.allow_subregions = allow_subregions
+
+        self._data = None
+
+    def flag(self, countrycode: str) -> str:
         """Encodes a single flag to unicode. Two letters are converted to
         regional indicator symbols
         Three or more letters/digits are converted to tag sequences.
@@ -165,71 +213,123 @@ class Flag:
         interchange) by the Unicode Consortium,
         see http://www.unicode.org/Public/emoji/latest/emoji-test.txt
 
+        Depending on the settings, the function may raise an error if the
+        flag is not supported or invalid.
+
         :param str countrycode: Two letter ISO 3166 code or a regional code
             from ISO 3166-2.
         :return: The unicode representation of the flag
         :rtype: str
         """
 
+        print("flag(), ", self.only_supported, self.only_valid)
+
+        if self.only_supported or self.only_valid:
+            return flag_safe(
+                countrycode,
+                unsupported="error" if self.only_supported else "allow",
+                invalid="error" if self.only_valid else "allow",
+                custom_data=self._data,
+            )
         return flag(countrycode)
 
-    def flagize(self, text: str, subregions: bool = False) -> str:
+    def _is_legal(self, code: str) -> bool:
+        """Return false if the flag violetes either the only_supported
+        and only_valid setting. Otherwise true"""
+        if not self.only_supported and not self.only_valid:
+            return True
+        r = _check_flag(code, self._data)
+        if any(isinstance(e, UnsupportedFlag) for e in r) and self.only_supported:
+            return False
+        if any(isinstance(e, InvalidFlag) for e in r) and self.only_valid:
+            return False
+        return True
+
+    def flagize(
+        self, text: str, handle_illegal: Optional[Callable[[str, str], str]] = None
+    ) -> str:
         """Encode flags. Replace all two letter codes ``{prefix}XX{suffix}`` with unicode
         flags (emoji flag sequences)
 
         For this method the suffix should not contain
         A-Z, a-z or 0-9 and not start with a - (minus).
 
+        Depending on the settings, the function may only convert supported or valid flags.
+        If an unsupported or invalid flag is found, the flag is either ignored or
+        ``handle_illegal`` is called.
+
         :param str text: The text
-        :param bool subregions: Also replace subregional/subdivision codes
-            ``{prefix}xx-xxx{suffix}`` with unicode flags (flag emoji tag sequences).
+        :param callable handle_illegal: A function that is called when an illegal flag is found.
+            The function should take two arguments, the match i.e. `:XY:` and the code i.e. `XY`
+            and return a string to replace the illegal flag.
         :return: The text with all occurrences of ``{prefix}XX{suffix}`` replaced by unicode
             flags
         :rtype: str
         """
 
-        def flag_repl(matchobj):
-            return flag_regional_indicator(matchobj.group(1))
+        def flag_repl(matchobj: re.Match[str]) -> str:
+            code = matchobj.group(1)
+            if self._is_legal(code):
+                return flag_regional_indicator(matchobj.group(1))
+            elif handle_illegal is not None:
+                return handle_illegal(matchobj.group(0), code)
+            else:
+                return matchobj.group(0)
 
-        text = re.sub(self._prefix_re +
-                      "([a-zA-Z]{2})" + self._suffix_re, flag_repl, text)
+        text = re.sub(
+            self._prefix_re + "([a-zA-Z]{2})" + self._suffix_re, flag_repl, text
+        )
 
-        if subregions:
-            text = self.flagize_subregional(text)
+        if self.allow_subregions:
+            text = self.flagize_subregional(text, handle_illegal)
 
         return text
 
-    def dflagize(self, text: str, subregions: bool = False) -> str:
+    def dflagize(
+        self, text: str, handle_illegal: Optional[Callable[[str, str], str]] = None
+    ) -> str:
         """Decode flags. Replace all unicode country flags (emoji flag
         sequences) in text with ascii two letter code ``{prefix}XX{suffix}``
 
+        Depending on the settings, the function may only convert supported or valid flags.
+        If an unsupported or invalid flag is found, the flag is either ignored or
+        ``handle_illegal`` is called.
+
         :param str text: The text
-        :param bool subregions: Also replace subregional/subdivision flags
-            (flag emoji tag sequences) with ``{prefix}xx-xxx{suffix}``
+        :param callable handle_illegal: A function that is called when an illegal flag is found.
+            The function should take two arguments, the unicode flag and the code i.e. `XY`
+            and return a string to replace the illegal flag.
         :return: The text with all unicode flags replaced by ascii
             sequence ``{prefix}XX{suffix}``
         :rtype: str
         """
 
-        pattern = "%s%%c%%c%s" % (self._prefix, self._suffix)
+        pattern = f"{self._prefix}%s{self._suffix}"
 
-        def dflag(i):
-            points = tuple(ord(x) - OFFSET for x in i)
-            return pattern % points
+        def dflag_repl(matchobj: re.Match[str]) -> str:
+            points = matchobj.group(0)
+            c1 = chr(ord(points[0]) - OFFSET)
+            c2 = chr(ord(points[1]) - OFFSET)
+            cc = f"{c1}{c2}"
+            if self._is_legal(cc):
+                return pattern % (cc)
+            elif handle_illegal is not None:
+                return handle_illegal(matchobj.group(0), cc)
+            else:
+                return matchobj.group(0)
 
-        def dflag_repl(matchobj):
-            return dflag(matchobj.group(0))
-
-        regex = re.compile("([\U0001F1E6-\U0001F1FF]{2})", flags=re.UNICODE)
+        regex = re.compile("([\U0001f1e6-\U0001f1ff]{2})", flags=re.UNICODE)
 
         text = regex.sub(dflag_repl, text)
 
-        if subregions:
-            text = self.dflagize_subregional(text)
+        if self.allow_subregions:
+            text = self.dflagize_subregional(text, handle_illegal)
 
         return text
 
-    def flagize_subregional(self, text: str) -> str:
+    def flagize_subregional(
+        self, text: str, handle_illegal: Optional[Callable[[str, str], str]] = None
+    ) -> str:
         """Encode subregional/subdivision flags. Replace all regional codes
         ``{prefix}xx-xxx{suffix}`` with unicode flags (flag emoji tag sequences)
 
@@ -237,6 +337,7 @@ class Flag:
         A-Z, a-z or 0-9 and not start with a - (minus).
 
         :param str text: The text
+        :param callable handle_illegal: See `flag.flagize()`
         :return: The text with all occurrences of ``{prefix}xx-xxx{suffix}`` replaced by
             unicode flags
         :rtype: str
@@ -245,19 +346,31 @@ class Flag:
         if self._prefix_warn:
             warnings.warn(
                 """The empty prefix (%r) is unsafe for subregional flags.
-You can use Flag(%r, %r, warn=False) to disable this warning""" %
-                (self._prefix, self._prefix, self._suffix), UserWarning)
+You can use Flag(%r, %r, warn=False) to disable this warning"""
+                % (self._prefix, self._prefix, self._suffix),
+                UserWarning,
+                stacklevel=1,
+            )
             self._prefix_warn = False
         elif self._suffix_warn:
             warnings.warn(
                 """The suffix (%r) is unsafe for subregional flags
 because it is short and contains a-z, 0-9 or starts with -
-You can use Flag(%r, %r, warn=False) to disable this warning""" %
-                (self._suffix, self._prefix, self._suffix), UserWarning)
+You can use Flag(%r, %r, warn=False) to disable this warning"""
+                % (self._suffix, self._prefix, self._suffix),
+                UserWarning,
+                stacklevel=1,
+            )
             self._suffix_warn = False
 
-        def flag_repl(matchobj):
-            return flag_tag_sequence(matchobj.group(1) + matchobj.group(2))
+        def flag_repl(matchobj: re.Match[str]) -> str:
+            code = matchobj.group(1) + matchobj.group(2)
+            if self._is_legal(code):
+                return flag_tag_sequence(code)
+            elif handle_illegal is not None:
+                return handle_illegal(matchobj.group(0), code)
+            else:
+                return matchobj.group(0)
 
         # Enforces a hyphen after two chars, allows both:
         # - The natural 2-letter unicode_region_subtag and subdivision_suffix
@@ -265,44 +378,83 @@ You can use Flag(%r, %r, warn=False) to disable this warning""" %
         # - For sake of completeness: 3-digit unicode_region_subtag like 840
         #   for US formatted as ":84-0:"
         text = re.sub(
-            self._prefix_re +
-            "([a-zA-Z]{2}|[0-9]{2})-([0-9a-zA-Z]{1,4})" + self._suffix_re,
+            self._prefix_re
+            + "([a-zA-Z]{2}|[0-9]{2})-([0-9a-zA-Z]{1,4})"
+            + self._suffix_re,
             flag_repl,
-            text)
+            text,
+        )
 
         return text
 
-    def dflagize_subregional(self, text: str) -> str:
+    def dflagize_subregional(
+        self, text: str, handle_illegal: Optional[Callable[[str, str], str]] = None
+    ) -> str:
         """Decode subregional/subdivision flags. Replace all unicode regional
         flags (flag emoji tag sequences) in text with their ascii
         code ``{prefix}xx-xxx{suffix}``
 
         :param str text: The text
+        :param callable handle_illegal: See `flag.flagize()`
         :return: The text with all regional flags replaced by ascii
             sequence ``{prefix}xx-xxx{suffix}``
         :rtype: str
         """
 
-        def dflag(i):
-            points = [ord(x) - OFFSET_TAG for x in i]
-            subregion = "".join(["%c" % point for point in points[2:]])
-            return "%s%c%c-%s%s" % (self._prefix,
-                                    points[0],
-                                    points[1],
-                                    subregion,
-                                    self._suffix)
-
-        def dflag_repl(matchobj):
-            return dflag(matchobj.group(1))
+        def dflag_repl(matchobj: re.Match[str]) -> str:
+            code = "".join(
+                chr(i) for i in [ord(c) - OFFSET_TAG for c in matchobj.group(1)]
+            )
+            if self._is_legal(code):
+                return f"{self._prefix}{code[0:2]}-{code[2:]}{self._suffix}"
+            elif handle_illegal is not None:
+                return handle_illegal(matchobj.group(0), code)
+            else:
+                return matchobj.group(0)
 
         regex = re.compile(
-            BLACKFLAG +
-            "([\U000E0030-\U000E0039\U000E0061-\U000E007A]{3,6})" +
-            CANCELTAG,
-            flags=re.UNICODE)
+            BLACKFLAG
+            + "([\U000e0030-\U000e0039\U000e0061-\U000e007a]{3,6})"
+            + CANCELTAG,
+            flags=re.UNICODE,
+        )
         text = regex.sub(dflag_repl, text)
 
         return text
+
+    def add_flag(self, countrycode: str, supported: bool = True, valid: bool = True):
+        """Add a custom flag. This can be used to overwrite the standard values
+        and allow custom flags to be considered supported and/or valid or remove
+        supported flags.
+        The current use-case for this function is the flag of Texas, which is
+        only supported by WhatsApp. It is also possible to censor a flag.
+        Example to add Texas flag: ``flag.add_flag("XT", supported=True, valid=True)``
+        Example to censor Italy flag: ``flag.add_flag("IT", supported=False, valid=False)``
+
+        :param str text: The text
+        :param callable handle_illegal: See `flag.flagize()`
+        :return: The text with all regional flags replaced by ascii
+            sequence ``{prefix}xx-xxx{suffix}``
+        :rtype: str
+        """
+        if self._data is None:
+            self._data = {}
+
+        code = [c for c in countrycode.lower() if c in ASCII_LOWER]
+
+        if len(code) == 2:
+            # Regional indicator symbols
+            code = "".join(code).upper()
+        elif len(code) > 2 and len(code) < 7:
+            # Tag sequence
+            code = "".join(code).lower()
+        else:
+            raise UnknownCountryCode(
+                "illegal countrycode, found %r in %r." % (code, countrycode)
+            )
+
+        data: _FlagInfo = {"supported": supported, "valid": valid}
+        self._data[code] = data
 
 
 def flag(countrycode: str) -> str:
@@ -336,10 +488,103 @@ def flag(countrycode: str) -> str:
     if len(code) > 2 and len(code) < 7:
         # Tag sequence
         return flag_tag_sequence(code)
-    found = ''.join(code)
-    raise ValueError(
-        'invalid countrycode, found %d (%r) in %r.' %
-        (len(found), found, countrycode))
+    found = "".join(code)
+    raise UnknownCountryCode(
+        "illegal countrycode, found %r in %r." % (found, countrycode)
+    )
+
+
+_on_illegal = Callable[[_FlagInfo], Any] | Literal["error", "allow"]
+
+
+def flag_safe(
+    countrycode: str,
+    unsupported: _on_illegal = "error",
+    invalid: _on_illegal = "error",
+    custom_data: Optional[_FlagInfos] = None,
+) -> Any:
+    """Encodes a single flag to unicode. Two letters are converted to regional
+    indicator symbols
+    Three or more letters/digits are converted to tag sequences.
+    Dashes, colons and other symbols are removed from input, only a-z, A-Z and
+    0-9 are processed.
+
+    The ``unsupported`` and ``invalid`` parameter control which flags are
+    converted. If a flag is not supported or invalid, the function will
+    return the result of the ``on_illegal`` function or raise an error
+    if either parameter is set to "error".
+
+    :param str countrycode: Two letter ISO 3166 code or a regional code
+        from ISO 3166-2.
+    :param str|callable unsupported: "error" | "allow" | Callable(dict)
+
+        If "allow" return the flag.
+        If "error" raise an error if flag is unsupported. If callable
+        return the result of the callable if flag is unsupported. The callable
+        receives the result of the :meth:`flag.info()` function e.g.
+        ``{'id_status': 'regular', 'supported': False, 'valid': True}``
+    :param str|callable invalid: Same as ``unsupported`` but for invalid flags
+    :param dict custom_data: Custom maps dict with custom valid/supported values to overwrite
+        the standard values. For example with the WhatsApp Texas flag:
+        ``{'XT': {'id_status': 'regular', 'supported': False, 'valid': True}}``
+    :return: The unicode representation of the flag
+    :rtype: str
+    """
+    code = [c for c in countrycode.lower() if c in ASCII_LOWER]
+    if len(code) == 2:
+        # Regional indicator symbols
+        r = _check_flag("".join(code).upper(), custom_data)
+    elif len(code) > 2 and len(code) < 7:
+        # Tag sequence
+        r = _check_flag("".join(code).lower(), custom_data)
+    else:
+        found = "".join(code)
+        r = [
+            UnknownCountryCode(
+                "illegal countrycode, found %r in %r." % (found, countrycode)
+            )
+        ]
+
+    if (
+        any(isinstance(uf_exp := e, UnsupportedFlag) for e in r)
+        and unsupported != "allow"
+    ):
+        match unsupported:
+            case "error":
+                raise uf_exp
+            case _:
+                return unsupported(info(countrycode))
+
+    if any(isinstance(if_exp := e, InvalidFlag) for e in r) and invalid != "allow":
+        match invalid:
+            case "error":
+                raise if_exp
+            case _:
+                return invalid(info(countrycode))
+
+    return flag(countrycode)
+
+
+def _check_flag(
+    code: str, custom_data: Optional[_FlagInfos] = None
+) -> Iterable[FlagError]:
+    """Return errors for unsupported or invalid flags.
+
+    :param str code: two-letter codes must be upper-case code, others must be lower-case
+    :param dict custom_data: Custom maps dict with custom valid/supported values to overwrite
+                             the standard values
+    """
+
+    if custom_data is not None and code in custom_data:
+        data = custom_data[code]
+    else:
+        data = info(code, extended=False)
+    r: List[FlagError] = []
+    if not data["supported"]:
+        r.append(UnsupportedFlag("".join(code)))
+    if not data["valid"]:
+        r.append(InvalidFlag("".join(code)))
+    return r
 
 
 def flagize(text: str, subregions: bool = False) -> str:
@@ -354,7 +599,11 @@ def flagize(text: str, subregions: bool = False) -> str:
     :rtype: str
     """
 
-    return standard.flagize(text, subregions)
+    try:
+        standard.allow_subregions = subregions
+        return standard.flagize(text)
+    finally:
+        standard.allow_subregions = False
 
 
 def dflagize(text: str, subregions: bool = False) -> str:
@@ -369,7 +618,11 @@ def dflagize(text: str, subregions: bool = False) -> str:
     :rtype: str
     """
 
-    return standard.dflagize(text, subregions)
+    try:
+        standard.allow_subregions = subregions
+        return standard.dflagize(text)
+    finally:
+        standard.allow_subregions = False
 
 
 def flagize_subregional(text: str) -> str:
@@ -399,4 +652,63 @@ def dflagize_subregional(text: str) -> str:
     return standard.dflagize_subregional(text)
 
 
-standard = Flag(":", ":")
+def info(countrycode: str, extended: bool = False) -> _FlagInfo:
+    """
+    Retrieve information about a country code.
+    E.g. ``{'id_status': 'regular', 'supported': False, 'valid': True}``
+    """
+
+    flag_data = infos(extended)
+    default: _FlagInfo = {"id_status": None, "supported": False, "valid": False}
+    if countrycode in flag_data:
+        return {**default, **flag_data[countrycode]}
+    return default
+
+
+def infos(extended: bool = False) -> _FlagInfos:
+    """
+    Dict containing all supported and valid country codes.
+    If extended is True, the dict will contain all country
+    and subregional codes.
+    """
+
+    global _get_infos, _get_extended_infos
+
+    try:
+        if extended:
+            # type: ignore [name-defined, reportUndefinedVariable]
+            return _get_extended_infos()
+        else:
+            # type: ignore [name-defined, reportUndefinedVariable]
+            return _get_infos()
+    except NameError:
+        from .data import (
+            get_infos as _get_infos,
+            get_extended_infos as _get_extended_infos,
+        )
+
+        if extended:
+            # type: ignore [name-defined, reportUndefinedVariable]
+            return _get_extended_infos()
+        else:
+            # type: ignore [name-defined, reportUndefinedVariable]
+            return _get_infos()
+
+
+def version() -> Mapping[Literal["module", "cldr", "emoji"], str]:
+    """Return the version of this module, the Unicode CLDR version
+    of the data and the Unicode Emoji version of the validity data.
+    """
+
+    from .data import version_cldr, version_emoji
+
+    return {
+        "module": __version__,
+        "cldr": version_cldr,
+        "emoji": version_emoji,
+    }
+
+
+standard = Flag(
+    ":", ":", warn=True, only_supported=False, only_valid=False, allow_subregions=False
+)

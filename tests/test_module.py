@@ -1,17 +1,6 @@
-# -*- coding: UTF-8 -*-
+import flag as my_module
+from flag import flagize, flag, dflagize, Flag
 
-
-import sys
-
-try:
-    import flag as my_module
-except ImportError:
-    import os
-    include = os.path.relpath(os.path.join(os.path.dirname(__file__), ".."))
-    sys.path.insert(0, include)
-    import flag as my_module
-    print("Imported flag from %s" % os.path.abspath(os.path.join(include, "flag")))
-from flag import *
 
 def test_import():
     assert "🇩🇪" == my_module.flagize(":DE:")
@@ -55,17 +44,3 @@ def test_import_star():
     assert "🇮🇱" == flag("IL")
 
     assert "🇮🇱" == Flag(".", ".").flagize(".IL.")
-
-def runall():
-    for fname, f in list(globals().items()):
-        if fname.startswith('test_'):
-            print("%s()" % fname)
-            f()
-            print("Ok.")
-
-
-if __name__ == '__main__':
-    if 'idlelib' in sys.modules:
-        print("Please run this file in a console!")
-
-    runall()
