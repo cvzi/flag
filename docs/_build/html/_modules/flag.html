@@ -1,157 +1,74 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>flag &mdash; flag  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
 
           
-            <a href="../index.html" class="icon icon-home"> flag
           
-
-          
+          <a href="../index.html" class="icon icon-home">
+            flag
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <!-- Local TOC -->
               <div class="local-toc"></div>
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">flag</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
-          <li><a href="index.html">Module code</a> &raquo;</li>
-        
-      <li>flag</li>
-    
-    
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">flag</li>
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for flag</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Converts flag emoji to ascii and back</span>
 <span class="sd">https://github.com/cvzi/flag</span>
 <span class="sd">Based on http://schinckel.net/2015/10/29/unicode-flags-in-python/</span>
@@ -171,15 +88,23 @@
 <span class="sd">    &#39;England :gb-eng: is part of the UK :GB:&#39;</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">MutableMapping</span><span class="p">,</span>
+    <span class="n">Mapping</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Literal</span><span class="p">,</span>
+    <span class="n">Iterable</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;1.3.2&#39;</span>
-<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;cuzi&#39;</span>
-<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;cuzi@openmail.cc&#39;</span>
-<span class="n">__source__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/cvzi/flag&#39;</span>
+<span class="n">__version__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;2.0.0&quot;</span>
+<span class="n">__author__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cuzi&quot;</span>
+<span class="n">__email__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cuzi@openmail.cc&quot;</span>
+<span class="n">__source__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/cvzi/flag&quot;</span>
 <span class="n">__license__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">MIT License</span>
 
@@ -210,14 +135,34 @@
     <span class="s2">&quot;dflagize&quot;</span><span class="p">,</span>
     <span class="s2">&quot;flagize_subregional&quot;</span><span class="p">,</span>
     <span class="s2">&quot;dflagize_subregional&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Flag&quot;</span><span class="p">]</span>
+    <span class="s2">&quot;Flag&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
 
 <span class="n">OFFSET</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;🇦&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="nb">ord</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
 <span class="n">OFFSET_TAG</span> <span class="o">=</span> <span class="mh">0xE0000</span>
-<span class="n">CANCELTAG</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\U000E007F</span><span class="s2">&quot;</span>
-<span class="n">BLACKFLAG</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\U0001F3F4</span><span class="s2">&quot;</span>
+<span class="n">CANCELTAG</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\U000e007f</span><span class="s2">&quot;</span>
+<span class="n">BLACKFLAG</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\U0001f3f4</span><span class="s2">&quot;</span>
 <span class="n">ASCII_LOWER</span> <span class="o">=</span> <span class="s2">&quot;abcdefghijklmnopqrstuvwxyz0123456789&quot;</span>
+
+<span class="n">_FlagInfo</span> <span class="o">=</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]</span>
+<span class="n">_FlagInfos</span> <span class="o">=</span> <span class="n">MutableMapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">_FlagInfo</span><span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">FlagError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">InvalidFlag</span><span class="p">(</span><span class="n">FlagError</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">UnsupportedFlag</span><span class="p">(</span><span class="n">FlagError</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">UnknownCountryCode</span><span class="p">(</span><span class="n">InvalidFlag</span><span class="p">):</span>
+    <span class="k">pass</span>
 
 
 <span class="k">def</span> <span class="nf">check_prefix</span><span class="p">(</span><span class="n">custom_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -249,7 +194,7 @@
     <span class="k">return</span> <span class="kc">False</span>
 
 
-<span class="k">def</span> <span class="nf">flag_regional_indicator</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">flag_regional_indicator</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Two letters are converted to regional indicator symbols</span>
 
 <span class="sd">    :param str code: two letter ISO 3166 code</span>
@@ -260,7 +205,7 @@
     <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="o">+</span> <span class="n">OFFSET</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">code</span><span class="p">])</span>
 
 
-<span class="k">def</span> <span class="nf">flag_tag_sequence</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">flag_tag_sequence</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Three to seven letters/digits are converted to  a tag sequence.</span>
 
 <span class="sd">    :param str code: regional code from ISO 3166-2.</span>
@@ -272,13 +217,29 @@
     <span class="k">return</span> <span class="n">BLACKFLAG</span> <span class="o">+</span> <span class="n">tags</span> <span class="o">+</span> <span class="n">CANCELTAG</span>
 
 
-<div class="viewcode-block" id="Flag"><a class="viewcode-back" href="../index.html#flag.Flag">[docs]</a><span class="k">class</span> <span class="nc">Flag</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use this class if you want a different prefix and suffix instead</span>
-<span class="sd">    of colons. Offers the same methods as the module.</span>
+<div class="viewcode-block" id="Flag">
+<a class="viewcode-back" href="../index.html#flag.Flag">[docs]</a>
+<span class="k">class</span> <span class="nc">Flag</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class offers different prefix and suffix instead</span>
+<span class="sd">    of colons and allows to only convert widely supported or valid flags.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Flag.__init__"><a class="viewcode-back" href="../index.html#flag.Flag.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span>
-                 <span class="n">suffix_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">warn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">only_supported</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">only_valid</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">allow_subregions</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">_data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_FlagInfos</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Flag.__init__">
+<a class="viewcode-back" href="../index.html#flag.Flag.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">prefix_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span>
+        <span class="n">suffix_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span>
+        <span class="n">only_supported</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">only_valid</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">allow_subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">warn</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set a custom prefix and suffix. Instead of ``:XY:`` it will</span>
 <span class="sd">        use ``{prefix}XY{suffix}``.</span>
 
@@ -288,6 +249,10 @@
 
 <span class="sd">        :param str prefix_str: The leading symbols</span>
 <span class="sd">        :param str suffix_str: The trailing symbols</span>
+<span class="sd">        :param bool only_supported: Only convert country codes that are widely supported by browsers and devices</span>
+<span class="sd">        :param bool only_valid: Only convert country codes that are considered &quot;valid&quot; by Unicode</span>
+<span class="sd">        :param bool allow_subregions: Also replace subregional/subdivision codes e.g. Scottland as :gb-sct:</span>
+<span class="sd">        :param bool warn: Show a warning if an unsafe prefix or suffix is used</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span> <span class="o">=</span> <span class="n">prefix_str</span>
@@ -296,10 +261,16 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span> <span class="o">=</span> <span class="n">suffix_str</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">suffix_str</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_warn</span> <span class="o">=</span> <span class="n">warn</span> <span class="ow">and</span> <span class="n">check_suffix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_warn</span> <span class="o">=</span> <span class="n">warn</span> <span class="ow">and</span> <span class="n">check_suffix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">)</span>
 
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">only_supported</span> <span class="o">=</span> <span class="n">only_supported</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">only_valid</span> <span class="o">=</span> <span class="n">only_valid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allow_subregions</span> <span class="o">=</span> <span class="n">allow_subregions</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+    <span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">countrycode</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Encodes a single flag to unicode. Two letters are converted to</span>
 <span class="sd">        regional indicator symbols</span>
 <span class="sd">        Three or more letters/digits are converted to tag sequences.</span>
@@ -317,71 +288,131 @@
 <span class="sd">        interchange) by the Unicode Consortium,</span>
 <span class="sd">        see http://www.unicode.org/Public/emoji/latest/emoji-test.txt</span>
 
+<span class="sd">        Depending on the settings, the function may raise an error if the</span>
+<span class="sd">        flag is not supported or invalid.</span>
+
 <span class="sd">        :param str countrycode: Two letter ISO 3166 code or a regional code</span>
 <span class="sd">            from ISO 3166-2.</span>
 <span class="sd">        :return: The unicode representation of the flag</span>
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;flag(), &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">only_supported</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">only_valid</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">only_supported</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">only_valid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">flag_safe</span><span class="p">(</span>
+                <span class="n">countrycode</span><span class="p">,</span>
+                <span class="n">unsupported</span><span class="o">=</span><span class="s2">&quot;error&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">only_supported</span> <span class="k">else</span> <span class="s2">&quot;allow&quot;</span><span class="p">,</span>
+                <span class="n">invalid</span><span class="o">=</span><span class="s2">&quot;error&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">only_valid</span> <span class="k">else</span> <span class="s2">&quot;allow&quot;</span><span class="p">,</span>
+                <span class="n">custom_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="n">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Flag.flagize"><a class="viewcode-back" href="../index.html#flag.Flag.flagize">[docs]</a>    <span class="k">def</span> <span class="nf">flagize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_is_legal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return false if the flag violetes either the only_supported</span>
+<span class="sd">        and only_valid setting. Otherwise true&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">only_supported</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">only_valid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">_check_flag</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">UnsupportedFlag</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">r</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">only_supported</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">InvalidFlag</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">r</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">only_valid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Flag.flagize">
+<a class="viewcode-back" href="../index.html#flag.Flag.flagize">[docs]</a>
+    <span class="k">def</span> <span class="nf">flagize</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">handle_illegal</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Encode flags. Replace all two letter codes ``{prefix}XX{suffix}`` with unicode</span>
 <span class="sd">        flags (emoji flag sequences)</span>
 
 <span class="sd">        For this method the suffix should not contain</span>
 <span class="sd">        A-Z, a-z or 0-9 and not start with a - (minus).</span>
 
+<span class="sd">        Depending on the settings, the function may only convert supported or valid flags.</span>
+<span class="sd">        If an unsupported or invalid flag is found, the flag is either ignored or</span>
+<span class="sd">        ``handle_illegal`` is called.</span>
+
 <span class="sd">        :param str text: The text</span>
-<span class="sd">        :param bool subregions: Also replace subregional/subdivision codes</span>
-<span class="sd">            ``{prefix}xx-xxx{suffix}`` with unicode flags (flag emoji tag sequences).</span>
+<span class="sd">        :param callable handle_illegal: A function that is called when an illegal flag is found.</span>
+<span class="sd">            The function should take two arguments, the match i.e. `:XY:` and the code i.e. `XY`</span>
+<span class="sd">            and return a string to replace the illegal flag.</span>
 <span class="sd">        :return: The text with all occurrences of ``{prefix}XX{suffix}`` replaced by unicode</span>
 <span class="sd">            flags</span>
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">flag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">flag_regional_indicator</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">def</span> <span class="nf">flag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_legal</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">flag_regional_indicator</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">handle_illegal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">handle_illegal</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">code</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix_re</span> <span class="o">+</span>
-                      <span class="s2">&quot;([a-zA-Z]</span><span class="si">{2}</span><span class="s2">)&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_re</span><span class="p">,</span> <span class="n">flag_repl</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_re</span> <span class="o">+</span> <span class="s2">&quot;([a-zA-Z]</span><span class="si">{2}</span><span class="s2">)&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_re</span><span class="p">,</span> <span class="n">flag_repl</span><span class="p">,</span> <span class="n">text</span>
+        <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">subregions</span><span class="p">:</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_subregions</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">flagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">handle_illegal</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">text</span></div>
 
-<div class="viewcode-block" id="Flag.dflagize"><a class="viewcode-back" href="../index.html#flag.Flag.dflagize">[docs]</a>    <span class="k">def</span> <span class="nf">dflagize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Flag.dflagize">
+<a class="viewcode-back" href="../index.html#flag.Flag.dflagize">[docs]</a>
+    <span class="k">def</span> <span class="nf">dflagize</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">handle_illegal</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Decode flags. Replace all unicode country flags (emoji flag</span>
 <span class="sd">        sequences) in text with ascii two letter code ``{prefix}XX{suffix}``</span>
 
+<span class="sd">        Depending on the settings, the function may only convert supported or valid flags.</span>
+<span class="sd">        If an unsupported or invalid flag is found, the flag is either ignored or</span>
+<span class="sd">        ``handle_illegal`` is called.</span>
+
 <span class="sd">        :param str text: The text</span>
-<span class="sd">        :param bool subregions: Also replace subregional/subdivision flags</span>
-<span class="sd">            (flag emoji tag sequences) with ``{prefix}xx-xxx{suffix}``</span>
+<span class="sd">        :param callable handle_illegal: A function that is called when an illegal flag is found.</span>
+<span class="sd">            The function should take two arguments, the unicode flag and the code i.e. `XY`</span>
+<span class="sd">            and return a string to replace the illegal flag.</span>
 <span class="sd">        :return: The text with all unicode flags replaced by ascii</span>
 <span class="sd">            sequence ``{prefix}XX{suffix}``</span>
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">pattern</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s%%</span><span class="s2">c</span><span class="si">%%</span><span class="s2">c</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">)</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="si">}</span><span class="s2">%s</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="si">}</span><span class="s2">&quot;</span>
 
-        <span class="k">def</span> <span class="nf">dflag</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-            <span class="n">points</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">OFFSET</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">i</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">pattern</span> <span class="o">%</span> <span class="n">points</span>
+        <span class="k">def</span> <span class="nf">dflag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="n">points</span> <span class="o">=</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">c1</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="n">OFFSET</span><span class="p">)</span>
+            <span class="n">c2</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="n">OFFSET</span><span class="p">)</span>
+            <span class="n">cc</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">c1</span><span class="si">}{</span><span class="n">c2</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_legal</span><span class="p">(</span><span class="n">cc</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">pattern</span> <span class="o">%</span> <span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">handle_illegal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">handle_illegal</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">cc</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">dflag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">dflag</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-
-        <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;([</span><span class="se">\U0001F1E6</span><span class="s2">-</span><span class="se">\U0001F1FF</span><span class="s2">]</span><span class="si">{2}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
+        <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;([</span><span class="se">\U0001f1e6</span><span class="s2">-</span><span class="se">\U0001f1ff</span><span class="s2">]</span><span class="si">{2}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
 
         <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">dflag_repl</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">subregions</span><span class="p">:</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dflagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_subregions</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dflagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">handle_illegal</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">text</span></div>
 
-<div class="viewcode-block" id="Flag.flagize_subregional"><a class="viewcode-back" href="../index.html#flag.Flag.flagize_subregional">[docs]</a>    <span class="k">def</span> <span class="nf">flagize_subregional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Flag.flagize_subregional">
+<a class="viewcode-back" href="../index.html#flag.Flag.flagize_subregional">[docs]</a>
+    <span class="k">def</span> <span class="nf">flagize_subregional</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">handle_illegal</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Encode subregional/subdivision flags. Replace all regional codes</span>
 <span class="sd">        ``{prefix}xx-xxx{suffix}`` with unicode flags (flag emoji tag sequences)</span>
 
@@ -389,6 +420,7 @@
 <span class="sd">        A-Z, a-z or 0-9 and not start with a - (minus).</span>
 
 <span class="sd">        :param str text: The text</span>
+<span class="sd">        :param callable handle_illegal: See `flag.flagize()`</span>
 <span class="sd">        :return: The text with all occurrences of ``{prefix}xx-xxx{suffix}`` replaced by</span>
 <span class="sd">            unicode flags</span>
 <span class="sd">        :rtype: str</span>
@@ -397,19 +429,31 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_warn</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot;The empty prefix (%r) is unsafe for subregional flags.</span>
-<span class="sd">You can use Flag(%r, %r, warn=False) to disable this warning&quot;&quot;&quot;</span> <span class="o">%</span>
-                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">),</span> <span class="ne">UserWarning</span><span class="p">)</span>
+<span class="sd">You can use Flag(%r, %r, warn=False) to disable this warning&quot;&quot;&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">),</span>
+                <span class="ne">UserWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_warn</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_warn</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot;The suffix (%r) is unsafe for subregional flags</span>
 <span class="sd">because it is short and contains a-z, 0-9 or starts with -</span>
-<span class="sd">You can use Flag(%r, %r, warn=False) to disable this warning&quot;&quot;&quot;</span> <span class="o">%</span>
-                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">),</span> <span class="ne">UserWarning</span><span class="p">)</span>
+<span class="sd">You can use Flag(%r, %r, warn=False) to disable this warning&quot;&quot;&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">),</span>
+                <span class="ne">UserWarning</span><span class="p">,</span>
+                <span class="n">stacklevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_warn</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="k">def</span> <span class="nf">flag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">flag_tag_sequence</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">def</span> <span class="nf">flag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_legal</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">flag_tag_sequence</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">handle_illegal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">handle_illegal</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">code</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="c1"># Enforces a hyphen after two chars, allows both:</span>
         <span class="c1"># - The natural 2-letter unicode_region_subtag and subdivision_suffix</span>
@@ -417,47 +461,96 @@
         <span class="c1"># - For sake of completeness: 3-digit unicode_region_subtag like 840</span>
         <span class="c1">#   for US formatted as &quot;:84-0:&quot;</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_re</span> <span class="o">+</span>
-            <span class="s2">&quot;([a-zA-Z]</span><span class="si">{2}</span><span class="s2">|[0-9]</span><span class="si">{2}</span><span class="s2">)-([0-9a-zA-Z]{1,4})&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_re</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_re</span>
+            <span class="o">+</span> <span class="s2">&quot;([a-zA-Z]</span><span class="si">{2}</span><span class="s2">|[0-9]</span><span class="si">{2}</span><span class="s2">)-([0-9a-zA-Z]{1,4})&quot;</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suffix_re</span><span class="p">,</span>
             <span class="n">flag_repl</span><span class="p">,</span>
-            <span class="n">text</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">text</span></div>
 
-<div class="viewcode-block" id="Flag.dflagize_subregional"><a class="viewcode-back" href="../index.html#flag.Flag.dflagize_subregional">[docs]</a>    <span class="k">def</span> <span class="nf">dflagize_subregional</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Flag.dflagize_subregional">
+<a class="viewcode-back" href="../index.html#flag.Flag.dflagize_subregional">[docs]</a>
+    <span class="k">def</span> <span class="nf">dflagize_subregional</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">handle_illegal</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Decode subregional/subdivision flags. Replace all unicode regional</span>
 <span class="sd">        flags (flag emoji tag sequences) in text with their ascii</span>
 <span class="sd">        code ``{prefix}xx-xxx{suffix}``</span>
 
 <span class="sd">        :param str text: The text</span>
+<span class="sd">        :param callable handle_illegal: See `flag.flagize()`</span>
 <span class="sd">        :return: The text with all regional flags replaced by ascii</span>
 <span class="sd">            sequence ``{prefix}xx-xxx{suffix}``</span>
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">dflag</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-            <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">OFFSET_TAG</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]</span>
-            <span class="n">subregion</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%c</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">point</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">:]])</span>
-            <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s%c%c</span><span class="s2">-</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="p">,</span>
-                                    <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                    <span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                                    <span class="n">subregion</span><span class="p">,</span>
-                                    <span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="p">)</span>
-
-        <span class="k">def</span> <span class="nf">dflag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">dflag</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">def</span> <span class="nf">dflag_repl</span><span class="p">(</span><span class="n">matchobj</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">-</span> <span class="n">OFFSET_TAG</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_legal</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+                <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_prefix</span><span class="si">}{</span><span class="n">code</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">code</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">_suffix</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">elif</span> <span class="n">handle_illegal</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">handle_illegal</span><span class="p">(</span><span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">code</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">matchobj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
         <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
-            <span class="n">BLACKFLAG</span> <span class="o">+</span>
-            <span class="s2">&quot;([</span><span class="se">\U000E0030</span><span class="s2">-</span><span class="se">\U000E0039\U000E0061</span><span class="s2">-</span><span class="se">\U000E007A</span><span class="s2">]{3,6})&quot;</span> <span class="o">+</span>
-            <span class="n">CANCELTAG</span><span class="p">,</span>
-            <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">)</span>
+            <span class="n">BLACKFLAG</span>
+            <span class="o">+</span> <span class="s2">&quot;([</span><span class="se">\U000e0030</span><span class="s2">-</span><span class="se">\U000e0039\U000e0061</span><span class="s2">-</span><span class="se">\U000e007a</span><span class="s2">]{3,6})&quot;</span>
+            <span class="o">+</span> <span class="n">CANCELTAG</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">UNICODE</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">text</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">dflag_repl</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">text</span></div></div>
+        <span class="k">return</span> <span class="n">text</span></div>
 
 
-<div class="viewcode-block" id="flag"><a class="viewcode-back" href="../index.html#flag.flag">[docs]</a><span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="Flag.add_flag">
+<a class="viewcode-back" href="../index.html#flag.Flag.add_flag">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_flag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">countrycode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">supported</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">valid</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a custom flag. This can be used to overwrite the standard values</span>
+<span class="sd">        and allow custom flags to be considered supported and/or valid or remove</span>
+<span class="sd">        supported flags.</span>
+<span class="sd">        The current use-case for this function is the flag of Texas, which is</span>
+<span class="sd">        only supported by WhatsApp. It is also possible to censor a flag.</span>
+<span class="sd">        Example to add Texas flag: ``flag.add_flag(&quot;XT&quot;, supported=True, valid=True)``</span>
+<span class="sd">        Example to censor Italy flag: ``flag.add_flag(&quot;IT&quot;, supported=False, valid=False)``</span>
+
+<span class="sd">        :param str text: The text</span>
+<span class="sd">        :param callable handle_illegal: See `flag.flagize()`</span>
+<span class="sd">        :return: The text with all regional flags replaced by ascii</span>
+<span class="sd">            sequence ``{prefix}xx-xxx{suffix}``</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">code</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countrycode</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ASCII_LOWER</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># Regional indicator symbols</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
+            <span class="c1"># Tag sequence</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">UnknownCountryCode</span><span class="p">(</span>
+                <span class="s2">&quot;illegal countrycode, found </span><span class="si">%r</span><span class="s2"> in </span><span class="si">%r</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">countrycode</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">data</span><span class="p">:</span> <span class="n">_FlagInfo</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;supported&quot;</span><span class="p">:</span> <span class="n">supported</span><span class="p">,</span> <span class="s2">&quot;valid&quot;</span><span class="p">:</span> <span class="n">valid</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">code</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="flag">
+<a class="viewcode-back" href="../index.html#flag.flag">[docs]</a>
+<span class="k">def</span> <span class="nf">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Encodes a single flag to unicode. Two letters are converted to regional</span>
 <span class="sd">    indicator symbols</span>
 <span class="sd">    Three or more letters/digits are converted to tag sequences.</span>
@@ -488,13 +581,112 @@
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
         <span class="c1"># Tag sequence</span>
         <span class="k">return</span> <span class="n">flag_tag_sequence</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
-    <span class="n">found</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
-    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-        <span class="s1">&#39;invalid countrycode, found </span><span class="si">%d</span><span class="s1"> (</span><span class="si">%r</span><span class="s1">) in </span><span class="si">%r</span><span class="s1">.&#39;</span> <span class="o">%</span>
-        <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">found</span><span class="p">),</span> <span class="n">found</span><span class="p">,</span> <span class="n">countrycode</span><span class="p">))</span></div>
+    <span class="n">found</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="n">UnknownCountryCode</span><span class="p">(</span>
+        <span class="s2">&quot;illegal countrycode, found </span><span class="si">%r</span><span class="s2"> in </span><span class="si">%r</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">found</span><span class="p">,</span> <span class="n">countrycode</span><span class="p">)</span>
+    <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="flagize"><a class="viewcode-back" href="../index.html#flag.flagize">[docs]</a><span class="k">def</span> <span class="nf">flagize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<span class="n">_on_illegal</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">_FlagInfo</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="s2">&quot;allow&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="flag_safe">
+<a class="viewcode-back" href="../index.html#flag.flag_safe">[docs]</a>
+<span class="k">def</span> <span class="nf">flag_safe</span><span class="p">(</span>
+    <span class="n">countrycode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">unsupported</span><span class="p">:</span> <span class="n">_on_illegal</span> <span class="o">=</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span>
+    <span class="n">invalid</span><span class="p">:</span> <span class="n">_on_illegal</span> <span class="o">=</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span>
+    <span class="n">custom_data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_FlagInfos</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Encodes a single flag to unicode. Two letters are converted to regional</span>
+<span class="sd">    indicator symbols</span>
+<span class="sd">    Three or more letters/digits are converted to tag sequences.</span>
+<span class="sd">    Dashes, colons and other symbols are removed from input, only a-z, A-Z and</span>
+<span class="sd">    0-9 are processed.</span>
+
+<span class="sd">    The ``unsupported`` and ``invalid`` parameter control which flags are</span>
+<span class="sd">    converted. If a flag is not supported or invalid, the function will</span>
+<span class="sd">    return the result of the ``on_illegal`` function or raise an error</span>
+<span class="sd">    if either parameter is set to &quot;error&quot;.</span>
+
+<span class="sd">    :param str countrycode: Two letter ISO 3166 code or a regional code</span>
+<span class="sd">        from ISO 3166-2.</span>
+<span class="sd">    :param str|callable unsupported: &quot;error&quot; | &quot;allow&quot; | Callable(dict)</span>
+
+<span class="sd">        If &quot;allow&quot; return the flag.</span>
+<span class="sd">        If &quot;error&quot; raise an error if flag is unsupported. If callable</span>
+<span class="sd">        return the result of the callable if flag is unsupported. The callable</span>
+<span class="sd">        receives the result of the :meth:`flag.info()` function e.g.</span>
+<span class="sd">        ``{&#39;id_status&#39;: &#39;regular&#39;, &#39;supported&#39;: False, &#39;valid&#39;: True}``</span>
+<span class="sd">    :param str|callable invalid: Same as ``unsupported`` but for invalid flags</span>
+<span class="sd">    :param dict custom_data: Custom maps dict with custom valid/supported values to overwrite</span>
+<span class="sd">        the standard values. For example with the WhatsApp Texas flag:</span>
+<span class="sd">        ``{&#39;XT&#39;: {&#39;id_status&#39;: &#39;regular&#39;, &#39;supported&#39;: False, &#39;valid&#39;: True}}``</span>
+<span class="sd">    :return: The unicode representation of the flag</span>
+<span class="sd">    :rtype: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">countrycode</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ASCII_LOWER</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="c1"># Regional indicator symbols</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">_check_flag</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">custom_data</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="c1"># Tag sequence</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">_check_flag</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">custom_data</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">UnknownCountryCode</span><span class="p">(</span>
+                <span class="s2">&quot;illegal countrycode, found </span><span class="si">%r</span><span class="s2"> in </span><span class="si">%r</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">found</span><span class="p">,</span> <span class="n">countrycode</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">uf_exp</span> <span class="o">:=</span> <span class="n">e</span><span class="p">,</span> <span class="n">UnsupportedFlag</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">r</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">unsupported</span> <span class="o">!=</span> <span class="s2">&quot;allow&quot;</span>
+    <span class="p">):</span>
+        <span class="k">match</span> <span class="n">unsupported</span><span class="p">:</span>
+            <span class="k">case</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">uf_exp</span>
+            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">unsupported</span><span class="p">(</span><span class="n">info</span><span class="p">(</span><span class="n">countrycode</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">if_exp</span> <span class="o">:=</span> <span class="n">e</span><span class="p">,</span> <span class="n">InvalidFlag</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">r</span><span class="p">)</span> <span class="ow">and</span> <span class="n">invalid</span> <span class="o">!=</span> <span class="s2">&quot;allow&quot;</span><span class="p">:</span>
+        <span class="k">match</span> <span class="n">invalid</span><span class="p">:</span>
+            <span class="k">case</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">if_exp</span>
+            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">invalid</span><span class="p">(</span><span class="n">info</span><span class="p">(</span><span class="n">countrycode</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">flag</span><span class="p">(</span><span class="n">countrycode</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_check_flag</span><span class="p">(</span>
+    <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">custom_data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_FlagInfos</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">FlagError</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return errors for unsupported or invalid flags.</span>
+
+<span class="sd">    :param str code: two-letter codes must be upper-case code, others must be lower-case</span>
+<span class="sd">    :param dict custom_data: Custom maps dict with custom valid/supported values to overwrite</span>
+<span class="sd">                             the standard values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">custom_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">custom_data</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">custom_data</span><span class="p">[</span><span class="n">code</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">info</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">extended</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">r</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">FlagError</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;supported&quot;</span><span class="p">]:</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">UnsupportedFlag</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;valid&quot;</span><span class="p">]:</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">InvalidFlag</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">r</span>
+
+
+<div class="viewcode-block" id="flagize">
+<a class="viewcode-back" href="../index.html#flag.flagize">[docs]</a>
+<span class="k">def</span> <span class="nf">flagize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode flags. Replace all two letter codes ``:XX:`` with unicode flags</span>
 <span class="sd">    (emoji flag sequences)</span>
 
@@ -506,10 +698,17 @@
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">return</span> <span class="n">standard</span><span class="o">.</span><span class="n">flagize</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="p">)</span></div>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">standard</span><span class="o">.</span><span class="n">allow_subregions</span> <span class="o">=</span> <span class="n">subregions</span>
+        <span class="k">return</span> <span class="n">standard</span><span class="o">.</span><span class="n">flagize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">standard</span><span class="o">.</span><span class="n">allow_subregions</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="dflagize"><a class="viewcode-back" href="../index.html#flag.dflagize">[docs]</a><span class="k">def</span> <span class="nf">dflagize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="dflagize">
+<a class="viewcode-back" href="../index.html#flag.dflagize">[docs]</a>
+<span class="k">def</span> <span class="nf">dflagize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subregions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Decode flags. Replace all unicode country flags (emoji flag sequences)</span>
 <span class="sd">    in text with ascii two letter code ``:XX:``</span>
 
@@ -521,10 +720,17 @@
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">return</span> <span class="n">standard</span><span class="o">.</span><span class="n">dflagize</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">subregions</span><span class="p">)</span></div>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">standard</span><span class="o">.</span><span class="n">allow_subregions</span> <span class="o">=</span> <span class="n">subregions</span>
+        <span class="k">return</span> <span class="n">standard</span><span class="o">.</span><span class="n">dflagize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">standard</span><span class="o">.</span><span class="n">allow_subregions</span> <span class="o">=</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="flagize_subregional"><a class="viewcode-back" href="../index.html#flag.flagize_subregional">[docs]</a><span class="k">def</span> <span class="nf">flagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="flagize_subregional">
+<a class="viewcode-back" href="../index.html#flag.flagize_subregional">[docs]</a>
+<span class="k">def</span> <span class="nf">flagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Encode subregional/subdivision flags. Replace all regional codes</span>
 <span class="sd">    ``:xx-xxx:`` with unicode flags (flag emoji tag sequences)</span>
 
@@ -537,7 +743,10 @@
     <span class="k">return</span> <span class="n">standard</span><span class="o">.</span><span class="n">flagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="dflagize_subregional"><a class="viewcode-back" href="../index.html#flag.dflagize_subregional">[docs]</a><span class="k">def</span> <span class="nf">dflagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+<div class="viewcode-block" id="dflagize_subregional">
+<a class="viewcode-back" href="../index.html#flag.dflagize_subregional">[docs]</a>
+<span class="k">def</span> <span class="nf">dflagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Decode subregional/subdivision flags. Replace all unicode regional</span>
 <span class="sd">    flags (flag emoji tag sequences) in text with their ascii</span>
 <span class="sd">    code ``:xx-xxx:``</span>
@@ -551,49 +760,103 @@
     <span class="k">return</span> <span class="n">standard</span><span class="o">.</span><span class="n">dflagize_subregional</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
 
 
-<span class="n">standard</span> <span class="o">=</span> <span class="n">Flag</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="info">
+<a class="viewcode-back" href="../index.html#flag.info">[docs]</a>
+<span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">countrycode</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">extended</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_FlagInfo</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve information about a country code.</span>
+<span class="sd">    E.g. ``{&#39;id_status&#39;: &#39;regular&#39;, &#39;supported&#39;: False, &#39;valid&#39;: True}``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">flag_data</span> <span class="o">=</span> <span class="n">infos</span><span class="p">(</span><span class="n">extended</span><span class="p">)</span>
+    <span class="n">default</span><span class="p">:</span> <span class="n">_FlagInfo</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id_status&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;supported&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;valid&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">countrycode</span> <span class="ow">in</span> <span class="n">flag_data</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">default</span><span class="p">,</span> <span class="o">**</span><span class="n">flag_data</span><span class="p">[</span><span class="n">countrycode</span><span class="p">]}</span>
+    <span class="k">return</span> <span class="n">default</span></div>
+
+
+
+<div class="viewcode-block" id="infos">
+<a class="viewcode-back" href="../index.html#flag.infos">[docs]</a>
+<span class="k">def</span> <span class="nf">infos</span><span class="p">(</span><span class="n">extended</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_FlagInfos</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dict containing all supported and valid country codes.</span>
+<span class="sd">    If extended is True, the dict will contain all country</span>
+<span class="sd">    and subregional codes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">global</span> <span class="n">_get_infos</span><span class="p">,</span> <span class="n">_get_extended_infos</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">extended</span><span class="p">:</span>
+            <span class="c1"># type: ignore [name-defined, reportUndefinedVariable]</span>
+            <span class="k">return</span> <span class="n">_get_extended_infos</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># type: ignore [name-defined, reportUndefinedVariable]</span>
+            <span class="k">return</span> <span class="n">_get_infos</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">.data</span> <span class="kn">import</span> <span class="p">(</span>
+            <span class="n">get_infos</span> <span class="k">as</span> <span class="n">_get_infos</span><span class="p">,</span>
+            <span class="n">get_extended_infos</span> <span class="k">as</span> <span class="n">_get_extended_infos</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">extended</span><span class="p">:</span>
+            <span class="c1"># type: ignore [name-defined, reportUndefinedVariable]</span>
+            <span class="k">return</span> <span class="n">_get_extended_infos</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># type: ignore [name-defined, reportUndefinedVariable]</span>
+            <span class="k">return</span> <span class="n">_get_infos</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="version">
+<a class="viewcode-back" href="../index.html#flag.version">[docs]</a>
+<span class="k">def</span> <span class="nf">version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;module&quot;</span><span class="p">,</span> <span class="s2">&quot;cldr&quot;</span><span class="p">,</span> <span class="s2">&quot;emoji&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the version of this module, the Unicode CLDR version</span>
+<span class="sd">    of the data and the Unicode Emoji version of the validity data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">.data</span> <span class="kn">import</span> <span class="n">version_cldr</span><span class="p">,</span> <span class="n">version_emoji</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="n">__version__</span><span class="p">,</span>
+        <span class="s2">&quot;cldr&quot;</span><span class="p">:</span> <span class="n">version_cldr</span><span class="p">,</span>
+        <span class="s2">&quot;emoji&quot;</span><span class="p">:</span> <span class="n">version_emoji</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<span class="n">standard</span> <span class="o">=</span> <span class="n">Flag</span><span class="p">(</span>
+    <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">only_supported</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">only_valid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_subregions</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-
-    </p>
+    <p></p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
