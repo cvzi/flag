@@ -84,18 +84,24 @@ Functions
 =========
 .. currentmodule:: flag
 .. autofunction:: flag
+.. autofunction:: flag_safe
 .. autofunction:: flagize
 .. autofunction:: dflagize
 .. autofunction:: flagize_subregional
 .. autofunction:: dflagize_subregional
+.. autofunction:: info
+.. autofunction:: infos
+.. autofunction:: version
 .. autoclass:: Flag
    :special-members: __init__
-   :members: flagize, dflagize, flagize_subregional, dflagize_subregional
+   :members: flagize, dflagize, flagize_subregional, dflagize_subregional, add_flag
 
 Supported emojis and patterns
 =============================
 
-(List may be incomplete)
+Complete list can be found :download:`here <_static/report.html>`.
+
+The following flags are supported on all major platforms.
 
 ========    ========
 Code        Emoji
@@ -364,7 +370,7 @@ Code        Emoji
 Subregional flags
 =================
 
-The only widely supported subregional flags are currently: England, Scotland and Wales (as of iOS 12 and Android 9).
+The only widely supported subregional flags are currently: England, Scotland and Wales (as of iOS 17 and Android 14).
 
 ============        ========
 Code                Emoji
@@ -378,7 +384,6 @@ Code                Emoji
 | WhatsApp offers one other state flag: Texas.
 | If you use WhatsApp's emoji panel to select the Texas flag, WhatsApp uses 🇽🇹 i.e. `flagize(":XT:")` for Texas. This code "XT" is specified by Unicode as "excluded" meaning it is explicitly for private use and can be defined by anyone. Therefore, it is likely not displayed as the Texas flag on other platforms.
 | But WhatsApp also recognizes the flag emoji tag sequence `flagize(":us-tx:", subregions=True)` and displays the same flag.
-
 
 How subregional flags work
 ==========================
@@ -424,6 +429,78 @@ Together it's:
 
 Unlike the regional indicator symbols, tags are not rendered on incompatible system, they will simply be invisible and have no width.
 So, if the particular flag is not supported or if tag flags are not supported at all, the only visible character will be a black flag.
+
+Validity and Support
+====================
+
+Unicode publishes a listing of all country codes and subregional codes that are available.
+The data can be found in the CLDR downloads or in the repository at
+https://github.com/unicode-org/cldr/blob/release-45/common/validity/region.xml
+
+The module offers this data as a dictionary (roughly 6000 country codes):
+
+.. code-block:: python
+
+    import flag
+
+    # For a single country code:
+    flag.info("US")
+    # {'id_status': 'regular', 'supported': True, 'valid': True}
+
+    # List of all country codes
+    flag.infos(extended=True)
+    # {'US': {'id_status': 'regular', 'supported': True, 'valid': True}, {'IT': {...}, ...}
+
+
+The validity (dict-key ``'valid'``) is specified in the Unicode Emoji reports:
+https://www.unicode.org/reports/tr51/#Flags
+
+The module also offers information about the support of the flags (dict-key ``'supported'``). This data is
+based on visual inspection on major devices and platforms.
+
+Platforms with full-support are macOS 14, iOS 17, Android 14, Firefox 127, Telegram 10, WhatsApp 2.20.
+
+The data disregards Windows as it does not support any flags by default.
+Some third-party Windows apps like Firefox or Telegram do support flags.
+
+Also it is disregarded that the People's Republic of China censors some
+flags on some devices or on some language/region settings.
+
+You can view the complete list of flags at :download:`here <_static/report.html>`.
+
+Unsupported flags:
+------------------
+
+An Android, Firefox, WhatsApp and Telegram: unsupported two-letter flags are generally displayed as two (white on blue) letters, subregional flags are displayed as black flags.
+
+On Windows two-letter codes are displayed as the letters themselves, subregional codes are displayed as a black flag.
+
+On iOS and macOS unsupported two-letter flags are displayed as two letters with a black rectangle areound the letters, subregional codes are displayed similarly or as a black flag.
+
+Example:
+--------
+
+.. code-block:: python
+
+    import flag
+
+    my_flags = flag.Flag(only_supported=True, only_valid=True, allow_subregions=True)
+    print(my_flags.flagize("Flag of the United States :US:"))
+    # This will show the US flag instead of :US:
+
+    print(my_flags.flagize("A invalid flag :XT:"))  # :XT: is kept, as it is not supported
+
+    my_flags.flag("XY")  # TRaise an error, because XY is not a valid country code
+
+    # Add the custom code XT, which is used for the Texas flag by WhatsApp
+    # And also the standard code US-TX which is understood by WhatsApp (but not generated)
+    my_flags.add_flag("XT")
+    my_flags.add_flag("US-TX")
+
+    # This will show the Texas flag on WhatsApp
+    # On other platforms, the first will show the letters 🇽🇹, the second an emmpty flag 🏴󠁵󠁳󠁴󠁸󠁿
+    print(my_flags.flagize("The Texas flag :XT:")) p
+    print(my_flags.flagize("The Texas flag :us-tx:"))
 
 
 Indices and tables
