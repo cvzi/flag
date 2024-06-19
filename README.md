@@ -50,6 +50,10 @@ Example
     
     >>> flag.dflagize("England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 is part of the UK 🇬🇧", subregions=True)
     'England :gb-eng: is part of the UK :GB:'
+
+    >>> my_flags = flag.Flag(only_supported=True, allow_subregions=True)
+    >>> my_flags.flagize("Convert actual flags like :US: but not unsupported ones like :XX:")
+    'Convert actual flags like 🇺🇸 but not unsupported ones like :XX:'
 ```
 
 Install
@@ -59,7 +63,8 @@ Install
 
 See: [https://pypi.org/project/emoji-country-flag/](https://pypi.org/project/emoji-country-flag/)
 
-Python 3.7 or higher is required for the latest release.
+Python 3.10 or higher is required for the latest release.
+The last release for Python 3.7 to 3.9 was [v1.3.2](https://github.com/cvzi/flag/releases/tag/v1.3.2).
 The last release for Python 2.7, 3.4 and 3.5 was [v1.2.4](https://github.com/cvzi/flag/releases/tag/v1.2.4).
 
 Documentation
