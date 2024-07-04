@@ -222,8 +222,6 @@ class Flag:
         :rtype: str
         """
 
-        print("flag(), ", self.only_supported, self.only_valid)
-
         if self.only_supported or self.only_valid:
             return flag_safe(
                 countrycode,
