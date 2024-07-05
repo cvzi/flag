@@ -31,7 +31,7 @@ from typing import (
     List,
 )
 
-__version__: str = "2.0.0"
+__version__: str = "2.0.1"
 __author__: str = "cuzi"
 __email__: str = "cuzi@openmail.cc"
 __source__: str = "https://github.com/cvzi/flag"
