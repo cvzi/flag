@@ -66,8 +66,7 @@ jobs:
     - name: Install tox
       run: python -Im pip install tox
     - name: Run tox on wheel
-      run: python -Im tox run --installpkg dist/*.whl
-
+      run: python -Im tox run --conf pyproject.toml --installpkg dist/*.whl
 
   coverage:
     runs-on: ubuntu-latest
