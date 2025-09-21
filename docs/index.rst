@@ -471,7 +471,7 @@ You can view the complete list of flags at :download:`here <_static/report.html>
 Unsupported flags:
 ------------------
 
-An Android, Firefox, WhatsApp and Telegram: unsupported two-letter flags are generally displayed as two (white on blue) letters, subregional flags are displayed as black flags.
+On Android, Firefox, WhatsApp and Telegram: unsupported two-letter flags are generally displayed as two (white on blue) letters, subregional flags are displayed as black flags.
 
 On Windows two-letter codes are displayed as the letters themselves, subregional codes are displayed as a black flag.
 
@@ -490,7 +490,7 @@ Example:
 
     print(my_flags.flagize("A invalid flag :XT:"))  # :XT: is kept, as it is not supported
 
-    my_flags.flag("XY")  # TRaise an error, because XY is not a valid country code
+    my_flags.flag("XY")  # Raises an error, because XY is not a valid country code
 
     # Add the custom code XT, which is used for the Texas flag by WhatsApp
     # And also the standard code US-TX which is understood by WhatsApp (but not generated)
@@ -498,8 +498,8 @@ Example:
     my_flags.add_flag("US-TX")
 
     # This will show the Texas flag on WhatsApp
-    # On other platforms, the first will show the letters 🇽🇹, the second an emmpty flag 🏴󠁵󠁳󠁴󠁸󠁿
-    print(my_flags.flagize("The Texas flag :XT:")) p
+    # On other platforms, the first will show the letters 🇽🇹, the second an empty flag 🏴󠁵󠁳󠁴󠁸󠁿
+    print(my_flags.flagize("The Texas flag :XT:"))
     print(my_flags.flagize("The Texas flag :us-tx:"))
 
 
