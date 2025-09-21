@@ -69,6 +69,7 @@ _hardcoded: _FlagInfos = {
     "CN": {"id_status": "regular", "supported": True, "valid": True},
     "CO": {"id_status": "regular", "supported": True, "valid": True},
     "CP": {"id_status": "regular", "supported": True, "valid": True},
+    "CQ": {"id_status": "regular", "supported": True, "valid": True},
     "CR": {"id_status": "regular", "supported": True, "valid": True},
     "CU": {"id_status": "regular", "supported": True, "valid": True},
     "CV": {"id_status": "regular", "supported": True, "valid": True},
@@ -305,12 +306,6 @@ _hardcoded: _FlagInfos = {
         "supported": False,
         "valid": False,
         "comment": "Texas, supported in WhatsApp",
-    },
-    "CQ": {
-        "id_status": "regular",
-        "supported": False,
-        "valid": True,
-        "comment": "Scheduled for Unicode 16.0 in September 2024",
     },
     "ustx": {
         "id_status": "regular",
