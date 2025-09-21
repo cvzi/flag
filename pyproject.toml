@@ -13,6 +13,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
@@ -98,7 +99,6 @@ exclude = [
   "tests",
   "windows_tools",
 ]
-# TODO remove the superfluos ignore
 
 [tool.tox]
 legacy_tox_ini = """
@@ -107,6 +107,8 @@ legacy_tox_ini = """
         py310
         py311
         py312
+        py313
+        py314
         pypy3s
 
     minversion = 4.15.0
