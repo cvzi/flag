@@ -158,6 +158,7 @@ Code        Emoji
 ``:CN:``     🇨🇳
 ``:CO:``     🇨🇴
 ``:CP:``     🇨🇵
+``:CQ:``     🇨🇶
 ``:CR:``     🇨🇷
 ``:CU:``     🇨🇺
 ``:CV:``     🇨🇻
@@ -458,10 +459,10 @@ https://www.unicode.org/reports/tr51/#Flags
 The module also offers information about the support of the flags (dict-key ``'supported'``). This data is
 based on visual inspection on major devices and platforms.
 
-Platforms with full-support are macOS 14, iOS 17, Android 14, Firefox 127, Telegram 10, WhatsApp 2.20.
+Platforms with full-support are macOS 15.4, iOS 18.4, Android 16, Telegram 12, WhatsApp 2.25.
 
-The data disregards Windows as it does not support any flags by default.
-Some third-party Windows apps like Firefox or Telegram do support flags.
+The data disregards Windows as it does not support any flags.
+Some third-party Windows apps like Firefox or Telegram do support some flags.
 
 Also it is disregarded that the People's Republic of China censors some
 flags on some devices or on some language/region settings.
