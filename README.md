@@ -5,8 +5,6 @@ flag
 [![Python Versions](https://img.shields.io/pypi/pyversions/emoji-country-flag.svg)](https://pypi.python.org/pypi/emoji-country-flag)
 [![Coverage Status](https://coveralls.io/repos/github/cvzi/flag/badge.svg?branch=main)](https://coveralls.io/github/cvzi/flag?branch=main)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6030d5de808c4fe2b2216699f1a7eafb)](https://app.codacy.com/gh/cvzi/flag/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-[![Maintainability](https://api.codeclimate.com/v1/badges/cf1f88720896db4d1b0a/maintainability)](https://codeclimate.com/github/cvzi/flag)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cvzi_flag&metric=alert_status)](https://sonarcloud.io/dashboard?id=cvzi_flag)
 
 Flag emoji for Python.  
 Converts flag emoji to ASCII and other way round.
