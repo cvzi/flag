@@ -66,7 +66,9 @@ jobs:
     - name: Install tox
       run: python -Im pip install tox
     - name: Run tox on wheel
-      run: python -Im tox run --conf pyproject.toml --installpkg dist/*.whl
+      run: |
+        py_version=$(printf '%s' '${{ matrix.python-version }}' | cut -d. -f1,2)
+        python -Im tox run -e "$py_version" --conf pyproject.toml --installpkg dist/*.whl
 
   coverage:
     runs-on: ubuntu-latest
